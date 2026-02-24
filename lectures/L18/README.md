@@ -1,7 +1,7 @@
 # L18 - Övningstentamen, arbete med **P03**
 
 ## Dagordning
-* Genomförande av övningsdugga.
+* Genomförande av övningstentamen.
 * Fortsatt arbete med **P03**.
 
 ## Mål med lektionen
@@ -17,11 +17,11 @@
 ## Instruktioner
 
 ### Förberedelse
-* Skumma igenom [övningsduggan](./appendix/a_practice_exam.md).
-* Övningsduggan går att ladda ned som PDF [här](./appendix/a_practice_exam.pdf).
+* Skumma igenom [övningstentamen](../../exam/practice_exam.md).
+* Övningstentamen går att ladda ned som PDF [här](../../exam/practice_exam.pdf).
 
 ### Under lektionen
-* Övningsduggan genomförs i helklass:
+* Övningstentamen genomförs i helklass:
     * Ni kommer få 5-10 minuter att lösa respektive uppgift individuellt.
     * Därefter demonstreras en lösning live i helklass.
 

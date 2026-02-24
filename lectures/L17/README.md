@@ -36,7 +36,7 @@
 * Vad är ett data race?
 
 ## Nästa lektion
-* Genomförande av övningsdugga.
+* Genomförande av övningstenta.
 * Fortsatt arbete med **P03**.
 
 ---

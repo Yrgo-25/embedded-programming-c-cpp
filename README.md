@@ -29,6 +29,7 @@ Efter genomförd kurs ska studenten kunna:
 ## Struktur
 
 ```text
+exam/        Tentameninformation och övningstentamen
 info/        Kursinformation, schema och examination
 lectures/    Föreläsningar, litteratur och övningsuppgifter
 projects/    Projektbeskrivningar, krav och inlämningsinstruktioner

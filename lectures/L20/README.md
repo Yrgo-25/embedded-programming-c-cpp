@@ -15,7 +15,7 @@
 ## Instruktioner
 
 ### Förberedelse
-* Repetera [övningsduggan](../L18/appendix/a_practice_exam.md).
+* Repetera [övningstentamen](../../exam/practice_exam.md).
 * Säkerställ att du är väl förberedd på:
     * Skapande av enkla interfaces och stubklasser.
     * Skapande av enklare factory-metoder med smarta pekare.

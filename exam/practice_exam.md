@@ -1,13 +1,11 @@
-# Bilaga A
+# Övningstentamen - C++-teori
 
-## Övningstentamen - C++-teori
+## Information
 
-### Information
-
-#### Hjälpmedel
+### Hjälpmedel
 * Papper och penna.
 
-#### Poänggränser och betygsnivåer
+### Poänggränser och betygsnivåer
 Totalt: 20 poäng.
 
 Betygsgränser:
@@ -18,16 +16,16 @@ Bidrag till kursens slutpoäng:
 * Betyget **G** ger 2 poäng till kurssammanställningen.
 * Betyget **VG** ger 4 poäng till kurssammanställningen.
 
-#### Viktigt
+### Viktigt
 * All kod ska implementeras i en headerfil, metoder definieras i klassen.
 * Kompileringsdirektiv såsom `#pragma once` behövs ej!
 * Inkludering av headerfiler behövs bara för standardheaders!
 
 ---
 
-### G-uppgifter
+## G-uppgifter
 
-#### **1.** Interface (2p)
+### **1.** Interface (2p)
 Skapa ett nytt interface `driver::gpio::Interface`, som innehåller följande virtuella metoder:
 * Destruktor, ska markeras `virtual` och sättas till `= default`.
 * `read()`, som returnerar GPIO-instansens tillstånd (högt/lågt) som `true/false`.
@@ -43,7 +41,7 @@ Viktigt:
 
 <div style="page-break-before: always;"></div>
 
-#### **2.** Stubbklass (4p)
+### **2.** Stubbklass (4p)
 Skapa en underklass `driver::gpio::Stub`, som ärver ovanstående interface.
 
 Implementera denna klass till en enkel stubb, som möjliggör att man kan sätta GPIO-instansens tillstånd via en privat medlemsvariabel `myState`. Via denna variabel ska man kunna läsa, skriva och toggla GPIO-instansen.
@@ -71,7 +69,7 @@ Viktigt:
 
 <div style="page-break-before: always;"></div>
 
-#### **3.** Factory (4p)
+### **3.** Factory (4p)
 Betrakta nedanstående tomma stubb-factory:
 
 ```cpp
@@ -93,9 +91,9 @@ Du ska göra följande:
 
 <div style="page-break-before: always;"></div>
 
-### VG-uppgifter
+## VG-uppgifter
 
-#### **4.** Klasstemplate (6p)
+### **4.** Klasstemplate (6p)
 Skapa ett klasstemplate för ett stubb-EEPROM `driver::eeprom::Stub<std::uint16_t Size>`:
 * Denna klass ska ärva ett interface med namnet `driver::eeprom::Interface`, som inte behöver implementeras (anta att denna existerar).
 * Anta att interfacet innehåller följande metoder:
@@ -131,7 +129,7 @@ att ha angett typen `driver::eeprom::Stub`.
 
 <div style="page-break-before: always;"></div>
 
-#### **5.** Flertrådat testprogram (6p)
+### **5.** Flertrådat testprogram (6p)
 Betrakta koden nedan, som använder sig av delarna skapade i del 1 - 4. 
 
 Anta att:
