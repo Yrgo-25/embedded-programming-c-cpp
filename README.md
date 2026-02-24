@@ -19,7 +19,7 @@ Under kursens gång implementeras:
 * Tillämpning av templates, smarta pekare och synkroniseringsmekanismer.
 
 Efter genomförd kurs ska studenten kunna:
-* Designa och implementera hårdvarunära kod med tydliga gränssnitt.
+* Implementera hårdvarunära kod med tydliga interfaces.
 * Separera hårdvara från systemlogik.
 * Skriva robust, läsbar och underhållbar embedded C++.
 * Resonera kring arkitekturval och abstraheringsnivåer.
