@@ -48,7 +48,9 @@ int main(void)
 * Två implementationer av klasser genomförs live under lektionen:
     * En enklare implementerad endast i en headerfil.
     * En mer utvecklad variant uppdelad i en header- och en källkodsfil.
-* Genomför följande [övningsuppgifter](./appendix/c_exercises.md).
+* Genomför följande [övningsuppgifter](./appendix/c_exercises.md):
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
 * Vad är skillnaden mellan en strukt och en klass i C++?

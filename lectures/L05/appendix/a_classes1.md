@@ -3,26 +3,30 @@
 ## Klasser i C++
 
 ### Bakgrund
-För att hålla god struktur i större program finns ett ökat behov av att lagra relaterad data som en enhet via enskilda datastrukturer i stället för multipla separata variabler. Som exempel kan det vara fördelaktigt att lagra persondata i form av namn, ålder, adress och dylikt för en person som en enhet i stället för separata variabler för varenda attribut. 
+För att hålla god struktur i större program finns ett ökat behov av att samla relaterad data och relaterat beteende i en och samma enhet i stället för att sprida ut allt över multipla separata variabler och funktioner. Som exempel kan det vara fördelaktigt att representera en GPIO‑pinne via en klass som lagrar pin-nummer, riktning och aktuellt tillstånd, samtidigt som klassen också innehåller funktioner för att skriva, läsa och toggla pinnen.
 
-Inom programmering utgörs de vanligaste datastrukturerna för lagring av relaterad data som en enhet av så kallade *struktar* och *klasser:* 
+Inom programmering utgörs de vanligaste datastrukturerna för att lagra relaterad data som en enhet av så kallade *struktar* och *klasser:*
 * *Struktar* (strukturer) används främst i C (begreppet klass existerar inte överhuvudtaget i C).
-* Klasser används nästan exklusivt i programspråk som skapades efter C, såsom C++, Java och Python. 
+* Klasser används i många moderna programspråk, såsom C++, Java och Python.
+* I C++ används både struktar och klasser.
 * Klasser kan ses som en vidareutveckling av struktar, som är relativt simpla. Sett till uppbyggnad är dock dessa datastrukturer väldigt lika.
 
-Språk som innehar stöd för klasser sägs inneha stöd för objektorientering, eller OOP *(Object Oriented Programming.)* C sägs vara ett procedurellt språk, då det bygger på programmering via funktioner. Via struktar kan dock vissa objektorienterade principer efterliknas, vilket kommer demonstreras nedan.
+Språk som innehar stöd för klasser sägs inneha stöd för objektorientering, eller OOP *(Object Oriented Programming).* C sägs vara ett procedurellt språk, då det bygger på programmering via funktioner. Via struktar kan dock vissa objektorienterade principer efterliknas, vilket kommer demonstreras nedan.
 
-En del objektorienterade språk, exempelvis Java och C# är rent objektorienterade, vilket innebär att klasser måste användas. Andra programspråk, såsom C++ och Python, sägs utgöra multiparadigmspråk, då det finns möjlighet att programmera båda objektorienterat (såsom i Java) samt procedurellt (såsom i C) eller en kombination av dem.
+En del objektorienterade språk, exempelvis Java och C#, är rent objektorienterade, vilket innebär att klasser måste användas. Andra programspråk, såsom C++ och Python, sägs utgöra multiparadigmspråk, då det finns möjlighet att programmera både objektorienterat (såsom i Java) samt procedurellt (såsom i C) eller en kombination av dem.
 
 ---
 
 ### Terminologi
-Som skrevs tidigare används klasser i stället för struktar i de flesta konventionella programspråk som skapades efter C. 
+Som skrevs tidigare används klasser i stället för struktar i de flesta konventionella programspråk som skapades efter C.
 
-I C++ är dock struktar nästintill identiska med klasser; den enda skillnaden är att för klasser är samtliga attribut icke åtkomliga utanför klassen som default. Struktar i C++ kan dock användas på samma sätt som struktar i C. För att minska förvirring i resten av detta avsnitt gäller följande:
-* **Strukt** syftar till den enkla datastruktur som har demonstrerats hittills (C-strukt).
-* **Klass** syftar till en mer avancerad variant av den datastrukt vi har sett hittills.
+I C++ är dock struktar nästintill identiska med klasser; den enda formella skillnaden är att för klasser är medlemmar privata som standard, medan de är publika som standard i struktar. Struktar i C++ kan alltså användas på samma sätt som klasser.
 
+För att minska förvirring i resten av detta avsnitt använder vi dock följande **konvention i detta kursmaterial**:
+* **Strukt** syftar till enkla datastrukturer utan medlemsfunktioner, exempelvis:
+    * Rena C-struktar (ibland kallade POD – *Plain Old Data*).
+    * Struktar innehållande konstanter (`static constexpr`).
+* **Klass** syftar till en mer avancerad variant av den datastruktur vi har sett hittills.
 ---
 
 ### Skillnader mellan klasser och struktar
@@ -32,399 +36,330 @@ Några av de mest betydande skillnaderna mellan klasser och struktar är:
 * **Klasser innehar stöd för inkapsling,** vilket innebär att man kan välja vad som är åtkomligt/synligt utanför klassen. Därmed kan hemlig data eller information som inte är relevant utanför klassen (såsom implementationsdetaljer) döljas.
 * **Klasser kan innehålla funktioner,** vilket innebär att vi inte behöver implementera associerade funktioner med struktpekare, så som visades nedan.
 * **Klasser erbjuder funktionalitet för arv,** vilket innebär att en ny klass kan erhålla innehållet från en basklass. Detta kan minska mängden kod som behövs avsevärt.
-* **Klasser kan implementeras via så kallade klasstemplates för att göra en eller flera datatyper valbara, likt de funktionstemplates vi såg tidigare. Ett exempel på ett klasstemplate i standardbiblioteket är *std::vector,* som medför att vi kan välja vad som ska lagras i en given vektor.
+* **Klasser kan implementeras via så kallade klasstemplates** för att göra en eller flera datatyper valbara, likt de funktionstemplates vi såg tidigare. Ett exempel på ett klasstemplate i standardbiblioteket är *std::vector,* som medför att vi kan välja vad som ska lagras i en given vektor.
 
 ---
 
 ### Grundläggande struktur för en klass
-Vi implementerar motsvarigheten till strukten *person* i C++ via en klass döpt *Person*. Vi kommer använda oss utav *camelCase* i stället för *snake_case,* vilket medför att:
-* Vi använder oss utav stora bokstäver i stället för understreck i funktions- och typnamn. Så i stället för ett funktionsnamn så som *print_numbers* kommer vi döpa denna funktion *printNumbers*.
-* Samma mönster följs för typer så som struktar, klasser och enumerationer. En skillnad är dock att namnet på typer kommer börja med en stor bokstav, exempelvis *Person* i stället för *person,* *LedController* i stället för *led_controller* med mera.
+Vi implementerar ett enkelt exempel på en GPIO‑drivrutin i C++ via en klass döpt `Gpio`. Klassen placeras i namnrymden `driver::gpio`, vilket är vanligt i större C++‑projekt för att organisera kod och undvika namnkrockar.
+
+Vi kommer använda oss av `camelCase` i stället för `snake_case`, vilket medför att:
+* Vi använder oss av stora bokstäver i stället för understreck i funktions- och typnamn. Så i stället för ett funktionsnamn så som `print_numbers()` kommer vi döpa denna funktion `printNumbers()`.
+* Samma mönster följs för typer så som struktar, klasser och enumerationer. En skillnad är dock att namnet på typer kommer börja med en stor bokstav, exempelvis `Gpio` i stället för `gpio`, `Direction` i stället för `direction` med mera.
 
 ---
 
 #### 1. Lägg till inkluderingsdirektiv
-Vi börjar med att inkludera standardheader *iostream,* så att vi kan generera utskrifter samt får tillgång till vanliga typer så som *std::size_t*:
+Vi börjar med att inkludera standardheadern `<cstdint>`, så att vi har tillgång till datatyper såsom `std::uint8_t`:
 
 ```cpp
-#include <iostream>
+#include <cstdint>
 ```
 
 ---
 
-#### 2. Skapa enumerationsklassen *Gender*
-Därefter skapar vi enumerationsklassen *Gender* för implementering av kön. Denna enumerationsklass motsvarar enumerationen *gender* vi implementerade i C förut. 
+#### 2. Skapa namnrymd och enumerationsklass
+Därefter skapar vi namnrymden `driver::gpio` och enumerationsklassen `Direction` för att beskriva en GPIO‑pinnes riktning. Vi sätter enumerationens underliggande datatyp till `std::uint8_t`, vilket gör typen kompakt och säkerställer att inga negativa värden kan representeras (vilket kan förenkla validering):
 
 ```cpp
+namespace driver::gpio
+{
 /**
- * @brief Enumeration of genders.
+ * @brief GPIO direction configuration.
  */
-enum class Gender 
-{ 
-    Male,   /** Male. */
-    Female, /** Female. */
-    Other,  /** Other gender. */
+enum class Direction : std::uint8_t
+{
+    Input,       ///< Input without pull-up.
+    InputPullup, ///< Input with pull-up enabled.
+    Output,      ///< Output.
+    Count,       ///< Number of supported directions.
 };
+} // namespace driver::gpio
 ```
 
-Anledningen till att vi väljer att implementera *Gender* som en enumerationsklass i stället för en traditionell enumeration är att vi slipper använda prefix för att undvika namnkrockar; i stället är det inbyggt i språket. 
+Enumerationsklassen ovan används för att ange om en pinne ska vara:
+* `Input`
+* `InputPullup`
+* `Output`
 
-Notera ovan enumeratorerna nu är döpta *Male, Female* samt *Other* i stället för GENDER_MALE, GENDER_FEMALE samt GENDER_OTHER. Med enumerationsklassen ovan skriver vi i stället *Gender::Male, Gender::Female* samt *Gender::Other.* Notera att vi använder separatorn :: mellan prefixet *Gender* samt enumeratorerna *(Male, Female* samt *Other)*.
+Vi kan också enkelt kontrollera om en given enumerator `direction` är giltig genom att säkerställa att denna har ett numeriskt värde som är mindre än `Direction::Count`:
+
+```cpp
+constexpr bool isDirectionValid(const Direction direction) noexcept
+{
+    return static_cast<std::uint8_t>(Direction::Count) > static_cast<std::uint8_t>(direction);
+}
+```
+
+Den främsta anledningen till att vi väljer att implementera `Direction` som en enumerationsklass i stället för en traditionell enumeration är att vi slipper använda prefix för att undvika namnkrockar; i stället är det inbyggt i språket.
+
+Notera ovan att enumeratorerna nu är döpta
+* `Input`,
+* `InputPullup` samt
+* `Output` 
+
+i stället för exempelvis
+* `GPIO_DIRECTION_INPUT`, 
+* `GPIO_DIRECTION_INPUT_PULLUP` samt 
+* `GPIO_DIRECTION_OUTPUT`. 
+
+Med enumerationsklassen ovan skriver vi i stället
+* `Direction::Input`,
+* `Direction::InputPullup` samt
+* `Direction::Output`.
 
 I allmänhet är det rekommenderat att använda enumerationsklasser i stället för traditionella enumerationer om man programmerar i modern C++, alltså C++11 och framåt.
 
 ---
 
-#### 3. Definiera klassen *Person*
-Därefter definierar vi klassen *Person* via nyckelordet *class:*
+#### 3. Definiera klassen `Gpio`
+Därefter definierar vi klassen `Gpio` via nyckelordet *class:*
 
 ```cpp
+namespace driver::gpio
+{
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief GPIO driver.
  */
-class Person
+class Gpio final
 {
 public:
 
 private:
 };
+} // namespace driver::gpio
 ```
 
-Vi har lagt till två nyckelord i klassen, *public* och *private*:
-* Allt som faller under nyckelordet *public* är synligt och åtkomligt utanför klassen. Allt som vi vill att "användaren" av klassen ska kunna se och använda ska deklareras här, exempelvis metoder (funktioner) för att läsa personens namn, ålder med mera, samt för att kunna skriva ut person datan i terminalen.
-* Allt som faller under nyckelordet *private* är inte synligt eller åtkomligt utanför klassen. Här placerar vi allt som vi vill vara icke åtkomligt för "användaren" av klassen, exempelvis hemlig data eller implementationsdetaljer. I vårt fall placerar vi samtliga medlemsvariabler här, då vi inte vill att "användaren" ska kunna ändra på dessa hur som helst. Vi kan också placera metoder som bara ska användas internt i klassen här. Att dölja information på detta sätt kallas *inkapsling.*
+Vi har lagt till två nyckelord i klassen, `public` och `private`:
+* Allt som faller under nyckelordet `public` ligger i det publika segmentet:
+    * Innehållet i detta segment är synligt och åtkomligt utanför klassen.
+    * Allt som vi vill att "användaren" av klassen ska kunna se och använda ska deklareras här. 
+    * Exempelvis kan detta röra sig om metoder för att skriva till pinnen, läsa dess tillstånd och toggla utgången.
+* Allt som faller under nyckelordet `private` ligger i det privata segmentet:
+    * Innehållet i detta segment är inte synligt eller åtkomligt utanför klassen:
+    * Här placerar vi allt som vi vill vara icke åtkomligt för "användaren" av klassen.
+    * Exempelvis kan detta röra sig om intern data eller implementationsdetaljer. 
 
-Som default är allt i en klass privat. Normalt placeras allt som är publikt först i klassen, så att "användaren" vid behov enkelt kan kolla in vad för metoder och annat som hen har till sitt förfogande. Implementationsdetaljerna placerar vi efteråt i den privata delen av klassen och meningen är att användaren inte ens ska behöva (eller vilja) läsa ned hit. 
+I vårt fall placerar vi samtliga medlemsvariabler i det privata segmentet. Vi kan också placera metoder som bara ska användas internt i klassen här. Att dölja information på detta sätt kallas **inkapsling**.
+
+Normal praxis för en klass är följande:
+* Medlemsvariabler hålls privata.
+* Det publika segmentet ligger först i klassen, så att "användaren" vid behov enkelt kan kolla in vad för metoder och annat som hen har till sitt förfogande.
+* Implementationsdetaljerna placeras nedanför i den privata delen av klassen och meningen är att användaren inte ens ska behöva (eller vilja) läsa ned hit.
 
 Oftast dokumenteras enbart den publika delen av klassen; resten av klassen är implementationsdetaljer som enbart är av intresse för utvecklaren av klassen och dokumenteras därmed inte. Eftersom detta är ett typexempel dokumenteras dock all kod.
+
+Vi har även lagt till nyckelordet `final` efter klassnamnet. Detta innebär att klassen inte får användas som basklass. Ingen annan klass får alltså ärva från `Gpio`. I embedded‑sammanhang är detta ofta ett rimligt designval för små, konkreta drivrutiner där man vill hålla designen enkel och tydlig.
 
 ---
 
 #### 4. Lägg till medlemsvariabler
-Under den privata delen lägger vi till medlemsvariablerna, alltså de variabler i klassen som lagrar personens namn, ålder, kön med mera.
-Notera att vi använder prefixet *my*, för att undvika namnkrockar med senare metoder vi kommer lägga till (annars behöver vi använda pekaren *this* likt hur vi använde struktpekaren *self* i C tidigare):
+Under den privata delen lägger vi till medlemsvariablerna, alltså de variabler i klassen som lagrar pin-nummer, riktning och aktuellt tillstånd.
+Notera att:
+* Vi använder prefixet `my`, för att undvika namnkrockar med senare metoder vi kommer lägga till.
+* Vi sätter medlemsvariabler som aldrig ska ändras efter initieringen till `const`.
 
 ```cpp
+namespace driver::gpio
+{
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief GPIO driver.
  */
-class Person
+class Gpio final
 {
 public:
 
 private:
-    /** The person's name. */
-    const char* myName;
+    /** GPIO pin number. */
+    const std::uint8_t myPin;
 
-    /** The person's age. */
-    unsigned myAge;
+    /** GPIO direction. */
+    const Direction myDirection;
 
-    /** The person's gender. */
-    Gender myGender;
-
-    /** The person's address. */
-    const char* myAddress;
-
-    /** The person's occupation. */
-    const char* myOccupation;
-
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
+    /** GPIO state. */
+    bool myState;
 };
+} // namespace driver::gpio
 ```
 
-Medlemsvariablerna är privata, så att "användaren" inte kan läsa och skriva dem hur som helst. Vi kommer senare lägga till så kallade get- och set-metoder för att styra vad "användaren" kan läsa och skriva. Som exempel bör man kunna ändra personens singelstatus eller yrke, men nödvändigtvis inte hens namn eller kön (inte i denna implementering i alla fall).
+Medlemsvariablerna är privata, så att "användaren" inte kan läsa och skriva dem hur som helst. I stället tillhandahåller vi senare metoder såsom `write()`, `read()` och `toggle()` för att styra hur objektet används.
 
 ---
 
 #### 5. Lägg till konstruktorer och destruktorer
-Men innan vi lägger till några get- och set-metoder lägger vi till konstruktorer, vilket kan ses som initieringsrutiner som anropas automatiskt när ett objekt av klassen skapas.
+Innan vi lägger till övriga metoder lägger vi till konstruktorer, vilket kan ses som initieringsrutiner som anropas automatiskt när ett objekt av klassen skapas.
 
-Först och främst raderar vi den så kallade default-konstruktorn, så att man inte kan skapa ett person-objekt utan att skicka med namn, ålder med mera.
-
-Längst ned i den publika delen (precis innan `private`) lägger vi därmed till följande:
+Först och främst raderar vi den så kallade default‑konstruktorn, så att man inte kan skapa ett GPIO‑objekt utan att skicka med pin-nummer och riktning:
 
 ```cpp
 public:
-    Person() = delete; // No default constructor.
+    Gpio() = delete; // No default constructor.
 ```
 
-Man kallar denna konstruktor för default-konstruktor, då den inte har några ingående argument. Därmed är det inte möjligt att skapa ett tomt objekt så som visas nedan:
+Man kallar denna konstruktor för default‑konstruktor, då den inte har några ingående argument. Därmed är det inte möjligt att skapa ett tomt objekt så som visas nedan:
 
 ```cpp
 // Won't compile, since the default constructor is deleted.
-Person person{};
+driver::gpio::Gpio gpio{};
 ```
 
-Vi kan också lägga till en destruktor, vilket kan ses som en funktion som kallas på automatiskt precis innan en instans av den givna klassen raderas. Om vi skapar en instans av klassen `Person` längst upp i funktionen `main` kommer detta äga 
-rum när `main` avslutas.
+Normalt sett placeras raderade operatorer, såsom default-konstruktorn ovan, längst ned i det publika segmentet.
 
-Destruktorn ser ut som default-konstruktorn, med skillnaden att negationstecknet ~ placeras framför klassens
-namn. Som exempel, för att skriva ut `Deleting person instance!` i terminalen när en given person-instans
-raderas kan vi implementera destruktorn så som visas nedan:
+Vi kan också lägga till en destruktor, vilket kan ses som en funktion som kallas på automatiskt precis innan en instans av den givna klassen raderas.
+
+Destruktorn ser ut som default‑konstruktorn, med skillnaden att negationstecknet `~` placeras framför klassens namn. Om vi inte är i behov av att göra något speciellt innan objektet raderas kan vi slopa destruktorn; kompilatorn kommer då skapa en default‑destruktor åt oss. Vill vi ändå skapa en destruktor för tydlighets skull kan vi explicit sätta destruktorn till default med nyckelordet `default`.
 
 ```cpp
 /**
- * @brief Delete person instance.
+ * @brief Destructor.
  */
-~Person()
-{
-    std::cout << "Deleting person instance!\n";
-}
+~Gpio() = default;
 ```
 
-Om vi inte är i behov av att göra något speciellt innan objektet raderas kan vi slopa destruktorn;
-kompilatorn kommer då skapa en default-destruktor åt oss, i praktiken en tom konstruktor. 
-Vill vi ändå skapa en destruktor för tydlighets skull (rekommenderat) kan vi explicit sätta destruktorn till default med nyckelordet `default`.
+I modern C++ rekommenderas ofta nyckelordet `default`, vilket kommer användas i detta exempel. Dock hade det gått att implementera en default-destruktor såsom visas nedan:
 
 ```cpp
 /**
- * @brief Delete person instance.
+ * @brief Destructor.
  */
-~Person() = default;
+~Gpio() {}
 ```
 
-Alternativt kan vi låta destruktorn vara tom:
+Vi vill att användaren ska ange pin-nummer, riktning och eventuellt initialt tillstånd direkt när ett GPIO‑objekt skapas:
+* Vi skapar då en konstruktor som tar pin-nummer, riktning samt ett initialt tillstånd som ingående argument. 
+* Vi markerar konstruktorn med `explicit`, så att konstruktorn inte används för oavsiktliga implicita konverteringar. 
+* Se [bilaga B](./b_classes2.md#nyckelordet-explicit) för ytterligare information om nyckelordet `explicit`.
 
 ```cpp
 /**
- * @brief Delete person instance.
+ * @brief Create a new GPIO object.
+ *
+ * @param[in] pin GPIO pin number.
+ * @param[in] direction GPIO direction.
+ * @param[in] initialState Initial GPIO state (default = false).
  */
-~Person() {}
-```
-
-I modern C++ rekommenderas dock nyckelordet `default`, vilket kommer användas i detta exempel.
-
-Destruktorn placeras normalt sett direkt nedanför icke-raderade konstruktorer. Därmed placerar vi konstruktorn
-ovanför den raderade default-konstruktorn:
-
-```cpp
-public:
-    // Add additional constructors here!
-
-    /**
-     * @brief Delete person instance.
-     */
-    ~Person() = default;
-
-    Person() = delete; // No default constructor.
-```
-
-Klassen ser nu ut så här:
-
-```cpp
-/**
- * @brief Class for representing a person and their personal data.
- */
-class Person
-{
-public:
-    /**
-     * @brief Delete person instance.
-     */
-    ~Person() = default;
-
-    Person() = delete; // No default constructor.
-
-private:
-    /** The person's name. */
-    const char* myName;
-
-    /** The person's age. */
-    unsigned myAge;
-
-    /** The person's gender. */
-    Gender myGender;
-
-    /** The person's address. */
-    const char* myAddress;
-
-    /** The person's occupation. */
-    const char* myOccupation;
-
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
-};
-```
-
-Vi vill att användaren ska ange persondatan direkt när ett person-objekt skapas. Vi skapar då en konstruktor som tar personens namn, ålder, kön, adress, yrke samt singel-status som ingående argument. Vi sätter singelstatusen till default-värdet *true,* så "användaren" behöver inte ange just denna (om hen inte anger något antar vi att personen är singel):
-
-```cpp
-    /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
-     */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-    {
-    }
+explicit Gpio(const std::uint8_t pin, const Direction direction, 
+              const bool initialState = false) noexcept
+{}
 ```
 
 I konstruktorn ovan initierar vi medlemsvariablerna så att:
-* *myName* tilldelas namnet som refereras till av ingående argument *name.*
-* *myAge* tilldelas värdet som lagras av ingående argument *age.*
-* *myGender* tilldelas värdet som lagras av ingående argument *gender.*
-* *myAddress* tilldelas adressen som refereras till av ingående argument *address.*
-* *myOccupation* tilldelas yrket som refereras till av ingående argument *occupation.*
-* *myIsSingle* tilldelas värdet som lagras av ingående argument *single.* Som default är *single* satt till *true*.
+* `myPin` tilldelas pinnumret som lagras i det ingående argumentet `pin`.
+* `myDirection` tilldelas värdet som lagras i det ingående argumentet `direction`.
+* `myState` tilldelas värdet som lagras i det ingående argumentet `initialState.` Som default är `initialState` satt till `false`.
 
-Detta åstadkommer vi genom att lägga till en initieringsdel  mellan funktionshuvudet samt funktionskroppen (markerad via måsvingar {}). Notera att vi börjar initieringsdelen med ett kolon, initierar med måsvingar (så *myName{name}* betyder i praktiken att *myName = name)* och separerar initieringen av varje medlemsvariabel med ett kommatecken.
-
-```cpp
-    /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
-     */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-        : myName{name}
-        , myAge{age}
-        , myGender{gender}
-        , myAddress{address}
-        , myOccupation{occupation}
-        , myIsSingle{single} 
-    {
-    }
-```
-
-Om vi behöver göra något ytterligare efter initieringen av medlemsvariablerna hade vi kunnat placera detta i konstruktorns funktionskropp. I detta fall vill vi dock enbart initiera medlemsvariablerna, så vi behöver inte lägga till något ytterligare. Vi placerar därmed med fördel måsvingarna på sista initieringsraden för att inte uppta onödigt mycket blanka rader. 
-
-Man kan nu använda konstruktorn som visas ovan för att initiera person-objekt. Nedan visas hur vi initierar objektet *person1* för att lagra persondata gällande den 42-åriga juristen Marie Nilsson, som är singel:
-
-```cpp
-Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
-```
-                   
-Eftersom Marie är singel och default-värdet för det ingående argumentet som lagrar singelstatusen är *true* struntade vi att tilldela ett värde gällande singelstatusen explicit ovan. Vi hade dock kunnat lägga till *true* som sista ingående argument:
-
-```cpp
-Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer", true};
-```
-
-Vi kan också använda konstruktorn för att initiera objektet *person2* för att lagra persondata gällande den 37-åriga läraren Sven Andersson.
-Eftersom han inte är singel sätter vi värdet *false* på singelstatusen (det sista ingående argumentet) explicit.
-
-```cpp
-Person person2{"Sven Andersson", 37U, Gender::Male, "Kunskapsgatan 4", "Teacher", false};
-```
-
-Klassen ser nu ut så som visas nedan:
+Detta åstadkommer vi genom att lägga till en initieringsdel mellan funktionshuvudet samt funktionskroppen (markerad via måsvingar {}). Notera att vi börjar initieringsdelen med ett kolon, initierar med måsvingar och separerar initieringen av varje medlemsvariabel med ett kommatecken.
 
 ```cpp
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief Create a new GPIO object.
+ *
+ * @param[in] pin GPIO pin number.
+ * @param[in] direction GPIO direction.
+ * @param[in] initialState Initial GPIO state (default = false).
  */
-class Person
-{
-public:
-    /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
-     */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-        : myName{name}
-        , myAge{age}
-        , myGender{gender}
-        , myAddress{address}
-        , myOccupation{occupation}
-        , myIsSingle{single} 
-    {
-    }
+explicit Gpio(const std::uint8_t pin, const Direction direction, 
+              const bool initialState = false) noexcept
+    : myPin{pin}
+    , myDirection{direction}
+    , myState{initialState}
+{}
+```
 
-    /**
-     * @brief Delete person instance.
-     */
-    ~Person() = default;
-    
-    Person() = delete; // No default constructor.
+Om vi behöver göra något ytterligare efter initieringen av medlemsvariablerna hade vi kunnat placera detta i konstruktorns funktionskropp. I detta fall vill vi dock enbart initiera medlemsvariablerna, så vi behöver inte lägga till något ytterligare.
 
-private:
-    /** The person's name. */
-    const char* myName;
+Man kan nu använda konstruktorn som visas ovan för att initiera GPIO‑objekt. Nedan visas hur vi initierar objektet `led` för att representera en utgång på pinne 13 med initialt lågt tillstånd:
 
-    /** The person's age. */
-    unsigned myAge;
+```cpp
+driver::gpio::Gpio led{13U, driver::gpio::Direction::Output, false};
+```
 
-    /** The person's gender. */
-    Gender myGender;
+Eftersom default‑värdet för det ingående argumentet som lagrar initialt tillstånd är `false` kan vi också utelämna detta argument:
 
-    /** The person's address. */
-    const char* myAddress;
+```cpp
+driver::gpio::Gpio led{13U, driver::gpio::Direction::Output};
+```
 
-    /** The person's occupation. */
-    const char* myOccupation;
+Vi kan också använda konstruktorn för att initiera ett objekt `button` för att representera en ingång med pull‑up på pinne 2:
 
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
-};
+```cpp
+driver::gpio::Gpio button{2U, driver::gpio::Direction::InputPullup};
 ```
 
 ---
 
-#### 5. Lägg till get- och set-metoder
-För att vi ska kunna styra vilka av medlemsvariablerna vars innehåll enbart kan läsas och vilka som både kan läsas och skrivas använder vi så kallade get- och setmetoder:
-* Get-metoder ger oss möjlighet att läsa innehållet av en medlemsvariabel. Som exempel, en get-metod döpt *name* kan användas för att låta "användaren" av klassen ta reda på personens namn.
-* Set-metoder ger oss möjlighet att skriva/ändra innehållet på en medlemsvariabel. Som exempel, en set-metod döpt *setOccupation* hade kunnat användas för att byta personens yrke från "Lawyer" till "Judge".
+#### 6. Kopierings- och flyttoperationer
+Utöver vanliga konstruktorer finns det i C++ också speciella medlemsfunktioner för kopiering och flyttning. Dessa är mycket viktiga i modern C++ och det är bra att känna till dem redan när man lär sig klasser.
 
-Get-metoder returnerar värdet som ska läsas, exempelvis personens namn, medan set-metoder tar det nya värdet som ska skrivas som ingående argument.
+De vanligaste operationerna visas nedan:
 
-För att get- och set-metoderna ska vara åtkomliga utanför klassen placeras dessa i den publika delen av klassen, direkt efter konstruktorn. 
+| Operation                          | Beskrivning                                                                             | Signatur för klassen `Gpio`          |
+| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------ |
+| **Kopieringskonstruktor**          | Skapar ett nytt objekt som kopia av ett annat objekt.                                   | `Gpio(const Gpio& other)`            |
+| **Flyttkonstruktor**               | Skapar ett nytt objekt genom att flytta resurser från ett annat objekt.                 | `Gpio(Gpio&& other)`                 |
+| **Kopieringstilldelningsoperator** | Tilldelar ett redan existerande objekt från ett annat objekt.                           | `Gpio& operator=(const Gpio& other)` |
+| **Flyttilldelningsoperator**       | Tilldelar ett redan existerande objekt genom att flytta resurser från ett annat objekt. | `Gpio& operator=(Gpio&& other)`      |
 
-Nedan visas exempel på get-metoder *name* samt *age,* som returnerar det lagrade namnet samt åldern:
+I många verkliga embedded‑system väljer man att förbjuda kopiering och flyttning helt, eftersom ett objekt ofta representerar en unik hårdvaruresurs. På så sätt säkerställs att varje `Gpio`‑objekt representerar exakt en fysisk GPIO‑pinne och inte kan dupliceras av misstag.
+
+För klassen `Gpio` raderas kopiering och flyttning såsom visas nedan, normalt placerat längst ned i klassens publika segment.
 
 ```cpp
-/**
- * @brief Get the person's name.
- * 
- * @return The person's name as a string.
- */
-const char* name() const { return myName; }
-
-/**
- * @brief Get the person's age.
- * 
- * @return The person's age as an integer.
- */
-unsigned age() const { return myAge; }
+Gpio(const Gpio&)            = delete; // No copy constructor.
+Gpio(Gpio&&)                 = delete; // No move constructor.
+Gpio& operator=(const Gpio&) = delete; // No copy assignment.
+Gpio& operator=(Gpio&&)      = delete; // No move assignment.
 ```
 
-Notera att vi skriver nyckelordet *const* direkt efter funktionshuvudet, då vi ser till att klassen innehåll bara ska kunna läsas. Vi kan därmed inte av misstag råka ändra någon av klassmedlemmarna (hade vi gjort det hade ett kompileringsfel genererats).
+Se [bilaga B](./b_classes2.md#kopierings--och-flyttoperationer) för mer information om kopierings- och flyttoperationer.
 
-Vi hade kunnat använda get-metoderna ovan för att läsa och skriva ut åldern på Marie Nilsson, som tidigare implementerades i mjukvaran via objektet *person1:*
+---
+
+#### 7. Lägg till publika metoder
+För ett GPIO‑objekt är det mer naturligt att exponera funktionalitet i form av beteenden än klassiska get‑ och set‑metoder. Vi lägger därför till följande publika metoder:
+* `write(bool state)` för att skriva ett nytt tillstånd till pinnen.
+* `read()` för att läsa pinnens aktuella tillstånd.
+* `toggle()` för att växla pinnens tillstånd.
+
+Nedan visas metoden `write`, som används för att skriva ett nytt tillstånd till GPIO-instansen:
 
 ```cpp
 /**
- * @brief Print personal data in the terminal.
- * 
- * @return 0 on termination of the program.
+ * @brief Write a new state to the GPIO pin.
+ *
+ * @param[in] state The state to write.
  */
+void write(const bool state) noexcept
+{
+    if (myDirection == Direction::Output)
+    {
+        myState = state;
+    }
+}
+```
+
+I exemplet ovan tillåter vi enbart skrivning om pinnen är konfigurerad som utgång. Det är ett enkelt sätt att illustrera att klassen kan skydda sin interna data och styra hur objektet får användas.
+
+Nedan visas metoden `read()`, som returnerar pinnens aktuella tillstånd:
+
+```cpp
+/**
+ * @brief Read the current GPIO state.
+ *
+ * @return Current GPIO state.
+ */
+bool read() const noexcept { return myState; }
+```
+
+Notera att vi skriver nyckelordet `const` direkt efter funktionshuvudet, då vi ser till att klassens innehåll bara ska kunna läsas. Vi kan därmed inte av misstag råka ändra någon av klassmedlemmarna.
+
+Vi hade kunnat använda metoden ovan för att läsa och skriva ut tillståndet på en LED som tidigare implementerades i mjukvaran via objektet `led`. Här används `std::printf()` från `<cstdio>` för att skriva ut tillståndet:
+
+```cpp
 int main()
 {
-    // Create an object holding personal data.
-    Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
-
-    // Print the person's name and age in the terminal, then terminate the program.
-    std::cout << "Name:\t" << person1.name() << "\n";
-    std::cout << "Age:\t" << person1.age() << "\n";
+    driver::gpio::Gpio led{13U, driver::gpio::Direction::Output};
+    std::printf("State:\t%s\n", led.read() ? "High" : "Low");
     return 0;
 }
 ```
@@ -432,90 +367,37 @@ int main()
 Utskriften blir följande:
 
 ```
-Name:   Marie Nilsson
-Age:    42
+State:  Low
 ```
 
-Vi lägger till get-metoder för övriga medlemsvariabler. Vi döper dessa till *gender, address, occupation* samt *isSingle:*
+Vi lägger därefter till metoden `toggle()` för att kunna växla pinnens tillstånd:
 
 ```cpp
 /**
- * @brief Get the person's gender.
- * 
- * @return The person's gender as an enumerator.
+ * @brief Toggle the GPIO state.
  */
-Gender gender() const { return myGender; }
-
-/**
- * @brief Get the person's home address.
- * 
- * @return The person's home address as a string.
- */
-const char* address() const { return myAddress; }
-
-/**
- * @brief Get the person's occupation.
- * 
- * @return The person's occupation as a string.
- */
-const char* occupation() const { return myOccupation; }
-
-/**
- * @brief Check whether the person is single.
- * 
- * @return True if the person is single, false otherwise.
- */
-bool isSingle() const { return myIsSingle; }
+void toggle() noexcept
+{
+    if (myDirection == Direction::Output)
+    {
+        myState = !myState;
+    }
+}
 ```
 
-Vi lägger därefter till set-metoder för att kunna ändra personens hemadress, yrke samt singelstatus. Vi lägger till prefixet set på dessa för att tydliggöra att dessa ska användas för att sätta ett värde (det hade dock fungerat utmärkt att döpa dessa samma som motsvarande get-metoder, då C++-kompilatorn kan tolka vilken av metoderna du avser att anropa utefter argumentlistan):
+Om vi exempelvis kallar på `toggle()` ser vi till att medlemsvariabeln `myState` växlar mellan `false` och `true`, men enbart om pinnen är konfigurerad som utgång.
+
+Vi kan först kalla på `write(true)` för att sätta LED‑pinnen hög, och därefter `toggle()` för att växla tillbaka till låg nivå. Vi skriver ut tillståndet både innan och efter anropen:
 
 ```cpp
-/**
- * @brief Set the person's home address.
- * 
- * @param[in] address The new home address.
- */
-void setAddress(const char* address) { myAddress = address; }
-
-/**
- * @brief Set the person's occupation.
- * 
- * @param[in] occupation The new occupation.
- */
-void setOccupation(const char* occupation) { myOccupation = occupation; }
-
-/**
- * @brief Set the person's single status.
- * 
- * @param[in] single True if the person is single, false otherwise.
- */
-void setSingle(const bool single) { myIsSingle = single; }
-```
-
-Om vi exempelvis kallar på *setAddress* ser vi till att medlemsvariabeln *myAddress* tilldelas den nya adress som refereras till av ingående argument *newAddress*. 
-
-Vi kallar på *setAddress* för att ändra Maria Nilssons hemadress från Juristgatan 17 till Kaggeledsgatan 3*. Vi skriver ut hennes hemadress både innan och efter anropet:
-
-```cpp
-/**
- * @brief Print personal data in the terminal.
- * 
- * @return 0 on termination of the program.
- */
 int main()
 {
-    // Create an object holding personal data.
-    Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
-
-    // Print the person's name, age, and old address.
-    std::cout << "Name:\t\t" << person1.name() << "\n";
-    std::cout << "Age:\t\t" << person1.age() << "\n";
-    std::cout << "Old address:\t" << person1.address() << "\n";
-    
-    // Change the person's home address, then print it and terminate the program.
-    person1.setAddress("Kaggeledsgatan 3");
-    std::cout << "New address:\t" << person1.address() << "\n";
+    driver::gpio::Gpio led{13U, driver::gpio::Direction::Output};
+    std::printf("Old state:\t%s\n", led.read() ? "High" : "Low");
+    led.write(true);
+    std::printf("After write:\t%s\n", led.read() ? "High" : "Low");
+    led.toggle();
+    std::printf("After toggle:\t%s\n", led.read() ? "High" : "Low");
     return 0;
 }
 ```
@@ -523,635 +405,414 @@ int main()
 Utskriften blir följande:
 
 ```
-Name:           Marie Nilsson
-Age:            42
-Old address:    Juristgatan 17
-New address:    Kaggeledsgatan 3
+Old state:      Low
+After write:    High
+After toggle:   Low
 ```
 
-Efter tillägg av get- och set-metoderna ser klassen *Person* ut så här:
+Efter tillägg av metoderna ser klassen `Gpio` ut så här:
 
 ```cpp
+namespace driver::gpio
+{
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief GPIO driver.
  */
-class Person
+class Gpio final
 {
 public:
     /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
+     * @brief Create a new GPIO object.
+     *
+     * @param[in] pin GPIO pin number.
+     * @param[in] direction GPIO direction.
+     * @param[in] initialState Initial GPIO state (default = false).
      */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-        : myName{name}
-        , myAge{age}
-        , myGender{gender}
-        , myAddress{address}
-        , myOccupation{occupation}
-        , myIsSingle{single} 
+    explicit Gpio(const std::uint8_t pin, const Direction direction, 
+                  const bool initialState = false) noexcept
+        : myPin{pin}
+        , myDirection{direction}
+        , myState{initialState}
+    {}
+
+    /**
+     * @brief Destructor.
+     */
+    ~Gpio() = default;
+
+    /**
+     * @brief Write a new state to the GPIO pin.
+     *
+     * @param[in] state The state to write.
+     */
+    void write(const bool state) noexcept
     {
+        if (myDirection == Direction::Output)
+        {
+            myState = state;
+        }
     }
 
     /**
-     * @brief Delete person instance.
+     * @brief Read the current GPIO state.
+     *
+     * @return Current GPIO state.
      */
-    ~Person() = default;
+    bool read() const noexcept { return myState; }
 
     /**
-     * @brief Get the person's name.
-     * 
-     * @return The person's name as a string.
+     * @brief Toggle the GPIO state.
      */
-    const char* name() const { return myName; }
+    void toggle() noexcept
+    {
+        if (myDirection == Direction::Output)
+        {
+            myState = !myState;
+        }
+    }
 
-    /**
-     * @brief Get the person's age.
-     * 
-     * @return The person's age as an integer.
-     */
-    unsigned age() const { return myAge; }
-    
-    /**
-     * @brief Get the person's gender.
-     * 
-     * @return The person's gender as an enumerator.
-     */
-    Gender gender() const { return myGender; }
-
-    /**
-     * @brief Get the person's home address.
-     * 
-     * @return The person's home address as a string.
-     */
-    const char* address() const { return myAddress; }
-
-    /**
-     * @brief Get the person's occupation.
-     * 
-     * @return The person's occupation as a string.
-     */
-    const char* occupation() const { return myOccupation; }
-
-    /**
-     * @brief Check whether the person is single.
-     * 
-     * @return True if the person is single, false otherwise.
-     */
-    bool isSingle() const { return myIsSingle; }
-    
-    /**
-     * @brief Set the person's home address.
-     * 
-     * @param[in] address The new home address.
-     */
-    void setAddress(const char* address) { myAddress = address; }
-
-    /**
-     * @brief Set the person's occupation.
-     * 
-     * @param[in] occupation The new occupation.
-     */
-    void setOccupation(const char* occupation) { myOccupation = occupation; }
-
-    /**
-     * @brief Set the person's single status.
-     * 
-     * @param[in] single True if the person is single, false otherwise.
-     */
-    void setSingle(const bool single) { myIsSingle = single; }
-    
-    Person() = delete; // No default constructor.
+    Gpio()                       = delete; // No default constructor.
+    Gpio(const Gpio&)            = delete; // No copy constructor.
+    Gpio(Gpio&&)                 = delete; // No move constructor.
+    Gpio& operator=(const Gpio&) = delete; // No copy assignment.
+    Gpio& operator=(Gpio&&)      = delete; // No move assignment.
 
 private:
-    /** The person's name. */
-    const char* myName;
+    /** GPIO pin number. */
+    const std::uint8_t myPin;
 
-    /** The person's age. */
-    unsigned myAge;
+    /** GPIO direction. */
+    const Direction myDirection;
 
-    /** The person's gender. */
-    Gender myGender;
-
-    /** The person's address. */
-    const char* myAddress;
-
-    /** The person's occupation. */
-    const char* myOccupation;
-
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
+    /** GPIO state. */
+    bool myState;
 };
+} // namespace driver::gpio
 ```
 
 ---
 
-#### 6. Lägg till generella metoder
-Vi kan sedan lägga till övriga metoder för att hantera eller använda persondatan. Vi lägger därmed till metoden *print* för att skriva ut den lagrade persondatan:
+### 8. Uppdelning av klass i header- och källkodsfil
+Ofta används objekt av många olika klasser i ett program. Dessa klasser är dessutom ofta större än klassen vi har sett här. Det är därmed opraktiskt att implementera samtliga klasser i en enda fil. 
+
+Oftast skapar man en headerfil dedikerad för en specifik klass, inklusive publika enumerationsklasser. Som exempel:
+* Klassen `Gpio` samt enumerationsklassen `Direction` i namnrymden `driver::gpio` bör implementeras via headerfiler `gpio.h` samt `direction.h` i katalogen `driver/gpio`. Filsökvägarna blir då:
+    * `driver/gpio/direction.h`
+    * `driver/gpio/gpio.h`
+
+Längst upp i respektive headerfil placerar vi direktivet `#pragma once`, som ser att vi inte råkar definiera multipla kopior av innehållet i denna headerfil om den inkluderas i flera olika filer, på samma sätt som header guards fungerar i C. Det förhindrar att samma headerfil inkluderas flera gånger i samma översättningsenhet (en källkodsfil tillsammans med alla inkluderade headerfiler):
 
 ```cpp
-/**
- * @brief Print personal data about the person.
- * 
- * @param[in] ostream The output stream to use (default = terminal print).
- */
-void print(std::ostream& ostream = std::cout) const
-{
-    ostream << "--------------------------------------------------------------------------------\n";
-    ostream << "Name:\t\t" << myName << "\n";
-    ostream << "Age:\t\t" << myAge << "\n";
-    ostream << "Gender:\t\t" << genderStr() << "\n";
-    ostream << "Address:\t" << myAddress << "\n";
-    ostream << "Occupation:\t" << myOccupation << "\n";
-    ostream << "Single:\t\t" << isSingleStr() << "\n"; 
-    ostream << "--------------------------------------------------------------------------------\n\n";
-}
+#pragma once
 ```
 
-Notera att vi använder ett ingående argument i form av en referens till en utström, *ostream*, för att kunna välja vart datan ska skrivas. Som default skriver vi till terminalen, så defaultvärdet sätts till *std::cout*. Men om man vill kan man exempelvis skriva till en fil.
-
-Notera i detta fall att vi kallar på egna metoder *genderStr* samt *isSingleStr* för att erhålla personens kön samt om hen är singel som text. Dessa metoder ska enbart användas internt för användning i metoden *print* och bör då med fördel implementeras som privata metoder. 
-
-Vi lägger därmed till dessa metoder under nyckelordet *private,* ovanför medlemsvariablerna:
+Vi inkluderar också `<cstdint>` för att få tillgång till datatyper såsom `std::uint8_t`:
 
 ```cpp
-private:
-/**
- * @brief Get the person's gender as a string.
- * 
- * @return The person's gender as a string.
- */
-const char* genderStr() const
-{
-    if (myGender == Gender::Male) { return "Male"; }
-    else if (myGender == Gender::Female) { return "Female"; }
-    else { return "Other"; }
-}
-
-/**
- * @brief Get string indicating whether the person is single.
- * 
- * @return "Yes" if the person is single, else "No".
- */
-const char* isSingleStr() const { return myIsSingle ? "Yes" : "No"; }
+#include <cstdint>
 ```
 
-Vi kan sedan enkelt skriva ut Marie Nilssons persondata genom att kalla på metoden *print* i stället för att göra terminalutskriften i *main:*
+**Filen `driver/gpio/direction.h`:**
+Vi implementerar enumerationsklassen `Direction` i denna fil:
 
 ```cpp
 /**
- * @brief Print personal data in the terminal.
- * 
- * @return 0 on termination of the program.
+ * @brief GPIO direction configurations.
  */
-int main()
-{
-    // Create an object holding personal data.
-    Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
+#pragma once
 
-    // Print the personal data in the terminal, then terminate the program.
-    person1.print();
-    return 0;
-}
+#include <cstdint>
+
+namespace driver::gpio
+{
+/**
+ * @brief GPIO direction configuration.
+ */
+enum class Direction : std::uint8_t
+{
+    Input,       ///< Input without pull-up.
+    InputPullup, ///< Input with pull-up enabled.
+    Output,      ///< Output.
+    Count,       ///< Number of supported directions.
+};
+} // namespace driver::gpio
 ```
 
-Klassen *Person* ser nu ut så som visas nedan:
+**Filen `driver/gpio/gpio.h`:**
+Vi implementerar klassen `Gpio` i denna fil. Eftersom enumerationsklassen `Direction` används direkt i denna fil inkluderas `driver/gpio/direction.h`:
 
 ```cpp
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief GPIO driver implementation.
  */
-class Person
+#pragma once
+
+#include <cstdint>
+
+#include "driver/gpio/direction.h"
+
+namespace driver::gpio
+{
+/**
+ * @brief GPIO driver.
+ */
+class Gpio final
 {
 public:
     /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
+     * @brief Create a new GPIO object.
+     *
+     * @param[in] pin GPIO pin number.
+     * @param[in] direction GPIO direction.
+     * @param[in] initialState Initial GPIO state (default = false).
      */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-        : myName{name}
-        , myAge{age}
-        , myGender{gender}
-        , myAddress{address}
-        , myOccupation{occupation}
-        , myIsSingle{single} 
+    explicit Gpio(const std::uint8_t pin, const Direction direction, 
+                  const bool initialState = false) noexcept
+        : myPin{pin}
+        , myDirection{direction}
+        , myState{initialState}
+    {}
+
+    /**
+     * @brief Destructor.
+     */
+    ~Gpio() = default;
+
+    /**
+     * @brief Write a new state to the GPIO pin.
+     *
+     * @param[in] state The state to write.
+     */
+    void write(const bool state) noexcept
     {
+        if (myDirection == Direction::Output)
+        {
+            myState = state;
+        }
     }
 
     /**
-     * @brief Delete person instance.
+     * @brief Read the current GPIO state.
+     *
+     * @return Current GPIO state.
      */
-    ~Person() = default;
+    bool read() const noexcept { return myState; }
 
     /**
-     * @brief Get the person's name.
-     * 
-     * @return The person's name as a string.
+     * @brief Toggle the GPIO state.
      */
-    const char* name() const { return myName; }
-
-    /**
-     * @brief Get the person's age.
-     * 
-     * @return The person's age as an integer.
-     */
-    unsigned age() const { return myAge; }
-    
-    /**
-     * @brief Get the person's gender.
-     * 
-     * @return The person's gender as an enumerator.
-     */
-    Gender gender() const { return myGender; }
-
-    /**
-     * @brief Get the person's home address.
-     * 
-     * @return The person's home address as a string.
-     */
-    const char* address() const { return myAddress; }
-
-    /**
-     * @brief Get the person's occupation.
-     * 
-     * @return The person's occupation as a string.
-     */
-    const char* occupation() const { return myOccupation; }
-
-    /**
-     * @brief Check whether the person is single.
-     * 
-     * @return True if the person is single, false otherwise.
-     */
-    bool isSingle() const { return myIsSingle; }
-    
-    /**
-     * @brief Set the person's home address.
-     * 
-     * @param[in] address The new home address.
-     */
-    void setAddress(const char* address) { myAddress = address; }
-
-    /**
-     * @brief Set the person's occupation.
-     * 
-     * @param[in] occupation The new occupation.
-     */
-    void setOccupation(const char* occupation) { myOccupation = occupation; }
-
-    /**
-     * @brief Set the person's single status.
-     * 
-     * @param[in] single True if the person is single, false otherwise.
-     */
-    void setSingle(const bool single) { myIsSingle = single; }
-    
-    /**
-     * @brief Print personal data about the person.
-     * 
-     * @param[in] ostream The output stream to use (default = terminal print).
-     */
-    void print(std::ostream& ostream = std::cout) const
+    void toggle() noexcept
     {
-        ostream << "--------------------------------------------------------------------------------\n";
-        ostream << "Name:\t\t" << myName << "\n";
-        ostream << "Age:\t\t" << myAge << "\n";
-        ostream << "Gender:\t\t" << genderStr() << "\n";
-        ostream << "Address:\t" << myAddress << "\n";
-        ostream << "Occupation:\t" << myOccupation << "\n";
-        ostream << "Single:\t\t" << isSingleStr() << "\n"; 
-        ostream << "--------------------------------------------------------------------------------\n\n";
+        if (myDirection == Direction::Output)
+        {
+            myState = !myState;
+        }
     }
-    
-    Person() = delete; // No default constructor.
+
+    Gpio()                       = delete; // No default constructor.
+    Gpio(const Gpio&)            = delete; // No copy constructor.
+    Gpio(Gpio&&)                 = delete; // No move constructor.
+    Gpio& operator=(const Gpio&) = delete; // No copy assignment.
+    Gpio& operator=(Gpio&&)      = delete; // No move assignment.
 
 private:
-    /**
-     * @brief Get the person's gender as a string.
-     * 
-     * @return The person's gender as a string.
-     */
-    const char* genderStr() const
-    {
-        if (myGender == Gender::Male) { return "Male"; }
-        else if (myGender == Gender::Female) { return "Female"; }
-        else { return "Other"; }
-    }
+    /** GPIO pin number. */
+    const std::uint8_t myPin;
 
-    /**
-     * @brief Get string indicating whether the person is single.
-     * 
-     * @return "Yes" if the person is single, else "No".
-     */
-    const char* isSingleStr() const { return myIsSingle ? "Yes" : "No"; }
-    
-    /** The person's name. */
-    const char* myName;
+    /** GPIO direction. */
+    const Direction myDirection;
 
-    /** The person's age. */
-    unsigned myAge;
-
-    /** The person's gender. */
-    Gender myGender;
-
-    /** The person's address. */
-    const char* myAddress;
-
-    /** The person's occupation. */
-    const char* myOccupation;
-
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
+    /** GPIO state. */
+    bool myState;
 };
+} // namespace driver::gpio
 ```
 
-Vi hade också kunnat skriva persondatan till filen *person.txt* via en filström av datatypen *std::ofstream* från standardheader *fstream*. Vi inkluderar därmed *fstream* i aktuell fil:
+**Metoddefinitioner i filen `driver/gpio/gpio.cpp`**:
+Ofta placeras klassens metoddefinitioner i en separat källkodsfil för att hålla headerfilen mer läsbar. Som exempel, för att hålla filen `driver/gpio/gpio.h` läsbar kan vi med fördel placera metoddefinitionerna i en källkodsfil döpt `driver/gpio/gpio.cpp`. 
+
+Längst upp i denna källkodsfil inkluderar vi följande headerfiler:
+* `<cstdint>` för att få tillgång till datatyper såsom `std::uint8_t`.
+* `driver/gpio/gpio.h` för att få tillgång till klassdefinitionen.
+* `driver/gpio/direction.h` för att få tillgång till enumerationsklassen `Direction`.
+
+**Notering**: Både `<cstdint>` samt `driver/gpio/direction.h` inkluderas indirekt via `driver/gpio/gpio.h`, men för att hålla god praxis bör vi inte förlita oss på indirekta beroenden.
 
 ```cpp
-#include <fstream>
+#include <cstdint>
+
+#include "driver/gpio/direction.h"
+#include "driver/gpio/gpio.h"
 ```
+    
+Därefter placerar vi metoddefinitionerna från klassen `Gpio` i denna fil.
+Vi kopierar därmed samtliga metoder från klassen `Gpio` till denna fil. Värt att notera är att:
+* För att kompilatorn ska förstå att respektive metod tillhör klassen `Gpio` måste vi använda prefixet `Gpio`. Så metoden `write()` måste definieras som `Gpio::write()` som exempel. 
+* Defaultvärden på ingående argument ska endast skrivas i metoddeklarationen i headerfilen.
+* Nyckelord framför metodernas namn, såsom `explicit`, ska inte skrivas med i metoddefinitionen.
+* Konstruktorer, destruktorer med mera märkta `default` samt `delete` behöver inte placeras i källkodsfilen.
 
-I funktionen *main* skapar vi sedan en filström döpt *ofstream* för att öppna filen *person.txt* för skrivning. Om filen inte finns skapas den nu:
-
-```cpp
-std::ofstream ofstream{"person.txt"};
-```
-
-Vi skriver sedan persondatan till filen *person.txt* genom att anropa metoden *print* med *ofstream* som ingående argument:
-
-```cpp
-person1.print(ofstream);
-```
-
-Nedan visas hur vi kan skriva persondatan både till terminalen samt till filen *person.txt* via två anrop av metoden *print*:
+Vi börjar med metoden `write()`. I headerfilen `driver/gpio/gpio.h` låter vi metodhuvudet inklusive dokumentationen kvarstå:
 
 ```cpp
 /**
- * @brief Print personal data in the terminal.
- * 
- * @return 0 on termination of the program.
+ * @brief Write a new state to the GPIO pin.
+ *
+ * @param[in] state The state to write.
  */
-int main()
+void write(const bool state) noexcept;
+```
+
+I källkodsfilen `driver/gpio/gpio.cpp` placerar vi sedan metoddefinitionen:
+
+```cpp
+// -----------------------------------------------------------------------------
+void Gpio::write(const bool state) noexcept
 {
-    // Create an object holding personal data.
-    Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
-
-    // Print the personal data in the terminal.
-    person1.print();
-
-    // Open file `person.txt` for writing.
-    std::ofstream ofstream{"person.txt"};
-
-    // Print the personal data to `person.txt`, then terminate the program.
-    person1.print(ofstream);
-    return 0;
+    if (myDirection == Direction::Output)
+    {
+        myState = state;
+    }
 }
 ```
 
----
+Vi implementerar definitioner för övriga metoder i källkodsfilen `driver/gpio/gpio.cpp`. Vi placerar en rad med bindestreck mellan varje metod för att visuellt separera dessa nu när metoddokumentationen inte är med. 
 
-### Exempelprogram
+**Filen `driver/gpio/gpio.cpp`**
 
-Nedan visas ett program, där Marie Nilssons och Sven Anderssons personuppgifter skrivs ut i terminalen samt till en fil döpt *person.txt.* Allt är implementerat i en enda fil:
+Efter att ha lagt till samtliga metoddefinitioner ser filen `driver/gpio/gpio.cpp` ut så här:
 
 ```cpp
 /**
- * @brief Example program demonstrating a simple class with an associated enum class.
+ * @brief GPIO driver implementation details.
  */
-#include <fstream>
-#include <iostream>
+#include <cstdint>
 
-/**
- * @brief Enumeration of genders.
- */
-enum class Gender 
-{ 
-    Male,   /** Male. */
-    Female, /** Female. */
-    Other,  /** Other gender. */
-};
+#include "driver/gpio/direction.h"
+#include "driver/gpio/gpio.h"
 
+namespace driver::gpio
+{
+// -----------------------------------------------------------------------------
+Gpio::Gpio(const std::uint8_t pin, const Direction direction, const bool initialState) noexcept
+    : myPin{pin}
+    , myDirection{direction}
+    , myState{initialState}
+{}
+
+// -----------------------------------------------------------------------------
+void Gpio::write(const bool state) noexcept
+{
+    if (myDirection == Direction::Output)
+    {
+        myState = state;
+    }
+}
+
+// -----------------------------------------------------------------------------
+bool Gpio::read() const noexcept { return myState; }
+
+// -----------------------------------------------------------------------------
+void Gpio::toggle() noexcept
+{
+    if (myDirection == Direction::Output)
+    {
+        myState = !myState;
+    }
+}
+} // namespace driver::gpio
+```
+
+**Filen `driver/gpio/gpio.h`**
+Läsbarheten i headerfilen `gpio.h` ökar nu, då vi har tagit bort en stor del av implementeringsdetaljerna i och med metoddefinitionerna:
+* Vi måste dock fortfarande ha kvar metoddeklarationer samt definition av medlemsvariablerna innanför klassen.
+* Vi tar bort nyckelordet `const` på parametrar passerade *by value* för att öka läsbarheten; att markera dessa `const` har bara effekt i funktionsdefinitionen.
+
+```cpp
 /**
- * @brief Class for representing a person and their personal data.
+ * @brief GPIO driver implementation.
  */
-class Person
+#pragma once
+
+#include <cstdint>
+
+#include "driver/gpio/direction.h"
+
+namespace driver::gpio
+{
+/**
+ * @brief GPIO driver.
+ */
+class Gpio final
 {
 public:
     /**
-     * @brief Create a new person.
-     * 
-     * @param[in] name The person's name.
-     * @param[in] age The person's age.
-     * @param[in] gender The person's gender.
-     * @param[in] address The person's home address.
-     * @param[in] occupation The person's occupation.
-     * @param[in] single Indicate whether the person is single (default = true).
+     * @brief Create a new GPIO object.
+     *
+     * @param[in] pin GPIO pin number.
+     * @param[in] direction GPIO direction.
+     * @param[in] initialState Initial GPIO state (default = false).
      */
-    Person(const char* name, const unsigned age, const Gender gender, const char* address, 
-           const char* occupation, const bool single = true)
-        : myName{name}
-        , myAge{age}
-        , myGender{gender}
-        , myAddress{address}
-        , myOccupation{occupation}
-        , myIsSingle{single} 
-    {
-    }
+    explicit Gpio(std::uint8_t pin, Direction direction, bool initialState = false) noexcept;
 
     /**
-     * @brief Delete person instance.
+     * @brief Destructor.
      */
-    ~Person() = default;
+    ~Gpio() = default;
 
     /**
-     * @brief Get the person's name.
-     * 
-     * @return The person's name as a string.
+     * @brief Write a new state to the GPIO pin.
+     *
+     * @param[in] state The state to write.
      */
-    const char* name() const { return myName; }
+    void write(bool state) noexcept;
 
     /**
-     * @brief Get the person's age.
-     * 
-     * @return The person's age as an integer.
+     * @brief Read the current GPIO state.
+     *
+     * @return Current GPIO state.
      */
-    unsigned age() const { return myAge; }
-    
-    /**
-     * @brief Get the person's gender.
-     * 
-     * @return The person's gender as an enumerator.
-     */
-    Gender gender() const { return myGender; }
+    bool read() const noexcept;
 
     /**
-     * @brief Get the person's home address.
-     * 
-     * @return The person's home address as a string.
+     * @brief Toggle the GPIO state.
      */
-    const char* address() const { return myAddress; }
+    void toggle() noexcept;
 
-    /**
-     * @brief Get the person's occupation.
-     * 
-     * @return The person's occupation as a string.
-     */
-    const char* occupation() const { return myOccupation; }
-
-    /**
-     * @brief Check whether the person is single.
-     * 
-     * @return True if the person is single, false otherwise.
-     */
-    bool isSingle() const { return myIsSingle; }
-    
-    /**
-     * @brief Set the person's home address.
-     * 
-     * @param[in] address The new home address.
-     */
-    void setAddress(const char* address) { myAddress = address; }
-
-    /**
-     * @brief Set the person's occupation.
-     * 
-     * @param[in] occupation The new occupation.
-     */
-    void setOccupation(const char* occupation) { myOccupation = occupation; }
-
-    /**
-     * @brief Set the person's single status.
-     * 
-     * @param[in] single True if the person is single, false otherwise.
-     */
-    void setSingle(const bool single) { myIsSingle = single; }
-    
-    /**
-     * @brief Print personal data about the person.
-     * 
-     * @param[in] ostream The output stream to use (default = terminal print).
-     */
-    void print(std::ostream& ostream = std::cout) const
-    {
-        ostream << "--------------------------------------------------------------------------------\n";
-        ostream << "Name:\t\t" << myName << "\n";
-        ostream << "Age:\t\t" << myAge << "\n";
-        ostream << "Gender:\t\t" << genderStr() << "\n";
-        ostream << "Address:\t" << myAddress << "\n";
-        ostream << "Occupation:\t" << myOccupation << "\n";
-        ostream << "Single:\t\t" << isSingleStr() << "\n"; 
-        ostream << "--------------------------------------------------------------------------------\n\n";
-    }
-    
-    Person() = delete; // No default constructor.
+    Gpio()                       = delete; // No default constructor.
+    Gpio(const Gpio&)            = delete; // No copy constructor.
+    Gpio(Gpio&&)                 = delete; // No move constructor.
+    Gpio& operator=(const Gpio&) = delete; // No copy assignment.
+    Gpio& operator=(Gpio&&)      = delete; // No move assignment.
 
 private:
-    /**
-     * @brief Get the person's gender as a string.
-     * 
-     * @return The person's gender as a string.
-     */
-    const char* genderStr() const
-    {
-        if (myGender == Gender::Male) { return "Male"; }
-        else if (myGender == Gender::Female) { return "Female"; }
-        else { return "Other"; }
-    }
+    /** GPIO pin number. */
+    const std::uint8_t myPin;
 
-    /**
-     * @brief Get string indicating whether the person is single.
-     * 
-     * @return "Yes" if the person is single, else "No".
-     */
-    const char* isSingleStr() const { return myIsSingle ? "Yes" : "No"; }
-    
-    /** The person's name. */
-    const char* myName;
+    /** GPIO direction. */
+    const Direction myDirection;
 
-    /** The person's age. */
-    unsigned myAge;
-
-    /** The person's gender. */
-    Gender myGender;
-
-    /** The person's address. */
-    const char* myAddress;
-
-    /** The person's occupation. */
-    const char* myOccupation;
-
-    /** Indicate whether the person is single. */
-    bool myIsSingle;
+    /** GPIO state. */
+    bool myState;
 };
-
-/**
- * @brief Print personal data in the terminal and to a file named `person.txt`.
- * 
- * @return 0 on termination of the program.
- */
-int main()
-{
-    // Create objects holding personal data.
-    Person person1{"Marie Nilsson", 42U, Gender::Female, "Juristgatan 17", "Lawyer"};
-    Person person2{"Sven Andersson", 37U, Gender::Male, "Kunskapsgatan 4", "Teacher", false};
-    
-    // Print stored personal data in the terminal.
-    person1.print();
-    person2.print();
-
-    // Open file `person.txt` for writing.
-    std::ofstream ofstream{"person.txt"};
-
-    // Write the personal data to `person.txt`, then terminate the program.
-    person1.print(ofstream);
-    person2.print(ofstream);
-    return 0;
-}
-```
-
-Utskriften i terminalen samt filinnehållet i filen *person.txt* blir följande:
-
-```
---------------------------------------------------------------------------------
-Name:       Marie Nilsson
-Age:        42
-Gender:     Female
-Address:    Juristgatan 17
-Occupation: Lawyer
-Single:     Yes
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-Name:       Sven Andersson
-Age:        37
-Gender:     Male
-Address:    Kunskapsgatan 4
-Occupation: Teacher
-Single:     No
---------------------------------------------------------------------------------
+} // namespace driver::gpio
 ```
 
 ---
 
 ### Sammanfattning
 Efter att ha gått igenom denna bilaga bör du som läsare ha tillräckligt med kunskap för att skapa en mindre klass.
+
 Du bör kunna:
 * Styra vad som är synligt respektive inte synligt utanför en klass via inkapsling.
 * Skapa konstruktorer för att initiera objekt av klassen i fråga.
-* Styra vad som kan läsas samt vad som kan läsas och skrivas via get- och set-metoder.
+* Förstå vad `explicit` används till.
+* Förstå vad `final` används till.
+* Känna igen och skriva en destruktor.
+* Känna igen kopieringskonstruktor, kopieringstilldelningsoperator, flyttkonstruktor och flyttilldelningsoperator.
+* Använda `= default` och `= delete` för att styra vilka operationer som ska vara tillåtna.
+* Lägga till publika metoder som styr hur ett objekt används.
 * Skapa enumerationsklasser.
+* Placera kod i en namnrymd för att strukturera projekt och undvika namnkrockar.
 
 ---
