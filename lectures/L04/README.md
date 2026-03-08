@@ -1,50 +1,52 @@
 # L04 - Introduktion till C++
 
 ## Dagordning
-* Övergång från C till C++: Vad förändras?
-* Namespaces.
+* Övergång från C till modern C++ i inbyggda system.
+* Namnrymder.
+* `constexpr` och kompileringstidskonstanter.
+* `noexcept` och undantagshantering i inbyggda system.
+* Defaultargument.
+* Struktar med medlemsfunktioner.
 * Referenser.
-* `const` och `constexpr`.
-* Standardbiblioteket: `std::vector`.
-* Range-baserade for-loopar.
-* Användning av en klass (metoder och objekt).
+* Kort introduktion till funktionstemplates och parameterpack.
 
 ## Mål med lektionen
-* Vänja sig vid grundläggande C++-syntax och kodstil.
-* Kunna använda en klass från standardbiblioteket (`std::vector`).
-* Förstå hur metoder anropas på objekt.
-* Kunna använda:
-  * Referenser.
-  * `const` och `constexpr`.
-  * Namespaces.
-  * Range-baserade for-loopar.
-* Få en första intuitiv förståelse för hur klasser fungerar, som förberedelse inför att skriva egna klasser i nästa lektion.
-* Bli bekväm i C++ och se hur en klass används, innan vi skriver egna klasser i L05.
+* Bli bekant med modern C++-syntax.
+* Förstå hur C++ kan förbättra struktur och säkerhet i inbyggda system.
+* Lära sig hur enkla drivrutiner kan implementeras med hjälp av struktar med medlemsfunktioner.
+* Förstå hur referenser förenklar funktionsanrop jämfört med pekare.
+* Förstå hur templates möjliggör generiska hjälpfunktioner såsom bitmanipuleringsverktyg.
+* Få en intuitiv förståelse för programmering vid kompileringstid (`constexpr` och templates).
 
-## Förutsättningar
-* Genomgång av L01–L03.
-* Grundläggande kunskaper i C.
+## Förkunskaper
+* Kunskap om C-programmering (funktioner, pekare, struktar etc.).
+* Bekantskap med bitmanipulation och begrepp inom inbyggd programmering.
 
 ## Instruktioner
 
 ### Förberedelse
-* Läs om kompilering samt exekvering av kod i Linux i [bilaga A](./appendix/a_compilation.md).
-* Läs om vektorer i [bilaga B](./appendix/b_vectors.md). 
+* Installera WSL och GCC-kompilatorn enligt beskrivningen i [Bilaga A](./appendix/a_compilation.md).
+* Läs [Bilaga B](./appendix/b_from_c_to_cpp.md).
 
-### Under lektionen
-* Genomgång av grundläggande C++-syntax.
-* Exempel med `std::vector`:
-  * Skapa en vektor.
-  * Lägga till element.
-  * Iterera med range-baserad for-loop.
-* Demonstration av hur metoder anropas på objekt.
-* Genomför följande [övningsuppgifter](./appendix/c_exercises.md).
+## Under lektionen
+* Genomför övningarna i [Bilaga C](./appendix/c_exercises.md):
+  * Ni får tid under lektionen att genomföra övningarna.
+  * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
-* Vad är en referens i C++ och hur skiljer den sig från en pekare?
-* Vad används `const` respektive `constexpr` till?
-* Vad är ett namespace och varför används det?
-* Hur anropar man en metod på ett objekt?
+* Vad är syftet med `constexpr`?
+* Varför används `noexcept` ofta i inbyggda system?
+* Vilka fördelar har referenser jämfört med pekare?
+* Varför kan templates öka binärstorleken i inbyggda system?
+* Vad används parameterpack till?
+
+## Nästa lektion
+Klasser i C++:
+* Konstruktorer och destruktorer.
+* Nyckelorden `explicit`, `final`, `default` och `delete`.
+* Kopieringskonstruktorer.
+* Flyttkonstruktorer.
+* Tilldelningsoperatorer.
 
 ## Nästa lektion
 * Klasser i C++ (del I) – implementation av egna klasser.
