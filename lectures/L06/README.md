@@ -19,8 +19,9 @@
 * Genomför följande [repetitionsuppgift](./appendix/a_repetition.md)
 
 ### Under lektionen
-* Genomför följande [övningsuppgifter](./appendix/b_exercises.md).
-* Tid kommer ges för er att genomföra uppgiften, därefter kommer den implementeras live i helklass.
+* Genomför följande [övningsuppgifter](./appendix/b_exercises.md):
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
 * Varför passar en klass bra för att representera en GPIO?

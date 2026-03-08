@@ -20,7 +20,9 @@
 * Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
 
 ### Under lektionen
-* Genomför följande [övningsuppgifter](./appendix/b_exercises.md).
+* Genomför följande [övningsuppgifter](./appendix/b_exercises.md):
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
 * Vad är en callback och varför används den i GPIO-drivern?

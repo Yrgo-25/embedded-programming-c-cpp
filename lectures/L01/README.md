@@ -28,7 +28,9 @@
 * En enkel GPIO-driver implementeras i helklass:
     * Först med implementation av en publik struktur med enstaka associerade funktioner.
     * Därefter en opaque struct med inkapslade attribut.
-* Genomför följande [övningsuppgifter](./appendix/b_exercises.md).
+* Genomför följande [övningsuppgifter](./appendix/b_exercises.md):
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
 * Varför används struktar med associerade funktioner i C?

@@ -30,7 +30,9 @@ klasser kan implementera på olika sätt.
         * Toggling av en lysdiod ansluten till ATmega328p via en simulerad tryckknapp.
 
 ### Under lektionen
-* Påbörja följande [övningsuppgifter](./appendix/c_exercises.md), som täcker interfaces för inbyggda system.
+* Påbörja följande [övningsuppgifter](./appendix/c_exercises.md), som täcker interfaces för inbyggda system:
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ## Utvärdering
 * Vad innebär arv i C++?
