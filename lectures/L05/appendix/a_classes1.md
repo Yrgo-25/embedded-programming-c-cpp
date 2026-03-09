@@ -5,9 +5,9 @@
 ### Bakgrund
 För att hålla god struktur i större program finns ett ökat behov av att samla relaterad data och relaterat beteende i en och samma enhet i stället för att sprida ut allt över multipla separata variabler och funktioner. Som exempel kan det vara fördelaktigt att representera en GPIO‑pinne via en klass som lagrar pin-nummer, riktning och aktuellt tillstånd, samtidigt som klassen också innehåller funktioner för att skriva, läsa och toggla pinnen.
 
-Inom programmering utgörs de vanligaste datastrukturerna för att lagra relaterad data som en enhet av så kallade *struktar* och *klasser:*
-* *Struktar* (strukturer) används främst i C (begreppet klass existerar inte överhuvudtaget i C).
-* Klasser används i många moderna programspråk, såsom C++, Java och Python.
+Inom programmering utgörs de vanligaste datastrukturerna för att lagra relaterad data som en enhet av så kallade **struktar** och **klasser**:
+* **Struktar** (strukturer) används främst i C (begreppet klass existerar inte överhuvudtaget i C).
+* **Klasser** används i många moderna programspråk, såsom C++, Java och Python.
 * I C++ används både struktar och klasser.
 * Klasser kan ses som en vidareutveckling av struktar, som är relativt simpla. Sett till uppbyggnad är dock dessa datastrukturer väldigt lika.
 
@@ -113,7 +113,7 @@ I allmänhet är det rekommenderat att använda enumerationsklasser i stället f
 ---
 
 #### 3. Definiera klassen `Gpio`
-Därefter definierar vi klassen `Gpio` via nyckelordet *class:*
+Därefter definierar vi klassen `Gpio` via nyckelordet `class`:
 
 ```cpp
 namespace driver::gpio
@@ -213,7 +213,7 @@ Destruktorn ser ut som default‑konstruktorn, med skillnaden att negationsteckn
 /**
  * @brief Destructor.
  */
-~Gpio() = default;
+~Gpio() noexcept = default;
 ```
 
 I modern C++ rekommenderas ofta nyckelordet `default`, vilket kommer användas i detta exempel. Dock hade det gått att implementera en default-destruktor såsom visas nedan:
@@ -222,7 +222,7 @@ I modern C++ rekommenderas ofta nyckelordet `default`, vilket kommer användas i
 /**
  * @brief Destructor.
  */
-~Gpio() {}
+~Gpio() noexcept {}
 ```
 
 Vi vill att användaren ska ange pin-nummer, riktning och eventuellt initialt tillstånd direkt när ett GPIO‑objekt skapas:
@@ -321,7 +321,7 @@ För ett GPIO‑objekt är det mer naturligt att exponera funktionalitet i form 
 * `read()` för att läsa pinnens aktuella tillstånd.
 * `toggle()` för att växla pinnens tillstånd.
 
-Nedan visas metoden `write`, som används för att skriva ett nytt tillstånd till GPIO-instansen:
+Nedan visas metoden `write()`, som används för att skriva ett nytt tillstånd till GPIO-instansen:
 
 ```cpp
 /**
@@ -438,7 +438,7 @@ public:
     /**
      * @brief Destructor.
      */
-    ~Gpio() = default;
+    ~Gpio() noexcept = default;
 
     /**
      * @brief Write a new state to the GPIO pin.
@@ -576,7 +576,7 @@ public:
     /**
      * @brief Destructor.
      */
-    ~Gpio() = default;
+    ~Gpio() noexcept = default;
 
     /**
      * @brief Write a new state to the GPIO pin.
@@ -679,7 +679,6 @@ void Gpio::write(const bool state) noexcept
 Vi implementerar definitioner för övriga metoder i källkodsfilen `driver/gpio/gpio.cpp`. Vi placerar en rad med bindestreck mellan varje metod för att visuellt separera dessa nu när metoddokumentationen inte är med. 
 
 **Filen `driver/gpio/gpio.cpp`**
-
 Efter att ha lagt till samtliga metoddefinitioner ser filen `driver/gpio/gpio.cpp` ut så här:
 
 ```cpp
@@ -724,7 +723,7 @@ void Gpio::toggle() noexcept
 ```
 
 **Filen `driver/gpio/gpio.h`**
-Läsbarheten i headerfilen `gpio.h` ökar nu, då vi har tagit bort en stor del av implementeringsdetaljerna i och med metoddefinitionerna:
+Läsbarheten i headerfilen `driver/gpio/gpio.h` ökar nu, då vi har tagit bort en stor del av implementeringsdetaljerna i och med metoddefinitionerna:
 * Vi måste dock fortfarande ha kvar metoddeklarationer samt definition av medlemsvariablerna innanför klassen.
 * Vi tar bort nyckelordet `const` på parametrar passerade *by value* för att öka läsbarheten; att markera dessa `const` har bara effekt i funktionsdefinitionen.
 
@@ -758,7 +757,7 @@ public:
     /**
      * @brief Destructor.
      */
-    ~Gpio() = default;
+    ~Gpio() noexcept = default;
 
     /**
      * @brief Write a new state to the GPIO pin.

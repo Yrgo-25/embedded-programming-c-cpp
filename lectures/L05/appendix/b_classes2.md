@@ -49,7 +49,7 @@ Utskriften ser ut såsom visas nedan:
 The LED is on!
 ```
 
-Vi kan också skapa en `Led`-instans via kopieringsinitiering, såsom visas nedan. Notera att vi inte har skapat en `Led`-instans i detta fall - i stället skickas ett pin-nummer (av misstag). Dessa argument konverteras implicit till en `Led`-instans.
+Vi kan också skapa en `Led`-instans via kopieringsinitiering, såsom visas nedan. Notera att vi inte har skapat en `Led`-instans i detta fall - i stället skickas ett pin-nummer (av misstag). Dessa argument konverteras implicit till en `Led`-instans:
 
 ```cpp
 void ledPrint(const Led led) noexcept
@@ -74,7 +74,7 @@ The LED is off!
 **Notering**: I detta exempel skickas `led` som en kopia (pass-by-value) för att tydligt demonstrera hur en implicit konvertering kan ske via konstruktorn. För större klasser används ofta const-referens i stället för att undvika onödiga kopior.
 
 Det som sker i detta fall är att:
-* Kompilatorn implicit konstruerar en `Led`-instans givet osignerade heltal som pin-nummer.
+* Kompilatorn implicit konstruerar en `Led`-instans givet ett osignerat heltal i form av ett pin-nummer.
 * Kompilatorn förväntade sig en `Led-instans`, men eftersom den fick ett osignerat heltal i stället, vilket matchar klassens konstruktor, anropade den implicit på denna och skapade på så sätt implicit en `Led-instans`.
 * Detta kanske kan ses som effektivt eller snyggt, men det kan också medföra svårdetekterade buggar och rekommenderas därmed inte.
 * Därmed är det bra att se till att implicit konvertering av `Led`-instanser inte är tillåtet.  Detta kan åstadkommas genom att lägga till nyckelordet `explicit` framför konstruktorn, såsom visas nedan:

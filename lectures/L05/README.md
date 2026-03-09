@@ -3,13 +3,15 @@
 ## Dagordning
 * Grundläggande objektorientering i C++: klasser, inkapsling med mera.
 * Fördjupning: 
-    * Filorganisation för klasser - uppdelning i header- och sourcefiler.
-    * Kopierings- och förflyttningssemantik samt nyckelord `noexcept` och `explicit`.
+    * Filorganisation för klasser – uppdelning i header- och sourcefiler.
+    * Kopierings- och förflyttningssemantik.
+    * Nyckelord `explicit`, `final`, `default` samt `delete`.
 
 ## Mål med lektionen
 * Kunna skapa enkla klasser i C++.
-* Känna till innebörden av begrepp såsom *konstruktor* och *inkapsling*.
-* Kunna använda enumerationsklasser.
+* Känna till innebörden av begrepp såsom konstruktorer och inkapsling.
+* Känna till innebörden av nyckelorden `explicit`, `final`, `default` samt `delete`.
+* Kunna definiera och använda enumerationsklasser (`enum class`).
 
 ## Instruktioner
 
@@ -48,7 +50,7 @@ int main(void)
 * Två implementationer av klasser genomförs live under lektionen:
     * En enklare implementerad endast i en headerfil.
     * En mer utvecklad variant uppdelad i en header- och en källkodsfil.
-* Genomför följande [övningsuppgifter](./appendix/c_exercises.md):
+* Genomför övningsuppgifterna i [bilaga C](./appendix/c_exercises.md):
     * Ni får tid under lektionen att genomföra övningarna.
     * Lösningarna diskuteras därefter gemensamt i klassen.
 
@@ -57,8 +59,8 @@ int main(void)
 * Vad innebär inkapsling?
 * Vad är en konstruktor och när anropas den?
 * Vad är en destruktor och när anropas den?
-* Vad betyder nyckelordet `explicit`?
-* Vad används `noexcept` till?
+* Vad betyder nyckelorden `explicit` samt `final`?
+* Vad används nyckelorden `default` samt `delete` till?
 
 ---
 
