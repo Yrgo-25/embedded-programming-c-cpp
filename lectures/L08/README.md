@@ -18,10 +18,11 @@
 * Repetera innehållet i [L07](../L07/README.md).
 
 ## Repetition
-* Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
 * Fortsätt med [övningsuppgifterna](../L07/appendix/c_exercises.md) från föregående lektion.
+* Om ni blir färdiga, fortsätt gärna med övningsuppgifterna i [bilaga B](./appendix/b_exercises.md).
 
 ## Utvärdering
 * Vad är fördelen med att använda ett interface i denna uppgift?
