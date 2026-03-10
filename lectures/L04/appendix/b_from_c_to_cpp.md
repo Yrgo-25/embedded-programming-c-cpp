@@ -4,7 +4,7 @@
 
 ### 1. Varför använda C++ i inbyggda system?
 Inbyggda system använder i allt högre grad C++ eftersom det möjliggör:
-* Bättre abstraktion (via klasser och interface).
+* Bättre abstraktion (via klasser och interfaces).
 * Starkare typsäkerhet genom striktare kontroller vid kompileringstid.
 * Garantier vid kompileringstid (t.ex. `static_assert`, templates).
 * Förbättrad modularitet och tydligare ansvarsfördelning.
@@ -304,12 +304,44 @@ I detta fall kommer värdet `0U` automatiskt att användas för `level`.
 debug::log("Driver failure", 2U);
 ```
 
-Standardargument används ofta i inbyggd mjukvara för funktioner som har ett rimligt standardbeteende, till exempel:
+Defaultargument används ofta i inbyggd mjukvara för funktioner som har ett rimligt standardbeteende, till exempel:
 * Loggningssystem.
 * Konfigurationsfunktioner för drivrutiner.
 * Initialiseringsrutiner.
 
 De gör att API:er kan förbli flexibla samtidigt som vanlig användning hålls enkel.
+
+#### Placering av defaultargument
+I C++ måste defaultargument placeras sist i parameterlistan.
+
+Ett giltigt exempel visas nedan:
+
+```cpp
+void printValue(const std::uint32_t value, const bool hex = false) noexcept;
+```
+
+Denna funktion kan anropas på något av följande sätt:
+
+```cpp
+printValue(42U);
+printValue(42U, true);
+```
+
+Dock fungerar inte följande:
+
+```cpp
+void printValue(const std::uint32_t value = 0U, const bool hex) noexcept;
+```
+
+Detta är inte tillåtet eftersom den andra parametern saknar ett standardvärde, trots att den första har ett.
+
+Om detta hade varit tillåtet skulle ett anrop som detta:
+
+```cpp
+printValue(true);
+```
+
+bli otydligt och riskera att orsaka fel (`true` kan implicit konverteras till `value` som `1`).
 
 ---
 
@@ -580,6 +612,7 @@ Betrakta följande exempel för att sätta en bit `bit` i ett givet register `re
 * Vi kontrollerar datatypen med strukten `std::is_integral<T>` från `<type_traits>`, specifikt via dess medlemsvariabel `value`:
   * Om `T` är en heltalstyp är `std::is_integral<T>::value` `true` och assertionen lyckas.
   * Om `T` inte är en heltalstyp är `std::is_integral<T>::value` `false` och assertionen misslyckas.
+  * För mer information om type traits, se [Ytterligare information om type traits](#ytterligare-information-om-type-traits).
 * Värdet `1` typomvandlas till typen `T` med hjälp av `static_cast`, vilket är ett säkrare alternativ till vanliga C-casts.
 
 ```cpp
@@ -600,7 +633,7 @@ constexpr void set(T& reg, const std::uint8_t bit) noexcept
     static_assert(std::is_integral<T>::value,
         "Failed to set bit in register: T must be of integral type!");
 
-    reg |= (static_cast<T>(1) << bit);
+    reg |= (static_cast<T>(1U) << bit);
 }
 ```
 
@@ -628,8 +661,8 @@ set(reg2, 12U);
 Då genererar kompilatorn två separata versioner av funktionen:
 
 ```cpp
-set(std::uint8_t&, bit)
-set(std::uint32_t&, bit)
+set(std::uint8_t&, std::uint8_t)
+set(std::uint32_t&, std::uint8_t)
 ```
 
 **OBS!** Till skillnad från C kan funktioner i C++ ha samma namn så länge deras parameterlistor skiljer sig. Kompilatorn avgör då vid varje funktionsanrop vilken version som ska användas baserat på argumentens typer. Detta kallas funktionöverlagring (*function overloading*).
@@ -640,21 +673,21 @@ Varje version kompileras oberoende och inkluderas i den slutliga binären:
 * Av denna anledning bör templates användas med eftertanke i resursbegränsade system, särskilt när många olika datatyper är involverade.
 
 #### Parameter packs
-Vi kan även använda så kallade *parameter packs* för att sätta flera bitar samtidigt:
+Vi kan även implementera så kallade **parameter packs** så att flera bitar kan sättas samtidigt:
 
 ```cpp
 #include <cstdint>
 #include <type_traits>
 
 template<typename T, typename... Bits>
-constexpr void set(T& reg, const Bits&... bits) noexcept
+constexpr void set(T& reg, const Bits... bits) noexcept
 {
     static_assert(std::is_integral<T>::value,
         "Failed to set bit in register: T must be of integral type!");
 
     for (const auto& bit : {bits...})
     {
-        reg |= (static_cast<T>(1) << bit);
+        reg |= (static_cast<T>(1U) << bit);
     }
 }
 ```
@@ -667,6 +700,118 @@ std::uint8_t reg{};
 set(reg, 1U, 2U, 3U, 4U, 5U);
 ```
 
+Kompilatorn kommer då att generera kod som liknar följande:
+
+```cpp
+reg |= (static_cast<T>(1U) << 1U);
+reg |= (static_cast<T>(1U) << 2U);
+reg |= (static_cast<T>(1U) << 3U);
+reg |= (static_cast<T>(1U) << 4U);
+reg |= (static_cast<T>(1U) << 5U);
+```
+
+##### Fold expressions (C++17)
+I implementationen ovan itererar vi över bitarna med hjälp av en loop i kombination med en så kallad **braced initializer list**.  
+Detta tillvägagångssätt är lätt att läsa och liknar hur motsvarande logik ofta skrivs i C.
+
+Sedan C++17 kan vi skippa loopen genom att använda ett så kallat **fold expression**:
+
+```cpp
+(reg |= (static_cast<T>(1U) << bits), ...);
+```
+
+Detta uttryck expanderar parameter-packet `bits...` och utför operationen en gång för varje element.
+
+På grund av denna funktionalitet kan funktionen set() implementeras mer kompakt:
+
+```cpp
+template<typename T, typename... Bits>
+constexpr void set(T& reg, const Bits... bits) noexcept
+{
+    static_assert(std::is_integral<T>::value,
+        "Failed to set bit in register: T must be of integral type!");
+    (reg |= (static_cast<T>(1U) << bits), ...);
+}
+```
+
+---
+
+### Ytterligare information om type traits
+Type traits gör det möjligt för program att inspektera och resonera kring typer vid kompileringstid.
+
+I C++ standardbibliotek implementeras många type traits som struktar som innehåller ett statiskt konstant booleskt värde (statiskt innebär att värdet tillhör själva typen och inte en instans av strukten).
+
+Vi kan implementera en förenklad version av en type trait som kontrollerar om en typ är osignerad:
+
+```cpp
+template<typename T>
+struct isUnsigned
+{
+    static constexpr bool value{false};
+};
+```
+
+**OBS!**
+* Type traiten är inget annat än ett strukt-template som innehåller en boolesk konstant `value`.
+* Som standard är detta booleska värde `false` för alla typer `T`.
+* Vi kan specialisera templaten för specifika typer `T` så att `value` blir `true`, vilket visas nedan, där typerna `std::uint8_t`, `std::uint16_t`, `std::uint32_t`, `std::uint64_t` och `std::size_t` behandlas som osignerade typer:
+
+```cpp
+template<>
+struct isUnsigned<std::uint8_t>
+{
+    static constexpr bool value{true};
+};
+
+template<>
+struct isUnsigned<std::uint16_t>
+{
+    static constexpr bool value{true};
+};
+
+template<>
+struct isUnsigned<std::uint32_t>
+{
+    static constexpr bool value{true};
+};
+
+template<>
+struct isUnsigned<std::uint64_t>
+{
+    static constexpr bool value{true};
+};
+
+template<>
+struct isUnsigned<std::size_t>
+{
+    static constexpr bool value{true};
+};
+```
+
+Vi kan använda vårt egna type trait `isUnsigned<T>` för att kontrollera om en typ `T` är osignerad, vilket visas nedan:
+
+```cpp
+static_assert(isUnsigned<T>::value, "T must be of unsigned type!");
+```
+
+Sedan C++17 är det vanligt att även implementera ett variabeltemplate med ändelsen `_v` och som ger tillgång till det booleska värdet direkt:
+
+```cpp
+template<typename T>
+inline constexpr bool isUnsigned_v{isUnsigned<T>::value};
+```
+
+**Notering**: `inline` gör att vi kan definiera ovanstående variabeltemplate i en headerfil utan 
+att få kompileringsfel på grund av multipla definitioner.
+
+Detta variabeltemplate gör att vi kan skriva:
+
+```cpp
+static_assert(isUnsigned_v<T>, "T must be of unsigned type!");
+```
+
+I denna kurs kommer dock den traditionella formen `isUnsigned<T>::value` användas för tydlighet.
+
 ---
 
 ### Summering
@@ -674,7 +819,7 @@ Denna bilaga introducerade följande moderna C++-funktioner som ofta används i 
 * Namnrymder.
 * `constexpr` och konstanter vid kompileringstid.
 * `noexcept` och undantagshantering i inbyggda system.
-* Standardargument.
+* Defaultargument.
 * Struktar med medlemsfunktioner (metoder).
 * Referenser.
 * Funktionstemplates.
