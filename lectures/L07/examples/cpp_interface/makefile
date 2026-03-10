@@ -8,8 +8,8 @@ CXX_COMPILER := g++
 CXX_FLAGS := -Wall -Werror -std=c++17 -Iinclude
 
 # Source files.
-SOURCE_FILES := source/led/atmega328p.cpp\
-                source/led/esp32s3.cpp\
+SOURCE_FILES := source/driver/led/atmega328p.cpp\
+                source/driver/led/esp32s3.cpp\
                 source/main.cpp\
 
 # Build and run the application as default.

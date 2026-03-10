@@ -2,6 +2,7 @@
  * @brief Demonstration of interfaces for LEDs.
  */
 #include <chrono>
+#include <cstdint>
 #include <thread>
 
 #include "driver/led/atmega328p.h"
@@ -12,13 +13,13 @@ using namespace driver;
 namespace
 {
 // -----------------------------------------------------------------------------
-void delayMs(const std::size_t durationMs) noexcept
+void delayMs(const std::uint16_t durationMs) noexcept
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(durationMs));
 }
 
 // -----------------------------------------------------------------------------
-void blinkLed(driver::led::Interface& led, const std::size_t blinkTimeMs) noexcept
+void blinkLed(driver::led::Interface& led, const std::uint16_t blinkTimeMs) noexcept
 {
     // Toggle the LED, then delay the calling thread.
     led.toggle();
@@ -44,7 +45,9 @@ int main()
     driver::led::Esp32s3 led2{20U, true};
 
     // Blink the LEDs ten times, then terminate the program.
-    for (std::size_t i{}; i < 10U; ++i) 
+    constexpr std::uint16_t iterations{10U};
+
+    for (std::uint16_t i{}; i < iterations; ++i) 
     { 
         blinkLed(led1, 1000U);
         blinkLed(led2, 500U); 

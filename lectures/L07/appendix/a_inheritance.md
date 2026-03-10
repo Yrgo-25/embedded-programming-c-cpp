@@ -15,11 +15,11 @@ namespace driver
 class Gpio final
 {
 public:
-    explicit Gpio(const std::uint8_t pin) noexcept;
+    explicit Gpio(std::uint8_t pin) noexcept;
     ~Gpio() noexcept;
 
     bool read() const noexcept;
-    void write(const bool enable) noexcept;
+    void write(bool enable) noexcept;
 
     Gpio()                       = delete;
     Gpio(const Gpio&)            = delete;
@@ -28,7 +28,7 @@ public:
     Gpio& operator=(Gpio&&)      = delete;
 
 protected:
-    // Add GPIO-specific functions for initialization and such here.
+    // Add GPIO-specific methods for initialization and such here.
     void init() noexcept;
 
     /** The pin the GPIO is connected to.*/
@@ -50,8 +50,8 @@ internt i underklassen.
 * **Skyddat arv** Publika och skyddade medlemmar i basklassen blir skyddade i underklassen. Fungerar alltså som privat arv, med skillnaden att eventuella underklasser till aktuell underklass också får åtkomst till basklassen internt.
 
 Nedan visas ett exempel på publikt arv, där en klass döpt `driver::Led` ärver GPIO-funktionaliten från klassen `driver::Gpio`:
-* Funktionerna `write` och `read` från basklassen `driver::Gpio` kan därmed användas av instanser av klassen `driver::Led`, alltså lysdioder. 
-* En ny metod, `toggle`, har lagts till för att toggla lysdioden:
+* Metoderna `write()` och `read()` från basklassen `driver::Gpio` kan därmed användas av instanser av klassen `driver::Led`, alltså lysdioder. 
+* En ny metod, `toggle()`, har lagts till för att toggla lysdioden:
 
 ```cpp
 namespace driver
@@ -59,7 +59,7 @@ namespace driver
 class Led final : public Gpio
 {
 public:
-    explicit Led(const std::uint8_t pin) noexcept;
+    explicit Led(std::uint8_t pin) noexcept;
     ~Led() noexcept;
 
     void toggle() noexcept;
@@ -80,7 +80,7 @@ Notera att:
 Ibland kan det dock vara önskvärt att kunna ärva implementationen för test och då får detta
 nyckelord slopas.
 
-Genom att ärva klassen `driver::Gpio` slapp vi lägga till en medlemsvariabel som håller lysdiodens pin-nummer samt rutiner för att skriva eller läsa lysdiodens utsignal. I stället kan vi enkelt skapa en lysdiod via klassen `driver::Led`s konstruktor och sedan använda metoderna `write` och `read` för att styra lysdioden:
+Genom att ärva klassen `driver::Gpio` slapp vi lägga till en medlemsvariabel som håller lysdiodens pin-nummer samt rutiner för att skriva eller läsa lysdiodens utsignal. I stället kan vi enkelt skapa en lysdiod via klassen `driver::Led`s konstruktor och sedan använda metoderna `write()` och `read()` för att styra lysdioden:
 
 ```cpp
 // Create an LED connected to pin 9.
@@ -93,7 +93,7 @@ led1.write(true);
 På samma sätt hade vi kunnat skapa en underklass döpt `driver::Button` för att kunna styra en knapp.
 I detta fall har en metod lagts till för att aktivera/inaktivera avbrott vid nedtryckning
 av tryckknappen. Motsvarande metod för att kolla om avbrott är aktiverat har också lagts till.
-Eftersom knappen inte ska kunna styras ser vi till att metoden `write` är privat;
+Eftersom knappen inte ska kunna styras ser vi till att metoden `write()` är privat;
 vi kan inte radera ärvda metoder, men vi kan ändra synligheten.
 
 ```cpp
@@ -102,10 +102,10 @@ namespace driver
 class Button final : public Gpio
 {
 public:
-    explicit Button(const std::uint8_t pin) noexcept;
+    explicit Button(std::uint8_t pin) noexcept;
     ~Button() noexcept;
 
-    void enableInterrupt(const bool enable) noexcept;
+    void enableInterrupt(bool enable) noexcept;
     bool isInterruptEnabled() const noexcept;
 
     Button()                         = delete;
@@ -115,7 +115,7 @@ public:
     Button& operator=(Button&&)      = delete;
 
 private:
-    void write(const bool enable) noexcept;
+    void write(bool enable) noexcept;
 };
 } // namespace driver
 ```

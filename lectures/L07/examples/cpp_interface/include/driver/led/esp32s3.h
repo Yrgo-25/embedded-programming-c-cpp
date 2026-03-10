@@ -66,7 +66,7 @@ private:
     /**
      * @brief Initialize the LED.
      */
-    void init(const bool initialState) noexcept;
+    void init(bool initialState) noexcept;
 
     /** The pin the LED is connected to. */
     std::uint8_t myPin;
