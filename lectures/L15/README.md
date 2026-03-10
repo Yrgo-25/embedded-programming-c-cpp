@@ -25,7 +25,7 @@
 * För ytterligare information, se följande [video tutorial](https://www.youtube.com/watch?v=mbRiN_QmjUY), som behandlar enkla funktionstemplates utan type traits.
 
 ### Repetition
-* Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
 * Följ genomgången av templates, type traits och constraints. Fundera på om detta är något ni kan använda i era drivers.

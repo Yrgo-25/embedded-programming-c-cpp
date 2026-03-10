@@ -1,7 +1,6 @@
 # Bilaga C
 
 ## Övningar
-Dessa övningar tränar koncept från [Bilaga A](a_classes1.md) och [bilaga B](./b_classes2.md).
 
 ---
 

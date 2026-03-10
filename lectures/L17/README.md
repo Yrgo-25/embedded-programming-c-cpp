@@ -23,7 +23,7 @@
 * Läs [bilaga B](./appendix/b_threads_mutex_atomic.md), som behandlar just flertrådning och synkroniseringsmekanismer i C++.
 
 ### Repetition
-* Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
 * Fundera på om flertrådning kan vara lämpligt i **P03**:

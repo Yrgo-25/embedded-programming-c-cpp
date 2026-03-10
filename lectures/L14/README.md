@@ -26,7 +26,7 @@ med smarta pekare.
 * Läs igenom factory-delen i [P03](../../projects/P03/README.md).
 
 ### Repetition
-* Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
 * Följ genomgången av smarta pekare och factory-mönstret.

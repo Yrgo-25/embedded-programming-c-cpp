@@ -17,10 +17,10 @@
 * Repetera innehållet i [L01](../L01/README.md).
 
 ### Repetition
-* Genomför följande [repetitionsuppgift](./appendix/a_repetition.md).
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
-* Genomför följande [övningsuppgifter](./appendix/b_exercises.md):
+* Genomför övningsuppgifterna i [bilaga B](./appendix/b_exercises.md):
     * Ni får tid under lektionen att genomföra övningarna.
     * Lösningarna diskuteras därefter gemensamt i klassen.
 
