@@ -2,7 +2,8 @@
 
 ## Driver-factory med smarta pekare (Abstract Factory)
 I denna bilaga vidareutvecklar vi factory‑exemplet från 
-[föregående lektion](../../L13/appendix/factory_raw_pointers.md).
+[föregående lektion](../../L13/appendix/a_factory_raw_pointers.md).
+
 Vi ersätter råa pekare med smarta pekare och använder ett mer fullständigt **Abstract Factory‑mönster**.
 
 Syftet är att:
@@ -63,14 +64,15 @@ return std::make_unique<gpio::Esp32s3>(pin);
 `std::make_unique`:
 * Skapar objektet.
 * Returnerar en `std::unique_ptr`.
-* Säkerhetställer säker och tydlig konstruktion.
+* Säkerställer säker och tydlig konstruktion.
 
 ---
 
 ### Undantag och `noexcept`
 I C++ kan minnesallokering misslyckas. När vi använder `new` eller `std::make_unique()` kan ett undantag (`std::bad_alloc`) kastas om systemet inte kan allokera minne.
 
-I inbyggda system används ofta inte undantag, eller så vill man ha ett förutsägbart beteende vid fel. Därför används ofta `noexcept` i driver- och factory-interface ändå.
+I inbyggda system används ofta inte undantag, eller så vill man ha ett förutsägbart beteende vid fel. Därför väljer man i vissa inbyggda system ändå att märka driver- och
+factory-interface med `noexcept`.
 
 Exempel:
 
@@ -210,6 +212,11 @@ public:
         , myButton{factory.gpio(buttonPin)}
     {}
 
+    ~Logic() noexcept
+    {
+        myLed->write(false);
+    }
+
     void run(const bool& stop) noexcept
     {
         bool buttonPrev{false};
@@ -261,7 +268,7 @@ int main()
 
     // Create system logic and initialize the system.
     driver::factory::Esp32s3 factory{};
-    Logic logic{factory, ledPin, buttonPin};
+    system::logic::Logic logic{factory, ledPin, buttonPin};
 
     // Run the system continuously.
     bool stop{false};
