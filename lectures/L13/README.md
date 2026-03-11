@@ -22,7 +22,7 @@
 ## Instruktioner
 
 ### Förberedelse
-* Läs igenom [bilaga A](./appendix/factory_raw_pointers.md) för information om factories.
+* Läs igenom [bilaga A](./appendix/a_factory_raw_pointers.md) för information om factories.
 
 ### Under lektionen
 * Lyssna på genomgången av factory-mönstret.
@@ -39,12 +39,6 @@
 * Riktiga drivers påbörjade eller implementerade.
 * Systemlogiken kompilerar mot stubbar.
 * Grundläggande funktionalitet i systemet påbörjad.
-
-### Ni ska kunna
-* Förklara vad factory-mönstret gör.
-* Förklara hur factory möjliggör byte av drivers.
-* Beskriva hur systemlogiken kan använda en factory.
-* Förklara vem som äger driver-objekten i rå-pekare-exemplet.
 
 ## Utvärdering
 1. Vad är syftet med factory-mönstret?
