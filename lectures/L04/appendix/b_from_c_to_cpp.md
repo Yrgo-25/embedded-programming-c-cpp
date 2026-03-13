@@ -214,7 +214,8 @@ constexpr int add(const int x, const int y) { return x + y; }
 ### 5. `noexcept`
 Nyckelordet `noexcept` anger att en funktion garanterat inte kastar undantag.
 
-Som referens visas nedan ett exempel där ett undantag kastas. I detta exempel kastas ett undantag om värdet på `x` överstiger `100U`:
+Som referens visas nedan ett exempel där ett undantag kastas.
+I detta exempel kastas ett undantag om värdet på `val` överstiger `100U`:
 
 ```cpp
 #include <cstdint>
@@ -222,21 +223,21 @@ Som referens visas nedan ett exempel där ett undantag kastas. I detta exempel k
 
 int main()
 {
-    constexpr std::size_t limit{100U};
-    std::uint8_t x{};
+    constexpr std::uint8_t limit{100U};
+    std::uint8_t val{};
     
     while (1)
     {
-        if (x++ >= limit)
+        if (limit < val++)
         {
-            throw std::invalid_argument("This is an exception!");
+            throw std::out_of_range("Value exceeded limit!");
         }
     }
     return 0;
 }
 ```
 
-Undantag (*exceptions*) är en mekanism som används i många C++-program för att signalera fel vid körningstid:
+Undantag (**exceptions**) är en mekanism som används i många C++-program för att signalera fel vid körningstid:
 * När ett undantag kastas börjar programmet med **stack unwinding**, vilket innebär att anropsstacken gås igenom tills ett matchande `catch`-block hittas.
 * Om en funktion som är markerad `noexcept` försöker kasta ett undantag kommer programmet att termineras omedelbart.
 
@@ -407,6 +408,8 @@ driver::Gpio led{9U, false};
 // Initialize button connected to pin 13, simulate pressdown at startup.
 driver::Gpio button{13U, true};
 ```
+
+Observera att nyckelordet `struct`, till skillnad från i C, inte behöver användas när man skapar en instans av en strukt i C++ och kan därmed utelämnas.
 
 Funktionerna kan sedan anropas med punktoperatorn, precis som datamedlemmarna:
 
@@ -665,7 +668,7 @@ set(std::uint8_t&, std::uint8_t)
 set(std::uint32_t&, std::uint8_t)
 ```
 
-**OBS!** Till skillnad från C kan funktioner i C++ ha samma namn så länge deras parameterlistor skiljer sig. Kompilatorn avgör då vid varje funktionsanrop vilken version som ska användas baserat på argumentens typer. Detta kallas funktionöverlagring (*function overloading*).
+**OBS!** Till skillnad från C kan funktioner i C++ ha samma namn så länge deras parameterlistor skiljer sig. Kompilatorn avgör då vid varje funktionsanrop vilken version som ska användas baserat på argumentens typer. Detta kallas funktionöverlagring (**function overloading**).
 
 Varje version kompileras oberoende och inkluderas i den slutliga binären:
 * Detta beteende är en av anledningarna till att templates betraktas som **zero-cost abstractions**; den genererade koden specialiseras för exakt den typ som används, vilket gör att kompilatorn kan optimera implementationen.
