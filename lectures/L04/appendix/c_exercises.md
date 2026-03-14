@@ -1,13 +1,13 @@
 # Bilaga C
 
 ## Övningar
-Dessa övningar tränar koncept från [Bilaga B](./b_from_c_to_cpp.md).
+Dessa övningar tränar koncepten från [Bilaga B](./b_from_c_to_cpp.md).
 
 ---
 
 ## Övningsset 1 – Standardargument och funktioner
 
-### Övning 1.1 – Debug-loggare
+### Övning 1.1 – Debug logger
 Skapa en namnrymd `debug` som innehåller en funktion:
 
 ```cpp
@@ -54,169 +54,145 @@ Uppgifter:
 
 ---
 
-## Övningsset 2 – Struktdrivers
+## Övningsset 2 – Struktdriver
 
-### Övning 2.1 – UART-stubbdriver
-I ett nytt program, skapa en enkel UART-driver:
+### Övning 2.1 – Mjukvarutimer
+I denna övning ska du implementera en enkel mjukvarutimer-driver `driver::Timer` i en headerfil `driver/timer.h`.
 
-```cpp
-namespace driver
-{
-struct Uart
-{
-    const std::uint32_t baudrate;
-    bool initialized;
-
-    void init() noexcept;
-    void send(std::uint8_t byte) const noexcept;
-};
-} // namespace driver
-```
-
-Uppgifter:
-1. Implementera de två metoderna:
-   * `init()` ska sätta `initialized` till `true`.
-   * `send()` ska skriva ut den givna byten med `std::printf` från `<cstdio>`:
-     * Skriv endast ut byten om UART:en är initialiserad, dvs. om `initialized` är `true`.
-     * Skriv ut byten som ett osignerat heltal med format-specifikatorn `%u`.
-
-2. Skapa ett UART-objekt:
+Lägg till följande rader högst upp i filen:
 
 ```cpp
-driver::Uart uart{9600U, false};
+/**
+ * @brief Timer driver implementation.
+ */
+#pragma once
+
+#include <cstdint>
+#include <cstdio>
 ```
 
-3. Försök att skicka några bytes innan UART:en initialiseras.  
-Säkerställ att inget skrivs ut i terminalen.
+Drivern ska simulera en timer som räknar millisekunder och genererar en timeout när ett konfigurerat timeout-värde nås.
 
-4. Anropa `init()` och skicka några bytes igen.  
-Säkerställ att byten skrivs ut i terminalen.
+Strukten ska:
+* Använda privata medlemsvariabler med prefixet `my`.
+* Ha en konstruktor.
+* Ha en destruktor.
+
+Använd `std::printf` från `<cstdio>` för terminalutskrifter.
 
 ---
 
-### Övning 2.2 – Sensor-stubbdriver
-I samma program som i Övning 2.1, skapa en enkel stubb för en digital sensor:
+### a) Privata medlemsvariabler
+Lägg till tre privata medlemsvariabler:
+* Den första medlemsvariabeln ska:
+  * Lagra timeout i millisekunder.
+  * Ha typen `const std::uint16_t`.
+  * Heta `myTimeout_ms`.
+* Den andra medlemsvariabeln ska:
+  * Lagra den interna räknaren i millisekunder.
+  * Ha typen `std::uint16_t`.
+  * Heta `myCounter_ms`.
+* Den tredje medlemsvariabeln ska:
+  * Ange om timern körs.
+  * Ha typen `bool`.
+  * Heta `myRunning`.
 
-```cpp
-namespace driver
-{
-struct Sensor
-{
-    std::int16_t value;
-    bool enabled;
+---
 
-    void enable() noexcept;
-    void disable() noexcept;
-    std::int16_t read() const noexcept;
-};
-} // namespace driver
-```
+### b) Konstruktor
+Lägg till en konstruktor som:
+* Tar två parametrar:
+  * Timeout i millisekunder.
+  * Startläget, som ska vara `false` som default.
+* Initierar:
+  * `myTimeout_ms` med det angivna timeout-värdet.
+  * `myCounter_ms` med `0U`.
+  * `myRunning` med `false`.
+* Skriver ut att timern skapas.
+* Anropar den publika metoden `start()` om startläget är `true`.
 
-Uppgifter:
-1. Implementera de tre metoderna:
-    * `enable()` ska sätta `enabled` till `true`.
-    * `disable()` ska sätta `enabled` till `false`.
-    * `read()` ska returnera `value` om `enabled` är `true`, annars `0`.
-
-2. Skapa en sensorinstans:
-    * Ge instansen namnet `tempSensor`.
-    * Sätt sensorvärdet till `25`.
-    * Sätt sensorn till inaktiverad vid uppstart.
-
-3. Skapa en UART-instans från Övning 2.1 och initialisera den så att temperaturen kan skrivas ut.
-
-4. Läs värdet. Säkerställ att värdet är `0`, eftersom sensorn är inaktiverad.
-
-5. Aktivera sensorn och läs värdet igen. Säkerställ att värdet är `25`.
-
-Exempel på utdata:
+Exempelutskrift:
 
 ```text
-Temperature reading 1: 0
-Temperature reading 2: 25
+Creating timer!
 ```
 
----
+### c) Destruktor
+Lägg till en destruktor som:
+* Anropar den publika metoden `stop()`.
+* Skriver ut att timern förstörs.
 
-### Övning 2.3 – Mjukvarutimer
-Skapa en enkel timer-driver:
+Exempelutskrift:
 
-```cpp
-namespace driver
-{
-struct Timer
-{
-    const std::uint32_t timeout_ms;
-    std::uint32_t counter_ms;
-    bool running;
-
-    void start() noexcept;
-    void stop() noexcept;
-    void toggle() noexcept;
-    void tick() noexcept;
-    bool timeout() noexcept;
-};
-} // namespace driver
+```text
+Destroying timer!
 ```
 
-Uppgifter:
-1. Implementera de fem metoderna:
-    * `start()` ska sätta `running` till `true`.
-    * `stop()` ska sätta `running` till `false`.
-    * `toggle()` ska toggla värdet på `running`.
-    * `tick()` ska öka `counter_ms` om `running` är `true`, annars göra ingenting.
-    * `timeout()` ska returnera `true` om `counter_ms >= timeout_ms`, annars `false`:
-        * `counter_ms` ska återställas till `0` om `counter_ms >= timeout_ms`.
+### d) Publika metoder
+Lägg till följande publika metoder:
+* `timeout_ms()` ska:
+    * Returnera `myTimeout_ms`.
+* `isRunning()` ska:
+    * Returnera `myRunning`.
+* `start()` ska:
+  * Sätta `myRunning` till `true`.
+  * Skriva ut `Starting timer!`.
+* `stop()` ska:
+  * Sätta `myRunning` till `false`.
+  * Skriva ut `Stopping timer!`.
+* `toggle()` ska:
+  * Toggla `myRunning`.
+  * Skriva ut att timern togglades och om den nu körs eller är stoppad:
+    * `Toggling timer: running!` när den är aktiv.
+    * `Toggling timer: stopped!` när den är inaktiv.
+* `tick()` ska:
+  * Öka `myCounter_ms` om `myRunning` är `true` (det motsvarar att `1 ms` har passerat).
+  * Annars ska inget göras.
+* `hasTimedOut()` ska:
+  * Returnera `true` om `myCounter_ms >= myTimeout_ms`, annars `false`.
+  * Om `myCounter_ms >= myTimeout_ms`:
+    * `myCounter_ms` ska återställas till `0U`.
 
-2. Skapa en timerinstans:
-    * Ge instansen namnet `timer`.
-    * Sätt timeouten till `1000 ms`.
-    * Initiera den interna räknaren till `0`.
-    * Sätt timern till körande vid uppstart.
+### e) Skapa och använd en timerinstans
+I `main()`:
+* Skapa en timerinstans:
+  * Ge instansen namnet `timer`.
+  * Sätt timeout till `1000 ms`.
+  * Sätt timern till körande vid uppstart.
+* Skapa en loop som kör i `5000` iterationer:
+  * Anropa `tick()` i varje iteration.
+  * Anropa `hasTimedOut()` för att kontrollera om timern har löpt ut.
+  * Skriv ut `Timeout after x ms!`, där `x` är det konfigurerade timeout-värdet, varje gång timern löper ut.
 
-3. Skapa en loop som körs i 5000 iterationer:
-    * Anropa `tick()` i varje iteration.
-    * Anropa `timeout()` för att kontrollera om timern har löpt ut.
-    * Skriv ut `Timeout!` med `std::printf` från `<cstdio>` varje gång timern genererar en timeout.
+Eftersom timerns timeout är `1000 ms` och loopen kör i `5000` iterationer ska timern generera fem timeouter.
+
+Exempelutskrift:
+
+```text
+Creating timer!
+Starting timer!
+Timeout after 1000 ms!
+Timeout after 1000 ms!
+Timeout after 1000 ms!
+Timeout after 1000 ms!
+Timeout after 1000 ms!
+Stopping timer!
+Destroying timer!
+```
 
 ---
 
 ## Övningsset 3 – Referenser
 
-### Övning 3.1 – Tilldela värde
-I ett nytt program, implementera följande funktion i en anonym namnrymd:
-
-```cpp
-constexpr void assign(std::uint8_t& byte) noexcept;
-```
-
-Uppgifter:
-1. Tilldela värdet `0xFFU` till `byte`.
-2. Testa funktionen med:
-
-```cpp
-std::uint8_t num{};
-assign(num);
-std::printf("num = %u\n", static_cast<unsigned>(num));
-```
-
-Förväntad utdata:
-
-```cpp
-num = 255
-```
-
----
-
-### Övning 3.2 – Byt värden
-Implementera följande funktion i samma anonyma namnrymd som i Övning 3.1:
+### Övning 3.1 – Swappa värden
+Implementera följande funktion i en anonym namnrymd:
 
 ```cpp
 constexpr void swap(std::uint32_t& a, std::uint32_t& b) noexcept;
 ```
 
 Uppgifter:
-1. Byt värdena med hjälp av en temporär variabel `temp`.
+1. Swappa värdena med hjälp av en temporär variabel `temp`.
 2. Testa funktionen med två variabler.
 
 Exempel på utdata:
@@ -231,12 +207,14 @@ After swap: a = 10, b = 3
 ## Övningsset 4 – Bitmanipulation med templates
 
 ### Övning 4.1 – Rensa bit
-I en ny fil, skapa en funktionstemplate i en anonym namnrymd som rensar en bit i ett register:
+Skapa ett funktionstemplate som nollställer en bit i ett register:
 
 ```cpp
 template<typename T>
 constexpr void clear(T& reg, std::uint8_t bit) noexcept;
 ```
+
+Implementera detta funktionstemplate i en anonym namnrymd.
 
 Uppgifter:
 1. Använd `static_assert` i kombination med `std::is_integral<T>::value` från `<type_traits>` för att säkerställa att `T` är en heltalstyp.
@@ -251,7 +229,7 @@ Exempel på användning:
 ```cpp
 std::uint8_t reg{0xFFU};
 clear(reg, 2U);
-std::cout << "Register content: " << std::bitset<8>(reg) << "\n";
+std::cout << "Register content: " << std::bitset<8U>(reg) << "\n";
 ```
 
 Förväntad utdata:
@@ -262,16 +240,18 @@ Register content: 11111011
 
 ---
 
-### Övning 4.2 – Toggla en bit
-Skapa en funktionstemplate för att toggla en eller flera bitar i ett register med hjälp av ett parameter pack i samma anonyma namnrymd som i Övning 4.1:
+### Övning 4.2 – Toggla en eller flera bitar
+Skapa ett funktionstemplate för att toggla en eller flera bitar i ett register med hjälp av ett parameterpack:
 
 ```cpp
 template<typename T, typename... Bits>
-void toggle(T& reg, const Bits&... bits) noexcept;
+void toggle(T& reg, const Bits... bits) noexcept;
 ```
 
+Implementera detta funktionstemplate i samma anonyma namnrymd som Övning 4.1.
+
 Uppgifter:
-1. Använd ett parameter pack.
+1. Använd ett parameterpack.
 2. Säkerställ att typen är en heltalstyp som i Övning 4.1.
 3. Iterera över bitarna (till exempel med `{bits...}`).
 4. Toggla alla angivna bitar i registret.
@@ -285,7 +265,7 @@ Exempel på användning:
 std::uint8_t reg{0xFFU};
 clear(reg, 2U);
 toggle(reg, 0U, 2U, 4U, 6U);
-std::cout << "Register content: " << std::bitset<8>(reg) << "\n";
+std::cout << "Register content: " << std::bitset<8U>(reg) << "\n";
 ```
 
 Förväntad utdata:

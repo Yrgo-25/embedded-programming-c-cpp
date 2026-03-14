@@ -347,10 +347,10 @@ bli otydligt och riskera att orsaka fel (`true` kan implicit konverteras till `v
 ---
 
 ### 7. Struktar med medlemsfunktioner (metoder)
-I C++ kan en strukt inte bara innehålla datamedlemmar utan även medlemsfunktioner, eller metoder som de vanligtvis kallas.  
-Detta gör att relaterad data och operationer kan grupperas tillsammans i en och samma typ.
+I C++ kan en `struct` innehålla inte bara datamedlemmar utan även medlemsfunktioner, ofta kallade metoder.  
+Detta gör det möjligt att gruppera relaterad data och operationer tillsammans i en och samma typ.
 
-Betrakta följande `GPIO`-drivrutin, implementerad som en stubb (för simulering):
+Betrakta följande GPIO-drivrutin `driver::Gpio`, implementerad som en stubb (för simulering):
 
 ```cpp
 #include <cstdint>
@@ -453,7 +453,7 @@ void gpio_write(gpio_t* self, const bool state)
 /**
  * @brief Get GPIO state.
  *
- * @param[in, out] self Pointer to the GPIO.
+ * @param[in] self Pointer to the GPIO.
  *
  * @return True if the GPIO is enabled, false otherwise.
  */
@@ -467,7 +467,7 @@ Instanser av strukten kan sedan skapas och användas som visas nedan:
 
 ``` cpp
 // Initialize LED connected to pin 9, state set to false.
-gpio_t led    = {9U, false};
+gpio_t led = {9U, false};
 
 // Initialize button connected to pin 13, simulate pressdown at startup.
 gpio_t button = {13U, true};
@@ -493,7 +493,277 @@ led.write(true);
 
 C++-syntaxen förbättrar läsbarheten och håller relaterad funktionalitet samlad, vilket gör koden lättare att förstå och underhålla.
 
-Senare i kursen kommer vi introducera klasser, som vidareutvecklar detta koncept genom att stödja funktioner såsom inkapsling, arv och polymorfism.
+#### Konstruktor och destruktor
+Det är också möjligt att lägga till metoder för initiering och cleanup. Dessa metoder kallas:
+* Konstruktor: 
+    * Har samma namn som strukten.
+    * Anropas automatiskt när ett objekt skapas.
+    * Kan användas för att automatiskt initiera ett objekt vid skapandet (till exempel pin-konfiguration).
+    * Till exempel kan en konstruktor för GPIO-strukten ovan implementeras enligt följande:
+
+```cpp
+/**
+ * @brief Constructor.
+ *
+ * @param[in] pin Pin the GPIO is connected to.
+ * @param[in] initialState Initial state (default = disabled).
+ */
+Gpio(const std::uint8_t pin, const bool initialState = false) noexcept
+    : pin{pin}
+    , state{initialState}
+{
+    std::printf("Initializing GPIO at pin %u!\n", pin);
+    // Configure pin here!
+}
+```
+
+* Destruktor:
+    * Har samma namn som strukten, men med prefixet `~`.
+    * Anropas automatiskt när ett objekt förstörs.
+    * Detta sker till exempel när ett objekt går ur scope eller när `delete` används.
+    * Kan användas för att automatiskt frigöra allokerade resurser eller ångra hårdvarurelaterad konfiguration.
+    * Används ofta för att frigöra periferienheter, stänga av avbrott eller återställa hårdvarutillstånd i inbyggda system.
+
+```cpp
+/**
+ * @brief Destructor.
+ */
+~Gpio() noexcept
+{
+    std::printf("Releasing resources reserved for GPIO at pin %u!\n", pin);
+    // Release allocated resources here.
+}
+```
+
+Efter att konstruktorn och destruktorn har lagts till ser strukten `driver::Gpio` ut så här:
+
+```cpp
+#include <cstdint>
+#include <cstdio>
+
+namespace driver
+{
+/**
+ * @brief GPIO stub driver.
+ */
+struct Gpio
+{
+    /** Pin the GPIO is connected to. */
+    const std::uint8_t pin;
+
+    /** GPIO state. */
+    bool state;
+
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] pin Pin the GPIO is connected to.
+     * @param[in] initialState Initial state (default = disabled).
+     */
+    Gpio(const std::uint8_t pin, const bool initialState = false) noexcept
+        : pin{pin}
+        , state{initialState}
+    {
+        std::printf("Initializing GPIO at pin %u!\n", pin);
+        // Configure pin here!
+    }
+    
+    /**
+     * @brief Destructor.
+     */
+    ~Gpio() noexcept
+    {
+        std::printf("Releasing resources reserved for GPIO at pin %u!\n", pin);
+        // Release allocated resources here.
+    }
+
+    /**
+     * @brief Set GPIO state.
+     * 
+     * @param[in] state GPIO state (true = enabled, false = disabled).
+     */
+    void write(const bool state) noexcept
+    {
+        // Note: The 'this' keyword refers to the current object.
+        // It is used here because the parameter name 'state' hides the member variable.
+        this->state = state;
+    }
+
+    /**
+     * @brief Get GPIO state.
+     *
+     * @return True if the GPIO is enabled, false otherwise.
+     *
+     * @note The 'const' keyword is used after the method name to set the GPIO instance to
+     *       read-only in the scope of this method.
+     */
+    bool read() const noexcept { return state; }
+};
+} // namespace driver
+```
+
+Innan en konstruktor definieras kan strukten initieras med hjälp av aggregate initialization. När en användardefinierad konstruktor har lagts till kan samma klammer-syntax fortfarande användas, men nu anropas i stället konstruktorn.
+
+Som exempel, följande initiering:
+
+```cpp
+int main()
+{
+    driver::Gpio led{9U, false};
+    led.write(true);
+}
+```
+
+kommer att generera följande utskrift, då konstruktorn och destruktorn anropas automatiskt:
+
+```text
+Initializing GPIO at pin 9!
+Releasing resources reserved for GPIO at pin 9!
+```
+
+Detta illustrerar idén bakom **RAII** (*Resource Acquisition Is Initialization*):
+* Initiering sker när objektet skapas.
+* Cleanup sker automatiskt när objektet förstörs.
+
+#### Introduktion till inkapsling
+I C++ kan delar av en strukt göras privata med hjälp av nyckelordet `private`, vilket visas nedan för `driver::Gpio`-strukten:
+* Nyckelordet `public` har lagts till för tydlighet; i en C++-strukt är allt publikt som standard.
+* Nyckelordet `private` har lagts till för att skapa ett privat segment.
+* Medlemsvariablerna och metoderna har tagits bort för enkelhetens skull.
+
+```cpp
+namespace driver
+{
+struct Gpio
+{
+public:
+    // Public segment - accessible outside the struct.
+private:
+    // Private segment - inaccessible outside the struct.
+};
+} // namespace driver
+```
+
+Att använda nyckelordet `private` har en stor fördel:
+* Symboler (medlemsvariabler, konstanter och metoder) som deklareras i det privata segmentet är inte åtkomliga utanför strukten.
+* Detta gör det möjligt att dölja implementationsdetaljer och data som inte ska nås direkt av andra delar av programmet.
+* I många designer deklareras medlemsvariabler som privata. Detta säkerställer att objektets interna tillstånd endast kan ändras genom dess medlemsfunktioner.
+
+Till exempel sätts medlemsvariabler, såsom i GPIO-strukten ovan, vanligtvis till privata, vilket visas nedan:
+* Det privata segmentet placeras vanligtvis längst ned i strukten, medan det publika interfacet (konstruktorer och metoder) placeras först. Detta gör det enklare att se hur strukten ska användas.
+* Här lägger vi till prefixet `my` för att göra det tydligt att detta är medlemsvariabler och för att minska behovet av att använda nyckelordet `this` (`this->state = state` användes tidigare).
+
+```cpp
+namespace driver
+{
+struct Gpio
+{
+private:
+    /** Pin the GPIO is connected to. */
+    const std::uint8_t myPin;
+
+    /** GPIO state. */
+    bool myState;
+};
+} // namespace driver
+```
+
+**OBS!** Kodsnutten ovan visar endast det privata segmentet av `driver::Gpio`.
+
+Sedan uppdaterar vi strukten:
+* Medlemsvariablerna `pin` och `state` ersätts med `myPin` och `myState`.
+* Metoden `pin()` läggs till så att användare fortfarande kan läsa pin-numret.
+
+
+```cpp
+#include <cstdint>
+#include <cstdio>
+
+namespace driver
+{
+/**
+ * @brief GPIO stub driver.
+ */
+struct Gpio
+{
+    /**
+     * @brief Constructor.
+     *
+     * @param[in] pin Pin the GPIO is connected to.
+     * @param[in] initialState Initial state (default = disabled).
+     */
+    Gpio(const std::uint8_t pin, const bool initialState = false) noexcept
+        : myPin{pin}
+        , myState{initialState}
+    {
+        std::printf("Initializing GPIO at pin %u!\n", myPin);
+        // Configure pin here!
+    }
+    
+    /**
+     * @brief Destructor.
+     */
+    ~Gpio() noexcept
+    {
+        std::printf("Releasing resources reserved for GPIO at pin %u!\n", myPin);
+        // Release allocated resources here.
+    }
+
+    /**
+     * @brief Get GPIO pin number.
+     *
+     * @return Pin the GPIO is connected to.
+     */
+    std::uint8_t pin() const noexcept { return myPin; }
+
+    /**
+     * @brief Set GPIO state.
+     * 
+     * @param[in] state GPIO state (true = enabled, false = disabled).
+     */
+    void write(const bool state) noexcept { myState = state; }
+
+    /**
+     * @brief Get GPIO state.
+     *
+     * @return True if the GPIO is enabled, false otherwise.
+     */
+    bool read() const noexcept { return myState; }
+
+private:
+    /** Pin the GPIO is connected to. */
+    const std::uint8_t myPin;
+
+    /** GPIO state. */
+    bool myState;
+};
+} // namespace driver
+```
+
+Efter att medlemsvariablerna har gjorts privata kommer kompilatorn att generera ett fel om vi försöker komma åt dem direkt:
+
+```cpp
+int main()
+{
+    driver::Gpio led{9U};
+
+    // Allowed: pin() provides controlled read access to the pin number.
+    std::printf("The LED is connected to pin %u!\n", led.pin());
+
+    // Allowed: write() is part of the public interface.
+    led.write(true);
+
+    // Not allowed: myPin is private.
+    // std::printf("Pin: %u!\n", led.myPin);
+
+    // Not allowed: myState is private.
+    // led.myState = true;
+}
+```
+
+Senare i kursen kommer vi att introducera klasser:
+* I C++ stöder struktar och klasser nästan samma språkfunktioner, men klasser använder `private` som standardåtkomstnivå, medan struktar använder `public`.
+* Struktar används ofta för enkla dataorienterade typer, medan klasser vanligtvis används för mer komplexa objekt som kan involvera arv, polymorfism eller anpassad copy- och move-semantik.
 
 ---
 
@@ -675,8 +945,8 @@ Varje version kompileras oberoende och inkluderas i den slutliga binären:
 * I inbyggda system innebär detta dock också att överdriven användning av templates kan öka binärstorleken, eftersom flera versioner av samma funktion kan genereras.
 * Av denna anledning bör templates användas med eftertanke i resursbegränsade system, särskilt när många olika datatyper är involverade.
 
-#### Parameter packs
-Vi kan även implementera så kallade **parameter packs** så att flera bitar kan sättas samtidigt:
+#### Parameterpack
+Vi kan även implementera så kallade parameterpack så att flera bitar kan sättas samtidigt:
 
 ```cpp
 #include <cstdint>
@@ -823,7 +1093,7 @@ Denna bilaga introducerade följande moderna C++-funktioner som ofta används i 
 * `constexpr` och konstanter vid kompileringstid.
 * `noexcept` och undantagshantering i inbyggda system.
 * Defaultargument.
-* Struktar med medlemsfunktioner (metoder).
+* Struktar med medlemsfunktioner (metoder), konstruktorer/destruktorer och inkapsling.
 * Referenser.
 * Funktionstemplates.
 

@@ -6,20 +6,21 @@
 * `constexpr` och kompileringstidskonstanter.
 * `noexcept` och undantagshantering i inbyggda system.
 * Defaultargument.
-* Struktar med medlemsfunktioner.
+* Moderna C++-struktar (medlemsfunktioner, konstruktor/destruktor och inkapsling).
 * Referenser.
 * Kort introduktion till funktionstemplates och parameterpack.
 
 ## Mål med lektionen
-* Bli bekant med modern C++-syntax.
-* Förstå hur C++ kan förbättra struktur och säkerhet i inbyggda system.
-* Lära sig hur enkla drivrutiner kan implementeras med hjälp av struktar med medlemsfunktioner.
+* Bekanta sig med moderna C++-språkfunktioner som används i inbyggda system.
+* Förstå hur C++ kan förbättra struktur och säkerhet i inbyggd mjukvara.
+* Förstå hur moderna C++-struktar kan gruppera data och beteende i en och samma typ.
+* Lära sig hur enkla drivrutiner kan implementeras med hjälp av struktar med medlemsfunktioner, konstruktorer/destruktorer och inkapsling.
 * Förstå hur referenser förenklar funktionsanrop jämfört med pekare.
-* Förstå hur templates möjliggör generiska hjälpfunktioner såsom bitmanipuleringsverktyg.
+* Förstå hur templates möjliggör generiska hjälpfunktioner, exempelvis bitmanipuleringsverktyg.
 * Få en intuitiv förståelse för programmering vid kompileringstid (`constexpr` och templates).
 
 ## Förkunskaper
-* Kunskap om C-programmering (funktioner, pekare, struktar etc.).
+* Kunskap om C-programmering (funktioner, pekare, struktar, etc.).
 * Bekantskap med bitmanipulation och begrepp inom inbyggd programmering.
 
 ## Instruktioner
@@ -36,19 +37,19 @@
 ## Utvärdering
 * Vad är syftet med `constexpr`?
 * Varför används `noexcept` ofta i inbyggda system?
+* Hur skiljer sig en C++-strukt från en traditionell C-strukt?
+* Varför är konstruktorer och destruktorer användbara i inbyggd C++?
+* Vad är syftet med att göra medlemsvariabler privata?
 * Vilka fördelar har referenser jämfört med pekare?
 * Varför kan templates öka binärstorleken i inbyggda system?
 * Vad används parameterpack till?
 
 ## Nästa lektion
 Klasser i C++:
-* Konstruktorer och destruktorer.
+* Fördjupning i konstruktorer och destruktorer.
 * Nyckelorden `explicit`, `final`, `default` och `delete`.
 * Kopieringskonstruktorer.
 * Flyttkonstruktorer.
 * Tilldelningsoperatorer.
-
-## Nästa lektion
-* Klasser i C++ (del I) – implementation av egna klasser.
 
 ---
