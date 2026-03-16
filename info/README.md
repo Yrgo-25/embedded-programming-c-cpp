@@ -24,8 +24,8 @@ Erik Pihl ([erik.axel.pihl@gmail.com](mailto:erik.axel.pihl@gmail.com))
 | 17 | 22/4 | L13 | Factory-mönster, arbete med **P03** |
 | 17 | 23/4 | L14 | Factory-mönster med smarta pekare, arbete med **P03** |
 | 18 | 27/4 | L15 | Templates, type traits och constraints, arbete med **P03** |
-| 18 | 28/4 | L16 | Klasstemplates, arbete med **P03** |
-| 18 | 29/4 | L17 | Flertrådning och synkroniseringsmekanismer, arbete med **P03** |
+| 18 | 29/4 | L16 | Klasstemplates, arbete med **P03** |
+| 18 | 30/4 | L17 | Flertrådning och synkroniseringsmekanismer, arbete med **P03** |
 | 18 | 30/4 | L18 | Övningstentamen, arbete med **P03** |
 | 19 | 5/5 | L19 | Slutförande och redovisning av **P03** |
 | 20 | 7/5 | L20 | Tentamen - C++-teori |
