@@ -1,44 +1,45 @@
-# L03 - Praktisk labb med timer-driver i C
+# L03 - Struktar i C (del III)
 
 ## Dagordning
-* Genomförande av **P01**, vilket innefattar implementation av en timer-driver för ett litet inbyggt system i C.
+* Utökning av GPIO-drivern: Callbacks för interrupts.
+* Introduktion till **P01**.
+
+---
 
 ## Mål med lektionen
-* Ha implementerat och redovisat **P01**.
+* Kunna implementera callbacks för GPIO-drivern (funktionpekare som anropas vid interrupt).
+* Kunna aktivera och inaktivera interrupts för GPIO-enheter.
+* Påbörja P01: skapa grundstruktur och påbörja implementation av en timer-driver för ett litet inbyggt system i C.
+
+---
 
 ## Förutsättningar
 * Genomgång av L01-L02.
-* Kunna implementera och använda en timer-driver som genererar timeouts i ett inbyggt system.
+
+---
 
 ## Instruktioner
 
 ### Förberedelse
-* Repetera innehållet i [L01](../L01/README.md) samt [L02](../L02/README.md).
-* Läs igenom [uppgiftbeskrivningen](../../projects/P01/README.md) innan lektionen. Påbörja gärna arbetet om ni känner er redo.
+* Repetera innehållet i [L01](../L01/README.md).
+* Repetera innehållet i [L02](../L02/README.md).
+* Läs igenom uppgiftsbeskrivningen för **P01** [här](../../projects/P01/README.md).
 
 ### Under lektionen
-* Labbuppgifterna ska genomföras självständigt.
-* Ställ frågor vid behov.
-* Redovisa för läraren när ni känner er redo.
+* Genomför övningsuppgifterna i [bilaga A](./appendix/a_exercises.md):
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
-#### Delmål under labben
-* Timer-drivern kompilerar utan fel.
-* Timern kan startas och stoppas.
-* Timeouts inträffar som förväntat.
-* Systemet reagerar korrekt på timeout.
-
-#### Redovisning (krav)
-Redovisningen sker individuellt och tar cirka 2-3 minuter per student.
-
-Ni ska kunna:
-* Starta och stoppa timern.
-* Visa att timeout inträffar korrekt.
-* Förklara hur timern är uppbyggd (kort muntligt).
+---
 
 ## Utvärdering
-* Vilka moment kändes mest utmanande eller lärorika?
+* Vad är en callback och varför används den i GPIO-drivern?
+* Hur anropas en callback i er implementation?
+
+---
 
 ## Nästa lektion
-* Introduktion till C++, referenser, vektorer.
+* Övergång från C till modern C++ i inbyggda system.
+* Fortsatt arbete med **P01**.
 
 ---
