@@ -1,7 +1,7 @@
 # **P02** - Systemlogik i C++
 
 ## Syfte
-Ni ska enskilt bygga systemlogik i C++ med tydlig separering mellan:
+Ni ska i grupper om 1-2 bygga systemlogik i C++ med tydlig separering mellan:
 * **Interfaces**: Abstraktioner som beskriver vad en driver kan göra.
 * **Riktiga drivers** för Atmega328p.
 * **Stubbar**: Testklasser som simulerar hårdvara.

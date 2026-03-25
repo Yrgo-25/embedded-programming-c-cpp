@@ -1,7 +1,7 @@
 # **P01** - Timer-driver i C
 
 ## Syfte
-Ni ska enskilt implementera en timer-driver i C i form av en opaque struct med callback:
+Ni ska i grupper om 1-2 implementera en timer-driver i C i form av en opaque struct med callback:
 * Drivern ska kunna skapa 1–3 timers (begränsat av hårdvaran i labbmiljön).
 * En knapp (GPIO) ansluten till pin 13 ska användas för att toggla en timer.
 * När timern är aktiv ska den toggla en lysdiod (GPIO) ansluten till pin 8 var 100:e ms. 

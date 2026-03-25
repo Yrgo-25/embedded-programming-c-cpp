@@ -1,7 +1,7 @@
 # **P03** – Driverbibliotek för ESP32‑S3
 
 ## Syfte
-Ni ska enskilt bygga ett litet driverbibliotek i C++ för ESP32‑S3, med tydlig separering mellan:
+Ni ska i grupper om 1-2 bygga ett litet driverbibliotek i C++ för ESP32‑S3, med tydlig separering mellan:
 * **Interfaces**: Abstraktioner som beskriver vad en driver kan göra.
 * **Riktiga drivers** för ESP32‑S3 (ESP‑IDF).
 * **Stubbar**: Test-/simuleringsklasser som efterliknar hårdvara.
@@ -15,7 +15,7 @@ Upplägget ska följa samma arkitekturprinciper som i kursrepot
 
 Repot kan användas som inspiration, men ni ska implementera er egen lösning.
 
-**Viktigt:** I denna kurs skriver ni **inte** automatiserade tester. Däremot ska er design vara **testbar**: logiken ska kunna köras mot stubbar utan att känna till hårdvara. Dessa stubbar kommer sedan användas i kursen Mjuk- och hårdvarutestning.
+**OBS!** I denna kurs skriver ni **inte** automatiserade tester. Däremot ska er design vara **testbar**: logiken ska kunna köras mot stubbar utan att känna till hårdvara. Dessa stubbar kommer sedan användas i kursen Mjuk- och hårdvarutestning.
 
 ---
 

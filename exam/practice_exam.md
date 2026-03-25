@@ -3,7 +3,9 @@
 ## Information
 
 ### Hjälpmedel
-* Papper och penna.
+* Dator med textredigerare (t.ex. Notepad eller VS Code).
+* Inga hjälpmedel för kodkomplettering, AI eller internetåtkomst.
+* Svar skrivs i Markdown-format.
 
 ### Poänggränser och betygsnivåer
 Totalt: 20 poäng.
