@@ -1,4 +1,4 @@
-# Bilaga B
+# Bilaga A
 
 ## Övningsuppgifter
 Lägg till funktionalitet i GPIO-drivern från föregående lektion så att:
@@ -10,8 +10,7 @@ Lägg till funktionalitet i GPIO-drivern från föregående lektion så att:
 * Avbrott kan aktiveras för en given GPIO-enhet via en ny funktion med namnet `gpio_enable_interrupts()`.
 * Man ska kunna kontrollera om avbrott är aktiverade via en funktion med namnet `gpio_is_interrupts_enabled()`.
 
-Nedanstående kodsnutt demonstrerar användning av callbacks. Denna kodsnutt ska fungera efter
-att implementationen är färdig:
+Nedanstående kodsnutt demonstrerar användning av callbacks. Denna kodsnutt ska fungera efter att implementationen är färdig:
 
 ```c
 #include "driver/gpio.h"
@@ -42,10 +41,8 @@ int main(void)
     // Connect the LED to pin 8, don't use a callback.
     led = gpio_new(LED_PIN, GPIO_DIRECTION_OUT, NULL);
 
-    // Keep the programming running.
-    while (1)
-    {
-    }
+    // Keep the program running.
+    while (1) {}
     return 0;
 }
 ```

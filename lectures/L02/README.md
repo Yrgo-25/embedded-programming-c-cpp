@@ -16,11 +16,8 @@
 ### Förberedelse
 * Repetera innehållet i [L01](../L01/README.md).
 
-### Repetition
-* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
-
 ### Under lektionen
-* Genomför övningsuppgifterna i [bilaga B](./appendix/b_exercises.md):
+* Genomför övningsuppgifterna i [bilaga A](./appendix/a_exercises.md):
     * Ni får tid under lektionen att genomföra övningarna.
     * Lösningarna diskuteras därefter gemensamt i klassen.
 
