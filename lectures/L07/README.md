@@ -1,22 +1,27 @@
 # L07 - Arv och interfaces (del I)
 
 ## Dagordning
-* Arv för att skapa klasser som bygger på befintliga klasser. 
-* Interfaces (abstrakta klasser) för att definiera en gemensam uppsättning metoder som olika 
-klasser kan implementera på olika sätt.
+* Interfaces (abstrakta klasser med rena virtuella metoder) för att definiera en gemensam uppsättning metoder.
+* Arv som ett verktyg för att implementera interfaces.
+* Fortsatt arbete med **P01**.
+
+---
 
 ## Mål med lektionen
-* Kunna skapa klasser som ärver andra klasser.
 * Kunna skapa interfaces.
-* Förstå hur flera olika implementationer kan användas via samma interface.
+* Förstå hur arv används för att implementera interfaces.
+* Förstå hur olika implementationer kan användas via samma interface (t.ex. hårdvara vs stubbar).
+
+---
 
 ## Förutsättningar
 * Grundläggande kännedom om C++ (klasser, constructors, const).
 
+---
+
 ## Instruktioner
 
 ### Förberedelse
-* Repetera innehållet i [L05](../L05/README.md).
 * Läs om arv i [bilaga A](./appendix/a_inheritance.md).
 * Läs om interfaces i [bilaga B](./appendix/b_interfaces.md).
 * Se gärna följande exempel på implementering av interfaces:
@@ -28,11 +33,18 @@ klasser kan implementera på olika sätt.
     * Ni får tid under lektionen att genomföra övningarna.
     * Lösningarna diskuteras därefter gemensamt i klassen.
 
+---
+
 ## Utvärdering
 * Vad innebär arv i C++?
 * Vad är en abstrakt klass?
+* Vad är skillnaden mellan arv och att använda ett interface?
 * Varför kan det vara bra att använda ett interface för en GPIO?
+
+---
 
 ## Nästa lektion
 * Fortsatt arbete med övningsuppgifterna.
+* Slutförande av arbete med **P01**.
+
 ---
