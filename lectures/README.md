@@ -3,12 +3,12 @@
 Material från föreläsningar:
 * [L01](./L01/README.md): Struktar i C – GPIO-driver.
 * [L02](./L02/README.md): Struktar i C – callbacks för interrupts.
-* [L03](./L03/README.md): **P01** - Timer-driver i C.
-* [L04](./L04/README.md): Introduktion till C++.
-* [L05](./L05/README.md): Klasser i C++.
-* [L06](./L06/README.md): GPIO-driver i C++.
-* [L07](./L07/README.md): Arv och interfaces i C++ (del I).
-* [L08](./L08/README.md): Arv och interfaces i C++ (del II).
+* [L03](./L03/README.md): Struktar i C – callbacks för interrupts, introduktion till **P01**.
+* [L04](./L04/README.md): Introduktion till C++, arbete med **P01**.
+* [L05](./L05/README.md): Klasser i C++, arbete med **P01**.
+* [L06](./L06/README.md): GPIO-driver i C++, arbete med **P01**.
+* [L07](./L07/README.md): Arv och interfaces i C++ (del I), arbete med **P01**.
+* [L08](./L08/README.md): Arv och interfaces i C++ (del II), arbete med **P01**.
 * [L09](./L09/README.md): **P02** - Systemlogik i C++ (del I).
 * [L10](./L10/README.md): **P02** - Systemlogik i C++ (del II).
 * [L11](./L11/README.md): Konfiguration av ESP32 och utvecklingsmiljö.
