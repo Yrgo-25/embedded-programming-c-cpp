@@ -1,33 +1,43 @@
 # L02 - Struktar i C (del II)
 
 ## Dagordning
-* Mer arbete med struktar - Utökning av GPIO-drivern (callbacks för interrupts).
+* Slutförande av GPIO-drivern i dess nuvarande skick.
+* Inkapsling med opaque struct (fördeklaration i header, implementation i motsvarande källkodsfil).
+
+---
 
 ## Mål med lektionen
-* Kunna implementera callbacks för GPIO-drivern.
-* Lägga till aktivering/inaktivering av interrupts för GPIO-enheter.
-* Förbereda sig för **P01** genom att arbeta vidare med drivrutinsdesign i C.
+* Kunna använda opaque structs för att dölja implementationsdetaljer i en drivrutin.
+
+---
 
 ## Förutsättningar
 * Genomgång av L01.
+
+---
 
 ## Instruktioner
 
 ### Förberedelse
 * Repetera innehållet i [L01](../L01/README.md).
 
+### Repetition
+* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
+
 ### Under lektionen
-* Genomför övningsuppgifterna i [bilaga A](./appendix/a_exercises.md):
-    * Ni får tid under lektionen att genomföra övningarna.
-    * Lösningarna diskuteras därefter gemensamt i klassen.
+* Vi slutför först GPIO-drivern i dess nuvarande form.
+* * Vi modifierar sedan GPIO-drivern så att den använder en opaque struct där attributen är inkapslade.
+
+---
 
 ## Utvärdering
-* Vad är en callback och varför används den i GPIO-drivern?
-* Vad är skillnaden mellan polling och interrupts?
-* Hur lagras callbacken i er implementation?
-* Vad händer om ingen callback skickas in (NULL)?
+* Vad är fördelen med att använda opaque structs jämfört med att definiera struktar i headerfiler?
+* Varför fungerar det att enbart fördeklara opaque structs i headerfiler när enbart struktpekare används?
+
+---
 
 ## Nästa lektion
-* **P01** - Timer-driver i C.
+* Utökning av GPIO-drivern: Callbacks för interrupts.
+* Introduktion till **P01**.
 
 ---
