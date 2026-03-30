@@ -1,8 +1,8 @@
 # L01 – Anteckningar
 
 ## Beskrivning
-Implementering av en GPIO-driver via en struktur med namnet `gpio_t`.
-Implementationen kommer att slutföras under nästa föreläsning.
+Implementering av en GPIO-driver via en strukt med namnet `gpio_t`.
+Implementationen kommer att utvecklas under nästa föreläsning.
 
 ---
 
