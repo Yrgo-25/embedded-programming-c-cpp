@@ -26,7 +26,8 @@
 
 ### Under lektionen
 * Vi slutför först GPIO-drivern i dess nuvarande form.
-* * Vi modifierar sedan GPIO-drivern så att den använder en opaque struct där attributen är inkapslade.
+* Vi modifierar sedan GPIO-drivern så att den använder en opaque struct där attributen är inkapslade.
+* Lektionsanteckningar finns [här](./notes/README.md).
 
 ---
 
