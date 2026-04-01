@@ -32,6 +32,11 @@
 
 ---
 
+## Lektionsanteckningar
+* Lektionsanteckningar finns [här](./notes/README.md).
+
+---
+
 ## Utvärdering
 * Vad är en callback och varför används den i GPIO-drivern?
 * Hur anropas en callback i er implementation?
