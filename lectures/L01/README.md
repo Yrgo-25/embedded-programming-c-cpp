@@ -33,6 +33,10 @@
 * Genomför övningsuppgifterna i [bilaga B](./appendix/b_exercises.md):
     * Ni får tid under lektionen att genomföra övningarna.
     * Lösningarna diskuteras därefter gemensamt i klassen.
+
+---
+
+## Lektionsanteckningar
 * Lektionsanteckningar finns [här](./notes/README.md).
 
 ---
