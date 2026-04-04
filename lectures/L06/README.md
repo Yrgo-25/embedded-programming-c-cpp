@@ -21,9 +21,7 @@
 
 ### Förberedelse
 * Repetera innehållet i [L05](../L05/README.md).
-
-### Repetition
-* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
+* Om ni har tid, genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
 * Genomför övningsuppgifterna i [bilaga B](./appendix/b_exercises.md):
