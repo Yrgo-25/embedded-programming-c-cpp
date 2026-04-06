@@ -50,6 +50,7 @@ kommer kompilatorn att generera två separata typer:
 ``` cpp
 namespace container
 {
+// Vector specialization for int.
 class Vector<int>
 {
 public:
@@ -62,6 +63,7 @@ private:
     std::size_t mySize;
 };
 
+// Vector specialization for double.
 class Vector<double>
 {
 public:
@@ -313,7 +315,7 @@ Templates måste därför implementeras i headerfiler (direkt eller indirekt via
 ---
 
 ### Embedded-perspektiv
-I embedded-system måste vi tänka på:
+I embedded-system måste vi tänka på följande:
 
 #### Heap-användning
 * Dynamisk allokering kan vara förbjuden.
@@ -330,7 +332,6 @@ I embedded-system måste vi tänka på:
 ---
 
 ### Sammanfattning
-
 I denna bilaga har vi sett:
 * Hur man skapar en klasstemplate.
 * Hur man hanterar manuell minnesallokering.
@@ -345,4 +346,3 @@ I denna bilaga har vi sett:
 * Full kontroll över minne och livscykel.
 
 ---
-
