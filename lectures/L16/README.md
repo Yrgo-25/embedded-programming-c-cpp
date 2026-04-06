@@ -18,7 +18,7 @@
 ## Instruktioner
 
 ### Förberedelse
-* Läs **bilaga A** (`appendix/a_class_templates.md`) för information om klasstemplates, inklusive exempelimplementation av `container::Vector<T>`. Fundera på om detta är något ni kan använda i era drivers.
+* Läs [bilaga A](appendix/a_class_templates.md) för information om klasstemplates, inklusive exempelimplementation av `container::Vector<T>`. Fundera på om detta är något ni kan använda i era drivers.
 * Fundera över:
     * Vad innebär compile-time polymorfism?
     * Vad är skillnaden mellan template och arv?
