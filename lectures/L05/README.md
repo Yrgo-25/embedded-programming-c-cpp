@@ -50,7 +50,7 @@
 ---
 
 ## Nästa lektion
-* Övning: GPIO-driver i C++.
+* Vidare arbete med klasser.
 * Fortsatt arbete med **P01**.
 
 ---

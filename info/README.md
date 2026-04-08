@@ -13,8 +13,8 @@ Erik Pihl ([erik.axel.pihl@gmail.com](mailto:erik.axel.pihl@gmail.com))
 | 14 | 30/3 | L02 | Struktar i C – opaque structs |
 | 14 | 1/4 | L03 | Struktar i C – callbacks för interrupts, introduktion till **P01** |
 | 15 | 7/4 | L04 | Introduktion till C++, arbete med **P01** |
-| 15 | 9/4 | L05 | Klasser i C++, arbete med **P01** |
-| 15 | 10/4 | L06 | GPIO-driver i C++, arbete med **P01** |
+| 15 | 9/4 | L05 | Klasser i C++ (del I), arbete med **P01** |
+| 15 | 10/4 | L06 | Klasser i C++ (del II), arbete med **P01** |
 | 16 | 13/4 | L07 | Arv och interfaces i C++ (del I), arbete med **P01** |
 | 16 | 15/4 | L08 | Arv och interfaces i C++ (del II), arbete med **P01** |
 | 16 | 16/4 | L09 | **P02** - Systemlogik i C++ (del I) |
