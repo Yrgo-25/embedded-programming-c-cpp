@@ -41,7 +41,8 @@ Ni ska i grupper om 1-2 implementera en timer-driver i C i form av en opaque str
 Ni får gärna använda detta API som grund. Ni måste dock själva implementera samt dokumentera funktionerna:
 
 ```c
-#pragma once
+#ifndef TIMER_H_
+#define TIMER_H_
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -50,9 +51,9 @@ Ni får gärna använda detta API som grund. Ni måste dock själva implementera
 typedef struct timer timer_t;
 
 /** Alias for timer callbacks. */
-typedef void (*timer_callback)(void);
+typedef void (*timer_callback_t)(void);
 
-timer_t* timer_new(uint32_t timeout_ms, timer_callback callback);
+timer_t* timer_new(uint32_t timeout_ms, timer_callback_t callback);
 void timer_delete(timer_t** self);
 
 bool timer_is_enabled(const timer_t* self);
@@ -63,6 +64,8 @@ void timer_restart(timer_t* self);
 void timer_reset(timer_t* self);
 uint32_t timer_timeout_ms(const timer_t* self);
 void timer_set_timeout_ms(timer_t* self, uint32_t timeout_ms);
+
+#endif /** TIMER_H_ */
 ```
 
 Gällande funktionerna ovan:
