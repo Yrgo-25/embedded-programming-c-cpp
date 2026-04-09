@@ -3,14 +3,17 @@
 ## Syfte
 Ni ska i grupper om 1-2 bygga systemlogik i C++ med tydlig separering mellan:
 * **Interfaces**: Abstraktioner som beskriver vad en driver kan göra.
-* **Riktiga drivers** för Atmega328p.
+* **Riktiga drivers** för ATmega328p.
 * **Stubbar**: Testklasser som simulerar hårdvara.
+
+Skelettkod finns bifogat [här](./code/README.md). 
 
 Systemlogiken ska implementeras i en klass som håller referenser till drivernas interfaces (ett design-mönster med namnet **dependency injection**).
 
-**Viktigt:** Callbacks får endast finnas på **driver-nivå** (d.v.s. i de konkreta `Atmega328p`-klasserna och i stubbar). Interfacen ska vara fria från callbacks. Koppling av callbacks görs i `main`/test innan objekten skickas in till systemlogiken.
+**Viktigt:** Callbacks behövs endast i de riktiga driver-implementationerna.
+I stubbarna simuleras events direkt via testkod, och därför används inga callbacks där.
 
-Via denna systemlogiken ska systemet kunna:
+Via denna systemlogik ska systemet kunna:
 * Köras med riktig hårdvara (demonstreras för läraren). 
 * Köras med simulerad hårdvara via stubbar (er lärare har skapat komponenttester med Google Test, som kommer testa systemlogiken).
 
@@ -19,14 +22,15 @@ Via denna systemlogiken ska systemet kunna:
 ## Kravspecifikation
 
 ### Översikt
-Ni ska implementera följande tre delar:
-
+Ni ska implementera och använda följande tre delar:
 1. **Interfaces**:
     * `driver::gpio::Interface`: Interface för GPIO-drivers.
     * `driver::timer::Interface`: Interface för timer-drivers.
 2. **Riktiga drivers**:
-    * `driver::gpio::Atmega328p`: GPIO-driver för Atmega328p.
-    * `driver::timer::Atmega328p`: Timer-driver för Atmega328p.
+    * `driver::gpio::Atmega328p`: GPIO-driver för ATmega328p, är redan implementerad och ska användas.
+    * `driver::timer::Atmega328p`: Timer-driver för ATmega328p, är redan implementerad och ska användas.
+
+    **OBS!** Driver-implementationerna ska inte skrivas om från grunden. Mindre justeringar (t.ex. metodnamn) är tillåtna vid behov för att passa era interfaces.
 3. **Stubbar**:
     * `driver::gpio::Stub`: GPIO-stub för simulering/testning.
     * `driver::timer::Stub`: Timer-stub för simulering/testning.
@@ -43,7 +47,7 @@ Systemet ska uppfylla detta beteende:
 * I testmiljö simuleras interrupt/händelser genom att knapptryckningar och timeouts simuleras via stubbarna. I komponenttester kommer sedan handle-metoderna anropas direkt för att simulera events.
 * I hårdvaruläge anropas samma handle-metoder via driver-lagret (ISR → driver → handler), men systemlogiken ska vara identisk i båda fallen.
 
-**Notering:** Själva callback-mekanismen (t.ex. ISR → callback) ligger i driver/stub. Systemlogiken behöver inte känna till hur callbacks implementeras.
+**OBS!** Själva callback-mekanismen (t.ex. ISR → callback) ligger i driver/stub. Systemlogiken behöver inte känna till hur callbacks implementeras.
 
 **OBS!** Systemlogiken får inte känna till register, AVR-specifika headers eller pin-mapping. Allt sådant ska ligga i drivers, inte i logiken.
 
@@ -53,39 +57,51 @@ Systemet ska uppfylla detta beteende:
 Ni får gärna använda exakt denna struktur.
 
 ```
-include/
-    driver/
-        gpio/
-            atmega328p.h
-            interface.h
-            stub.h
-        timer/
-            atmega328p.h
-            interface.h
-            stub.h
-    system/
-        logic/
-            logic.h
-source/
-    driver/
-        gpio/
-            atmega328p.cpp
-        timer/
-            atmega328p.cpp
-    main.cpp
-        
-test/
-    logic/
-        logic/test.cpp
+code
+├── include
+│   ├── driver
+│   │   ├── gpio
+│   │   │   ├── atmega328p.h
+│   │   │   ├── interface.h
+│   │   │   └── stub.h
+│   │   └── timer
+│   │       ├── atmega328p.h
+│   │       ├── interface.h
+│   │       └── stub.h
+│   ├── system
+│   │   └── logic
+│   │       └── logic.h
+│   └── utils
+│       ├── bit_operations.h
+│       └── type_traits.h
+│
+├── source
+│   ├── driver
+│   │   ├── gpio
+│   │   │   └── atmega328p.cpp
+│   │   └── timer
+│   │       └── atmega328p.cpp
+│   ├── system
+│   │   └── logic
+│   │       └── logic.cpp
+│   ├── env
+│   │   └── env.cpp
+│   └── main.cpp
+│
+├── test
+│   └── logic
+│       └── test.cpp
 ```
 
-**Notering:** För enkelhets skull ska stubbarna implementeras helt i headerfilerna.  
+**OBS!** För enkelhets skull ska stubbarna implementeras helt i headerfilerna.  
 Stubbarna ska vara helt plattformsoberoende och får inte inkludera hårdvaruspecifika headers (t.ex. AVR-libc).
 
 
 ---
 
 ## Interfaces (krav)
+**OBS!** Interfacen ska motsvara den funktionalitet som används i `Atmega328p`-implementationerna. Utgå från dessa klasser när ni definierar era interfaces.
+
 Ni ska minst ha följande två interfaces:
 
 ### `driver::gpio::Interface`
@@ -93,9 +109,9 @@ Ni ska minst ha följande två interfaces:
 * Aktivering/inaktivering av interrupts.
 * Kontroll av status (initiering, state och interrupt-status).
 
-**Notering:** Event/callback för knapp kan finnas i den konkreta `Atmega328p`-drivern och i stubben, men ska **inte** ingå i interfacet.
+**OBS!** Event/callback för knapp kan finnas i den konkreta `ATmega328p`-drivern och i stubben, men ska inte ingå i interfacet.
 
-Exempel (ni får ändra namn, men behåll kärnbeteendet):
+Exempel i enlighet med `driver::gpio::Atmega328p` (ni får ändra namn, men behåll kärnbeteendet):
 
 ```cpp
 #pragma once
@@ -109,11 +125,11 @@ class Interface
 public:
     virtual ~Interface() noexcept = default;
     virtual bool isInitialized() const noexcept = 0;
-    virtual bool isEnabled() const noexcept = 0;
     virtual bool read() const noexcept = 0;
     virtual void write(bool value) noexcept = 0;
-    virtual bool isInterruptsEnabled() const noexcept = 0;
-    virtual void setInterruptsEnabled(bool enable) noexcept = 0;
+    virtual bool isPciEnabled() const noexcept = 0;
+    virtual void enablePci(bool enable) noexcept = 0;
+    virtual void enablePciOnPort() noexcept = 0;
 };
 } // namespace gpio
 } // namespace driver
@@ -125,7 +141,7 @@ public:
 * Konfigurering av timeouts.
 * Kontroll om timern har löpt ut.
 
-**Notering:** Timeout-callback kan finnas i den konkreta `Atmega328p`-drivern och i stubben, men ska **inte** ingå i interfacet.
+**OBS!** Timeout-callback ska inte ingå i interfacet.
 
 Exempel:
 
@@ -144,7 +160,7 @@ public:
     virtual ~Interface() noexcept = default;
 
     virtual bool isInitialized() const noexcept = 0;
-    virtual bool isEnabled() const noexcept = 0;
+    virtual bool isRunning() const noexcept = 0;
     virtual bool hasTimedOut() noexcept = 0;
 
     virtual void start() noexcept = 0;
@@ -163,7 +179,7 @@ public:
 ---
 
 ## Callback-koppling
-Callbacks ska **inte** ligga i interfacen, men ska finnas i:
+Callbacks ska inte ligga i interfacen, men ska finnas i:
 * `driver::gpio::Atmega328p`.
 * `driver::timer::Atmega328p`.
 
@@ -171,23 +187,25 @@ Kopplingen görs i `main` (hårdvara). I komponenttesterna anropas handle-metode
 
 * I hårdvara anropas:
     * `system::logic::Logic::handleButtonEvent()` vid button event.
-    * `system::logic::Logic::handleToggleTimerEvent()` när en timeout inträffas.
+    * `system::logic::Logic::handleTimerEvent()` när en timeout inträffas.
 
 Systemlogiken arbetar fortfarande enbart mot interfacen och innehåller ingen hårdvarukod.
 
-**Notering:** I komponenttesterna simuleras button event samt timeout, därefter anropas motsvarande handle-metoder manuellt. Därmed behövs inga callbacks i stubbarna. 
+**OBS!** I komponenttesterna simuleras button event samt timeout, därefter anropas motsvarande handle-metoder manuellt. Därmed behövs inga callbacks i stubbarna. 
 
 ---
 
 ## Riktiga drivers (krav)
-Ni ska skapa riktiga implementationer som följer era interfaces.
 
-* `driver::gpio::Atmega328p` ska motsvara er GPIO-driver från C (L01–L03).
-* `driver::timer::Atmega328p` ska motsvara er timer-driver från C (P01).
+De riktiga driver-implementationerna för ATmega328p tillhandahålls i projektet och ska användas utan modifikation.
+
+* `driver::gpio::Atmega328p` motsvarar GPIO-driver för ATmega328p.
+* `driver::timer::Atmega328p` motsvarar timer-driver för ATmega328p.
 
 **Krav:**
 * Systemlogiken ska inte inkludera AVR headers.
 * Endast driver-lagret får vara hårdvarunära.
+* De tillhandahållna driver-klasserna ska användas som de är.
 
 ---
 
@@ -220,8 +238,7 @@ Ni ska implementera en klass (t.ex. `system::logic::Logic`) som tar in drivers v
 I denna klass ska metoden `run(stop)` köra en loop tills `stop == true`:
 * Systemet är i övrigt interrupt-baserat, där händelser från knappar och timers signaleras via callbacks i driver-lagret som anropar motsvarande handler-metoder i systemlogiken. Loopen i metoden `run()` ska därför vara tom och endast hålla programmet igång.
 * Stop-flaggan används enbart av komponent-testerna för att avsluta körningen när testet är klart.
-* I `run()` får ni gärna lägga in en kort delay för att undvika busy-loop. Om så görs, se till
-via makrot `TEST` att denna delay bara körs under testning.
+* * I `run()` får ni vid behov lägga in en kort delay för att undvika busy-loop. Under testning bör denna delay vara avstängd, t.ex. via makrot `TEST`.
 
 Exempel:
 
@@ -253,7 +270,7 @@ public:
     void run(const bool& stop) noexcept;
 
     void handleButtonEvent() noexcept;
-    void handleToggleTimerEvent() noexcept;
+    void handleTimerEvent() noexcept;
 
     Logic()                        = delete;
     Logic(const Logic&)            = delete;
@@ -306,7 +323,6 @@ Ni ska kunna visa minst följande scenarion, både med hårdvara samt med era st
 
 ### G (Godkänd)
 * Interfaces för minst GPIO + Timer.
-* En riktig driver per interface.
 * En stub per interface.
 * Systemlogik i klass med referensinjektion.
 * Visar testfall ovan.
