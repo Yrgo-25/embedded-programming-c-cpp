@@ -39,6 +39,9 @@
 
 ---
 
+## Lösningsförslag
+* Lösningsförslag till övningsuppgifterna finns [här](./appendix/solutions/README.md).
+
 ## Utvärdering
 * Vad är den praktiska skillnaden mellan en struct och en klass i C++?
 * Vad innebär inkapsling?
