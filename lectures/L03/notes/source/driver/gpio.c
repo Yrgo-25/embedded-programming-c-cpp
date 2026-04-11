@@ -89,7 +89,7 @@ static inline bool is_direction_valid(const gpio_direction_t direction)
 // -----------------------------------------------------------------------------
 static inline void invoke_callback(const uint8_t port)
 {
-    // Invoke callback for I/O port B if registered.
+    // Invoke callback for the given I/O port if registered.
     if ((PORT_COUNT > port) &&  (NULL != callback_reg[port])) { callback_reg[port](); }
 }
 

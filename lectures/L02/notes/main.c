@@ -10,7 +10,7 @@
 #define BUTTON_PIN 13U
 
 /**
- * @brief Create and initialize a GPIO instances.
+ * @brief Initialize GPIO and start the application.
  */
 int main(void)
 {
