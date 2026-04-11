@@ -29,6 +29,9 @@
 * Ytterligare övningsuppgifter finns i [bilaga C](./appendix/c_exercises.md).
 ---
 
+## Lösningsförslag
+* Lösningsförslag till övningsuppgifterna finns [här](./appendix/solutions/README.md).
+
 ## Utvärdering
 * Varför passar en klass bra för att representera en GPIO eller timer?
 * Vad är syftet med destruktorn i denna klass?
