@@ -27,7 +27,7 @@ Stubklass för simulering av hårdvara:
 * Default-konstruktorn kan användas, då pin-nummer och datariktning är irrelevant för denna implementation.
 
 #### **2** `driver::gpio::Atmega328p`
-GPIO-driver för ATmega328p, mycket lik den klass som skapades i [L06](../../L06/README.md):
+GPIO-driver för ATmega328p, mycket lik den klass som skapades i [L06](../../L06/appendix/solutions/exercise2/main.cpp).
 * Använd `driver::gpio::Atmega328p` från L06 som bas för denna nya driver.
 * Ta också enumerationsklassen `driver::gpio::Direction` från L06.
 
@@ -39,6 +39,7 @@ Använd följande filstruktur:
 ```
 include/
     driver/
+        utils.h
         gpio/
             types.h
             atmega328p.h
@@ -85,7 +86,8 @@ Detta beror på att den inbyggda C++-runtime-miljön på små mikrokontrollers �
 
 Om dessa saknas i projektet uppstår linker-fel.
 
-För att projektet ska länka korrekt måste följande stub-definitioner läggas till manuellt:
+För att projektet ska länka korrekt måste följande stub-definitioner läggas till manuellt i filen
+[source/arch/hw_platform.cpp]:
 
 ```cpp
 void operator delete(void*, unsigned int) noexcept {}
@@ -94,8 +96,6 @@ extern "C" int __cxa_guard_acquire (volatile void* g) { return !*(char*)g; }
 extern "C" void __cxa_guard_release (volatile void* g) { *(char *)g = 1; }
 extern "C" void __cxa_guard_abort (volatile void*) {}
 ```
-
-**OBS:** Lägg inte till ovanstående i en headerfil! Det ska ligga i en .cpp-fil och endast finnas en gång i projektet.
 
 ---
 
@@ -107,15 +107,3 @@ extern "C" void __cxa_guard_abort (volatile void*) {}
 Detta är en minimal implementation som räcker för embedded-projekt utan full C++ runtime.
 
 ---
-
-#### Placering
-
-Lägg hela kodsnutten i `source/arch/hw_platform.cpp`.
-
-Viktigt:
-* Koden ska ligga i en `.cpp`-fil (inte i en header).
-* Den ska finnas exakt en gång i projektet.
-* Om den saknas kommer projektet inte att länka.
-
----
-
