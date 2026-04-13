@@ -9,17 +9,17 @@ Material från föreläsningar:
 * [L06](./L06/README.md): Klasser i C++ (del II), arbete med **P01**.
 * [L07](./L07/README.md): Arv och interfaces i C++ (del I), arbete med **P01**.
 * [L08](./L08/README.md): Arv och interfaces i C++ (del II), arbete med **P01**.
-* [L09](./L09/README.md): **P02** - Systemlogik i C++ (del I).
-* [L10](./L10/README.md): **P02** - Systemlogik i C++ (del II).
+* [L09](./L09/README.md): Arv och interfaces i C++ (del III), arbete med **P01**.
+* [L10](./L10/README.md): Arv och interfaces i C++ (del IV), slutförande av **P01**.
 * [L11](./L11/README.md): Konfiguration av ESP32 och utvecklingsmiljö.
-* [L12](./L12/README.md): Introduktion till **P03** - Driverbibliotek för ESP32.
-* [L13](./L13/README.md): Factory-mönster, arbete med **P03**.
-* [L14](./L14/README.md): Factory-mönster med smarta pekare, arbete med **P03**.
-* [L15](./L15/README.md): Templates, type traits och constraints, arbete med **P03**.
-* [L16](./L16/README.md): Klasstemplates, arbete med **P03**.
-* [L17](./L17/README.md): Flertrådning och synkroniseringsmekanismer, arbete med **P03**.
-* [L18](./L18/README.md): Övningstenta, arbete med **P03**.
-* [L19](./L19/README.md): Slutförande och redovisning av **P03**.
+* [L12](./L12/README.md): Introduktion till **P02** - Driverbibliotek för ESP32.
+* [L13](./L13/README.md): Factory-mönster, arbete med **P02**.
+* [L14](./L14/README.md): Factory-mönster med smarta pekare, arbete med **P02**.
+* [L15](./L15/README.md): Templates, type traits och constraints, arbete med **P02**.
+* [L16](./L16/README.md): Klasstemplates, arbete med **P02**.
+* [L17](./L17/README.md): Flertrådning och synkroniseringsmekanismer, arbete med **P02**.
+* [L18](./L18/README.md): Övningstenta, arbete med **P02**.
+* [L19](./L19/README.md): Slutförande och redovisning av **P02**.
 * [L20](./L20/README.md): Tentamen - C++-teori.
 
 ---

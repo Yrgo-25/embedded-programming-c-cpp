@@ -1,7 +1,7 @@
-# L19 - Slutförande och redovisning av **P03**
+# L19 - Slutförande och redovisning av **P02**
 
 ## Dagordning
-* Slutförande och redovisning av **P03**.
+* Slutförande och redovisning av **P02**.
 * Riktad repetition inför sluttentamen utifrån identifierade behov.
 
 ## Mål med lektionen
@@ -16,12 +16,12 @@
 ## Instruktioner
 
 ### Förberedelse
-* Läs igenom [uppgiftsbeskrivningen](../../projects/P03/README.md) och säkerställ att samtliga krav är uppfyllda.
+* Läs igenom [uppgiftsbeskrivningen](../../projects/P02/README.md) och säkerställ att samtliga krav är uppfyllda.
 * Förbered en kort och strukturerad demonstration (2–3 minuter).
 
 ### Under lektionen
 Säkerställ att:
-* Systemet uppfyller alla krav i **P03**.
+* Systemet uppfyller alla krav i **P02**.
 * Koden följer angiven filstruktur.
 * Systemlogiken är separerad från hårdvaruberoende kod.
 * Drivers skapas via factory och ägs via `std::unique_ptr`.

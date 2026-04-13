@@ -1,53 +1,42 @@
-# L09 - Praktisk labb med systemlogik i C++ (del I)
+# L09 - Arv och interfaces (del III)
 
 ## Dagordning
-* Genomförande av **P02**, vilket innefattar implementation av systemlogik med två drivers samt stubbar för ett inbyggt system i C++.
+* Vidare arbete med implementation av interfaces för inbyggda system.
+* Fortsatt arbete med **P01**.
+
+---
 
 ## Mål med lektionen
-* Kunna implementera systemlogik som reagerar på knapptryckningar och timer-timeouts.
+* Kunna skapa interfaces.
+* Förstå hur arv används för att implementera interfaces.
+* Förstå hur flera olika implementationer kan användas via samma interface.
+
+---
 
 ## Förutsättningar
-* Genomgång av L05-L08.
+* Grundläggande kännedom om C++ (klasser, constructors, const).
+* Grundläggande kännedom om arv och interfaces.
+
+---
 
 ## Instruktioner
 
 ### Förberedelse
-* Repetera innehållet i:
-    * [L05](../L05/README.md) samt [L06](../L06/README.md) för information om klasser.
-    * [L07](../L07/README.md) samt [L08](../L08/README.md) för information arv och interfaces.
-* Läs igenom [uppgiftbeskrivningen](../../projects/P02/README.md) innan lektionen. Påbörja gärna arbetet om ni känner er redo.
+* Repetera innehållet i [L07](../L07/README.md).
 
 ### Under lektionen
-* Labbuppgifterna ska genomföras självständigt.
-* Ställ frågor vid behov.
-* Redovisa för läraren när ni känner er redo.
+* Fortsätt med [övningsuppgifterna](../L08/appendix/a_exercises.md) från L08.
+* Om ni blir färdiga, genomför gärna övningsuppgifterna i [bilaga A](./appendix/a_exercises.md).
 
-#### Delmål under labben
-* GPIO-drivern samt motsvarande stubb kompilerar utan fel.
-* Timer-drivern samt motsvarande stubb kompilerar utan fel.
-* Systemlogiken kompilerar utan fel.
-* Timern kan startas och stoppas via en tryckknapp.
-* Timeouts inträffar som förväntat.
-* Systemet reagerar korrekt på timeout.
-
-#### Redovisning (krav)
-Redovisningen sker individuellt och tar cirka 2-3 minuter per student.
-
-Redovisningen innefattar:
-* Demo i hårdvara.
-* Demo i test (via Google Test med stubbar - er lärare kommer skriva komponenttester för dessa).
-
-Ni ska kunna:
-* Starta och stoppa timern.
-* Visa att timeout inträffar korrekt.
-* Förklara hur timern är uppbyggd (kort muntligt).
-
-Godkänd nivå (G) uppnås när systemet fungerar enligt kraven och kan förklaras muntligt.
+---
 
 ## Utvärdering
-* Vilka moment kändes mest utmanande eller lärorika?
+* Hur bidrar interfaces till att göra kod mer testbar?
+
+---
 
 ## Nästa lektion
-* Fortsatt arbete med **P02**.
+* Vidare arbete med implementation av interfaces för inbyggda system.
+* Slutförande av **P01**.
 
 ---

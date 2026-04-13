@@ -1,8 +1,8 @@
-# L13 - Factory-mönster, arbete med **P03**
+# L13 - Factory-mönster, arbete med **P02**
 
 ## Dagordning
 * Introduktion till factory-mönstret.
-* Varför vi använder factory i **P03**.
+* Varför vi använder factory i **P02**.
 * Enkel factory för drivers med "råa" pekare.
 * Hur systemlogiken skapar drivers via en factory.
 
@@ -29,7 +29,7 @@
 * Följ med i kodexemplet och ta anteckningar.
 * Ställ frågor vid behov.
 * Efter genomgången:
-  * Fortsätt arbeta på **P03**.
+  * Fortsätt arbeta på **P02**.
   * Fokusera på drivers, stubbar och systemlogik.
   * Factory implementeras i nästa lektion.
 
@@ -48,7 +48,7 @@
 
 ## Nästa lektion
 * Factory-mönster med smarta pekare.
-* Implementation av factory i **P03**.
+* Implementation av factory i **P02**.
 * Arbete vidare med projektet.
 
 ---

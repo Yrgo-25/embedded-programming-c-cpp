@@ -29,9 +29,7 @@
     * Implementation i C för att förstå hur interfaces fungerar [här](./examples/c_interface/README.md).
 
 ### Under lektionen
-* Påbörja övningsuppgifterna i [bilaga C](./appendix/c_exercises.md), som täcker interfaces för inbyggda system:
-    * Ni får tid under lektionen att genomföra övningarna.
-    * Lösningarna diskuteras därefter gemensamt i klassen.
+* Medverka på genomgång om arv samt interfaces.
 
 ---
 
@@ -44,7 +42,7 @@
 ---
 
 ## Nästa lektion
-* Fortsatt arbete med övningsuppgifterna.
-* Slutförande av arbete med **P01**.
+* Implementation av interfaces för inbyggda system.
+* Fortsatt arbete med **P01**.
 
 ---

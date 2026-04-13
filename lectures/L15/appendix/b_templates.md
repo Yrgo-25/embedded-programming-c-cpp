@@ -223,7 +223,7 @@ void print(const std::vector<T>& data, std::ostream& ostream = std::cout)
 
 ---
 
-### Templates vs Interfaces i P03
+### Templates vs Interfaces i P02
 I tidigare delen av kursen har vi använt:
 * Interfaces
 * Abstract Factory
@@ -238,7 +238,7 @@ Templates däremot är **compile-time polymorfism**.
 | Templates | Vid kompilering | Ingen run-time overhead | Mindre flexibel vid körning |
 | Interfaces | Vid körning | Virtuella funktionsanrop | Mer flexibel |
 
-Vi använder interfaces i **P03** eftersom:
+Vi använder interfaces i **P02** eftersom:
 * Vi vill kunna byta driver vid körning.
 * Vi vill kunna använda stubbar.
 * Vi vill injicera beroenden via factory.
@@ -257,7 +257,7 @@ I detta avsnitt har vi sett hur:
 * Type traits möjliggör compile-time constraints.
 * `static_assert` skapar tydliga felmeddelanden.
 
-Koppling till **P03**:
+Koppling till **P02**:
 * Interfaces ger run-time polymorfism via virtuella metoder.
 * Templates ger compile-time polymorfism utan virtuella anrop.
 * Båda är viktiga verktyg i modern C++.

@@ -1,4 +1,4 @@
-# Bilaga C
+# Bilaga A
 
 ## Övningsuppgifter
 Ni ska implementera ett interface för en GPIO-driver via en klass `driver::gpio::Interface`.

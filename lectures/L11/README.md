@@ -34,7 +34,7 @@
 * Vad var mest tidskrävande eller svårt?
 
 ## Nästa lektion
-* Introduktion till **P03** - Driverbibliotek för ESP32.
+* Introduktion till **P02** - Driverbibliotek för ESP32.
 
 ---
 

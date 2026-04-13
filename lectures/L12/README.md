@@ -1,7 +1,7 @@
 # L12 - Introduktion till driverbibliotek för ESP32
 
 ## Dagordning
-* Introduktion till **P03**.
+* Introduktion till **P02**.
 * Översikt av projektets arkitektur:
   * Interfaces.
   * Riktiga drivers.
@@ -32,7 +32,7 @@
 * Repetera innehållet i:
     * [L05](../L05/README.md) samt [L06](../L06/README.md) för information om klasser.
     * [L07](../L07/README.md) samt [L08](../L08/README.md) för information arv och interfaces.
-* Läs igenom [uppgiftsbeskrivningen](../../projects/P03/README.md) innan lektionen.  
+* Läs igenom [uppgiftsbeskrivningen](../../projects/P02/README.md) innan lektionen.  
   Påbörja gärna arbetet om ni känner er redo.
 
 ### Under lektionen
@@ -69,6 +69,6 @@
 ## Nästa lektion
 * Factory-mönster.
 * Dependency injection via factory.
-* Fortsatt arbete med **P03**.
+* Fortsatt arbete med **P02**.
 
 ---

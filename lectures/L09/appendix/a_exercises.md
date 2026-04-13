@@ -1,8 +1,6 @@
-# Bilaga B
+# Bilaga A
 
-## Extra övningsuppgifter
-Dessa uppgifter är frivilliga och kan göras om du blir klar med de ordinarie övningarna.
-
+## Övningsuppgifter.
 Skapa följande katalogstruktur:
 
 ```text

@@ -2,7 +2,7 @@
 
 ## Dagordning
 * Vidare arbete med implementation av interfaces för inbyggda system.
-* Slutförande av **P01**.
+* Fortsatt arbete med **P01**.
 
 ---
 
@@ -10,12 +10,11 @@
 * Kunna skapa interfaces.
 * Förstå hur arv används för att implementera interfaces.
 * Förstå hur flera olika implementationer kan användas via samma interface.
-* Ha slutfört och redovisat **P01**.
 
 ---
 
 ## Förutsättningar
-* Grundläggande kännedom om C++ (klasser, constructors, const).
+* Grundläggande kännedom om C++ (klasser, konstruktorer, const).
 * Grundläggande kännedom om arv och interfaces.
 
 ---
@@ -25,23 +24,21 @@
 ### Förberedelse
 * Repetera innehållet i [L07](../L07/README.md).
 
-### Repetition
-* Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
-
 ### Under lektionen
-* Fortsätt med [övningsuppgifterna](../L07/appendix/c_exercises.md) från föregående lektion.
-* Om ni blir färdiga, fortsätt gärna med övningsuppgifterna i [bilaga B](./appendix/b_exercises.md).
+* Påbörja övningsuppgifterna i [bilaga A](./appendix/a_exercises.md), som täcker interfaces för inbyggda system:
+    * Ni får tid under lektionen att genomföra övningarna.
+    * Lösningarna diskuteras därefter gemensamt i klassen.
 
 ---
 
 ## Utvärdering
-* Vad är fördelen med att använda ett interface i denna uppgift?
-* Vad skiljer `driver::gpio::Stub` från `driver::gpio::Atmega328p` i implementation, trots samma interface?
-* Hur kan man testa systemlogik utan riktig hårdvara med hjälp av ett interface?
+* Vad är skillnaden mellan ett interface och en konkret implementation?
+* Förklara nyckelord `virtual` samt `override`.
 
 ---
 
 ## Nästa lektion
-* **P02** - Systemlogik i C++ (del I)
+* Vidare arbete med implementation av interfaces för inbyggda system.
+* Fortsatt arbete med **P01**.
 
 ---

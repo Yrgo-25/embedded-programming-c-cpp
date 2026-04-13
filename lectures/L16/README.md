@@ -1,8 +1,8 @@
-# L16 - Klasstemplates, arbete med **P03**
+# L16 - Klasstemplates, arbete med **P02**
 
 ## Dagordning
 * Klasstemplates - implementation och analys av en vektorklass.
-* Fortsatt arbete med **P03**.
+* Fortsatt arbete med **P02**.
 
 ## Mål med lektionen
 * Förklara hur klasstemplates instansieras vid kompilering.
@@ -26,7 +26,7 @@
 
 ### Under lektionen
 * Följ genomgången av klasstemplates.
-* Arbeta vidare med **P03**.
+* Arbeta vidare med **P02**.
 * Fundera på:
     * Kan någon driver göras generisk, dvs. kan någon klass implementeras som ett klasstemplate?
     * Finns parametrar som kan bli template-argument?
@@ -38,6 +38,6 @@
 
 ## Nästa lektion
 * Flertrådning och synkroniseringsmekanismer.
-* Fortsatt arbete med **P03**.
+* Fortsatt arbete med **P02**.
 
 ---

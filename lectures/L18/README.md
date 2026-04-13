@@ -1,8 +1,8 @@
-# L18 - Övningstentamen, arbete med **P03**
+# L18 - Övningstentamen, arbete med **P02**
 
 ## Dagordning
 * Genomförande av övningstentamen.
-* Fortsatt arbete med **P03**.
+* Fortsatt arbete med **P02**.
 
 ## Mål med lektionen
 * Vara förberedd inför sluttentamen:
@@ -30,7 +30,7 @@
 * Vilka moment behöver repeteras inför sluttentamen?
 
 ## Nästa lektion
-* Slutförande och redovisning av **P03**.
+* Slutförande och redovisning av **P02**.
 * Repetition inför sluttentamen utifrån era önskemål.
 
 ---

@@ -1,6 +1,6 @@
 # Bilaga A
 
-## Repetitionsuppgift
+## Övningsuppgifter
 
 ### Uppgiftsbeskrivning
 Nedan visas ett flertrådat testprogram, där en simulerad timer löper ut var 500:e millisekund och togglar en lysdiod. Lysdioden har i detta fall implementerats via en simpel strukt för enkelhets skull. 

@@ -1,10 +1,10 @@
-# L15 – Templates, type traits och constraints, arbete med **P03**
+# L15 – Templates, type traits och constraints, arbete med **P02**
 
 ## Dagordning
 * Templates i inbyggda system – fördelar och nackdelar.
 * Type traits och compile-time constraints.
 * `static_assert()` och säkra API:er (fel vid kompilering i stället för vid körning).
-* Koppling till **P03**: Compile-time vs run-time polymorfism.
+* Koppling till **P02**: Compile-time vs run-time polymorfism.
 
 ## Mål med lektionen
 * Förstå hur funktionstemplates fungerar i C++.
@@ -29,7 +29,7 @@
 
 ### Under lektionen
 * Följ genomgången av templates, type traits och constraints. Fundera på om detta är något ni kan använda i era drivers.
-* Arbeta vidare med **P03**.
+* Arbeta vidare med **P02**.
 
 ## Utvärdering
 1. Vad är skillnaden mellan compile-time och run-time polymorfism?
@@ -39,6 +39,6 @@
 
 ## Nästa lektion
 * Klasstemplates.
-* Fortsatt arbete med **P03**.
+* Fortsatt arbete med **P02**.
 
 ---
