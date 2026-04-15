@@ -1,9 +1,15 @@
 # **P02** – Driverbibliotek för ESP32‑S3
 
 ## Syfte
-Ni ska i grupper om 1-2 bygga ett litet driverbibliotek i C++ för ESP32‑S3, med tydlig separering mellan:
+Ni ska i grupper om 3–4 bygga ett litet driverbibliotek i C++ för ESP32-S3.
+
+Syftet är både att:
+* Träna på arkitektur och design i C++ (interfaces, abstraction, dependency injection).
+* Träna på att arbeta i små utvecklingsteam med Git (branches, pull requests, code reviews).
+
+Projektet ska ha tydlig separering mellan:
 * **Interfaces**: Abstraktioner som beskriver vad en driver kan göra.
-* **Riktiga drivers** för ESP32‑S3 (ESP‑IDF).
+* **Riktiga drivers** för ESP32-S3 (ESP-IDF).
 * **Stubbar**: Test-/simuleringsklasser som efterliknar hårdvara.
 * **Systemlogik**: En klass som arbetar mot interfaces och skapas via en factory (dependency injection).
 
@@ -15,7 +21,7 @@ Upplägget ska följa samma arkitekturprinciper som i kursrepot
 
 Repot kan användas som inspiration, men ni ska implementera er egen lösning.
 
-**OBS!** I denna kurs skriver ni **inte** automatiserade tester. Däremot ska er design vara **testbar**: logiken ska kunna köras mot stubbar utan att känna till hårdvara. Dessa stubbar kommer sedan användas i kursen Mjuk- och hårdvarutestning.
+**OBS!** I denna kurs skriver ni inte automatiserade tester. Däremot ska er design vara testbar; logiken ska kunna köras mot stubbar utan att känna till hårdvara. Dessa stubbar kommer sedan användas i kursen Mjuk- och hårdvarutestning.
 
 ---
 
@@ -156,7 +162,7 @@ Systemet ska uppfylla följande beteende (**G**):
 
 ---
 
-## Fabriker och smarta pekare (krav)
+## Fabriker och smarta pekare
 För att möjliggöra enkel växling mellan riktiga drivers och stubbar ska ni implementera **Abstract Factory‑mönstret**.
 
 Ni ska:
@@ -210,7 +216,7 @@ Ett exempel på ett factory-interface visas i [bilaga A](./appendix/a_factory_ex
 
 ---
 
-## Fabriks-API för tempsensor (krav)
+## Fabriks-API för tempsensor
 För att tydliggöra dependency injection ska factoryn kunna skapa TMP36 så här:
 
 * `tempSensor(pin, adc)` tar emot **vilken pin** TMP36 är kopplad till, samt **vilken ADC-instans** som ska användas.
@@ -232,7 +238,7 @@ virtual std::unique_ptr<tempsensor::Interface> tempSensor(std::uint8_t pin,
 
 ---
 
-## Stubbar (krav)
+## Stubbar
 **Notering:** Stubbarna ska skrivas i ren C++ utan hårdvaruberoenden (t.ex. FreeRTOS eller ESP-IDF) så att systemlogiken kan köras och testas på en vanlig dator.
 
 Stubbarna ska kunna:
@@ -246,7 +252,7 @@ Stubbarna ska kunna:
 
 ---
 
-## Systemlogik (krav)
+## Systemlogik
 Implementera en klass (t.ex. `system::logic::Logic`) som tar in en driver‑factory som referens:
 
 * `driver::factory::Interface& factory`
@@ -259,6 +265,15 @@ Krav:
 * `run(stop)` kör huvudloopen.
 * Klassen ska äga sina drivers via `std::unique_ptr`.
 * Fabriken ägs inte av systemklassen. Den används endast för att skapa drivers vid konstruktion.
+
+---
+
+## Versionshantering (Git)
+Projektet ska versionshanteras i ett Git-repo (t.ex. GitHub eller GitLab):
+* Koden ska ligga i ett privat repo.
+* Läraren ska bjudas in som collaborator.
+* All utveckling ska ske via Git (inga zip-filer eller liknande).
+* Alla studenter ska bidra med egna commits i repot.
 
 ---
 
