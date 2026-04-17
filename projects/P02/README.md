@@ -277,6 +277,32 @@ Projektet ska versionshanteras i ett Git-repo (t.ex. GitHub eller GitLab):
 
 ---
 
+## Gruppindelning och individuell bedömning
+* Grupper om 3–4 studenter sätts samman av läraren.
+* Projektet genomförs i grupp, men betyg sätts individuellt.
+
+### Bidragsrapport (obligatorisk)
+Varje student ska lämna in en egen bidragsrapport i samband med projektet.  
+Syftet är att tydliggöra varje students individuella insats.
+
+Bidragsrapporten ska innehålla:
+* Kort beskrivning av egna bidrag (t.ex. drivers, systemlogik, designbeslut).
+* Referenser till egna commits och/eller pull requests i Git-repot.
+
+### Bedömning
+* Projektets funktion och design bedöms på gruppnivå.
+* Individuellt betyg baseras på:
+  * Bidragsrapporten.
+  * Aktivitet i Git (commits, reviews, etc.).
+  * Studentens förmåga att förklara sin kod och design vid redovisning.
+  * Detta gäller både för G- och VG-nivå.
+  * Bedömning kan justeras individuellt upp eller ner baserat på faktisk insats.
+
+**OBS!** En student som inte kan visa tillräckligt eget bidrag riskerar att inte bli godkänd, 
+även om gruppens projekt i sig uppfyller kraven.
+
+---
+
 ## Bedömningskriterier
 
 ### G (Godkänd)
