@@ -9,9 +9,8 @@
 ---
 
 ### Kör installationsprogrammet
-**1.** Starta installationsfilen, välj `Easy Installation`, vilket kommer installera ESP-IDF med standardinställningar.
-**2.** Välj standardinställningar:
-* Installationsmapp: `C:\esp`  
+**1.** Starta installationsfilen, välj `Start Installtion->Easy Installation`, vilket kommer installera ESP-IDF med standardinställningar.  
+**2.** Välj default settings med installationsmapp: `C:\esp`.    
 **3.** Installera både:
 * ESP‑IDF.
 * Verktyg (toolchain, Python, Git m.m.).
@@ -62,7 +61,7 @@ Om allt fungerar ska projektet kompileras utan fel.
 
 ## Anslut och flasha kortet
 **1.** Anslut Arduino Nano ESP32‑S3 via USB.  
-**2.** Kontrollera COM‑port i Enhetshanteraren. Som exempel, om kortet visas som "USB Serial Device (COM4)" ska du använda `COM4`.
+**2.** Kontrollera COM‑port i Enhetshanteraren. Som exempel, om kortet visas som "USB Serial Device (COM4)" ska du använda `COM4`.  
 **3.** Flasha projektet:  
 
 ```bash

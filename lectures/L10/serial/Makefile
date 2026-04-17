@@ -1,0 +1,27 @@
+# Target application.
+TARGET := inheritance_demo
+
+# C++ compiler.
+CXX_COMPILER := g++
+
+# C++ flags.
+CXX_FLAGS := -Wall -Werror -std=c++17 -I include
+
+# Source files.
+SOURCE_FILES := source/main.cpp \
+                source/serial/stub.cpp \
+
+# Build and run the target as default.
+default: build run
+
+# Build the target.
+build:
+	@$(CXX_COMPILER) $(SOURCE_FILES) -o $(TARGET) $(CXX_FLAGS)
+
+# Run the target.
+run:
+	@./$(TARGET)
+
+# Clean the target.
+clean:
+	@rm -f $(TARGET)
