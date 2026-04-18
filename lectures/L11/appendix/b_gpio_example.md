@@ -13,24 +13,42 @@
 * Byt ut innehållet i `main/blink.c` mot följande kod:
 
 ``` c
-#include "freertos/FreeRTOS.h"
+/**
+ * @brief GPIO example.
+ */
 #include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#define LED_PIN 2
+/** LED pin on the ESP32-S3. */
+#define LED_PIN 2U
 
+/** High GPIO signal. */
+#define GPIO_HIGH 1U
+
+/** Low GPIO signal. */
+#define GPIO_LOW 0U
+
+/** Blink speed in milliseconds. */
+#define BLINK_SPEED_MS 500U
+
+/**
+ * @brief Blink an LED every 500 ms.
+ */
 void app_main(void)
 {
+    // Configure LED as output.
     gpio_reset_pin(LED_PIN);
     gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
 
+    // Blink LED every 500 ms.
     while (1)
     {
-        gpio_set_level(LED_PIN, 1);
-        vTaskDelay(pdMS_TO_TICKS(500));
+        gpio_set_level(LED_PIN, GPIO_HIGH);
+        vTaskDelay(pdMS_TO_TICKS(BLINK_SPEED_MS));
 
-        gpio_set_level(LED_PIN, 0);
-        vTaskDelay(pdMS_TO_TICKS(500));
+        gpio_set_level(LED_PIN, GPIO_LOW);
+        vTaskDelay(pdMS_TO_TICKS(BLINK_SPEED_MS));
     }
 }
 ```
@@ -42,6 +60,7 @@ void app_main(void)
 Kör följande kommandon (byt ut `COMx` mot använd COM-port).
 
 ``` bash
+idf.py set-target esp32s3
 idf.py build
 idf.py -p COMx flash monitor
 ```

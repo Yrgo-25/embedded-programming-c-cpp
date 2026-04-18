@@ -24,10 +24,16 @@ ESP‑IDF Command Prompt
 ---
 
 ### Starta ESP‑IDF‑miljön
-**1.** Öppna: **ESP‑IDF Command Prompt**.  
+**1.** Öppna: **ESP‑IDF Command Prompt**.
 **2.** Ett terminalfönster öppnas med rätt miljövariabler.
 
-Alla kommandon i denna kurs ska köras i detta fönster.
+Alla ESP32-specifika kommandon ska köras i detta fönster.
+
+Om du inte hittar genvägen, skriv följande kommando i Powershell (här antas att version `ESP-IDF v6.0` är installerat):
+
+```bash
+. "C:\Espressif\tools\Microsoft.v6.0.PowerShell_profile.ps1"
+```
 
 Om du inte har rättigheter att köra skript, öppna Windows Powershell som administratör och mata
 in följande kommando:
@@ -54,6 +60,7 @@ idf.py set-target esp32s3
 ### Bygg projektet
 
 ```bash
+idf.py set-target esp32s3
 idf.py build
 ```
 
