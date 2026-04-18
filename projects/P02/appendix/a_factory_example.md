@@ -1,12 +1,9 @@
 # Bilaga A
 
 ## Exempel på factory-interface
-
-Factoryn används av systemlogiken för att skapa alla drivers utan att känna till
-vilken hårdvara som används.
+Factoryn används av systemlogiken för att skapa alla drivers utan att känna till vilken hårdvara som används.
 
 ### Filen `driver/factory/interface.h`
-
 Nedan visas hur ett exempel på ett factory-interface, som konstruerar driver-instanser
 via smarta pekare:
 
@@ -110,7 +107,6 @@ public:
 ---
 
 ### Användning i `main.cpp`
-
 Vid körning på ESP32-S3 kan factoryn användas för systemlogiken enligt nedan. Här används en factory för att skapa instanser via ESP32-S3-drivers:
 Klassen `driver::factory::Esp32s3` ärver `driver::factory::Interface`:
 
