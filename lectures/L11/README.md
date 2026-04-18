@@ -5,20 +5,21 @@
 * Genomgång av verktyg och arbetsflöde.
 * Skapa ett första projekt.
 * Bygga, flasha och köra ett enkelt GPIO‑exempel.
+* Om tid finns, påbörja **P02**.
 
 ---
 
 ## Mål med lektionen
 * Kunna starta och använda ESP-IDF i Windows.
 * Kunna bygga och flasha ett projekt till en ESP32‑S3.
-* Kunna styra en GPIO‑pinne via ett enkelt program.
+* Kunna styra en GPIO‑pin via ett enkelt program.
 
 ---
 
 ## Förutsättningar
 * Grundläggande kunskap i C/C++.
 * Tillgång till en dator med Windows.
-* En Arduino Nano med ESP32‑S3.
+* En Arduino Nano med ESP32‑S3 (finns i skolan).
 * USB‑kabel för anslutning.
 
 ---
@@ -30,16 +31,16 @@
 
 ### Under lektionen
 * Testa att köra exempelkoden i [bilaga B](./appendix/b_gpio_example.md).
-* Visa för läraren:
-    * Att projektet kompilerar.
-    * Att koden kan flashas till kortet.
-    * Att lysdioden blinkar.
+* Visa för läraren att:
+    * Projektet kompilerar.
+    * Koden kan flashas till kortet.
+    * Lysdioden blinkar.
+    * Lysdiodens tillstånd skrivs ut i ESP-terminalen.
 
 ---
 
 ## Utvärdering
-* Vad fungerade bra i installationen?
-* Vad var mest tidskrävande eller svårt?
+* Vilka kommandon behövs för att kompilera och flasha till ESP32-S3?
 
 ---
 
