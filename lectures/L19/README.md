@@ -17,7 +17,6 @@
 
 ### Förberedelse
 * Läs igenom [uppgiftsbeskrivningen](../../projects/P02/README.md) och säkerställ att samtliga krav är uppfyllda.
-* Förbered en kort och strukturerad demonstration (2–3 minuter).
 
 ### Under lektionen
 Säkerställ att:
@@ -26,8 +25,8 @@ Säkerställ att:
 * Systemlogiken är separerad från hårdvaruberoende kod.
 * Drivers skapas via factory och ägs via `std::unique_ptr`.
 
-#### Redovisning (krav)
-Redovisningen sker individuellt (ca 2–3 minuter per student).
+#### Redovisning
+Redovisningen sker i grupper.
 
 Ni ska visa:
 * Funktionalitet (LED, blinkläge, serial-kommandon, temperatur).
