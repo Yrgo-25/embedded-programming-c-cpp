@@ -177,7 +177,7 @@ Ett exempel på ett factory-interface visas i [bilaga A](./appendix/a_factory_ex
 
 ---
 
-## Interfaces (minimumkrav)
+## Interfaces
 
 ### `driver::adc::Interface`
 * Läsa råvärde (t.ex. 0…4095) från valfri pin.
@@ -216,7 +216,7 @@ Ett exempel på ett factory-interface visas i [bilaga A](./appendix/a_factory_ex
 
 ---
 
-## Fabriks-API för tempsensor
+## Factory-API för tempsensor
 För att tydliggöra dependency injection ska factoryn kunna skapa TMP36 så här:
 
 * `tempSensor(pin, adc)` tar emot **vilken pin** TMP36 är kopplad till, samt **vilken ADC-instans** som ska användas.
@@ -274,6 +274,12 @@ Projektet ska versionshanteras i ett Git-repo (t.ex. GitHub eller GitLab):
 * Läraren ska bjudas in som collaborator.
 * All utveckling ska ske via Git (inga zip-filer eller liknande).
 * Alla studenter ska bidra med egna commits i repot.
+
+---
+
+## Konfiguration med CMake i ESP-IDF
+För information om hur projektet konfigureras med CMake, se
+[bilaga B](./appendix/b_cmake_configuration.md).
 
 ---
 
