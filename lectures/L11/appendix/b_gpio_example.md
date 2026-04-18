@@ -9,46 +9,51 @@
 ---
 
 ### Exempelkod
+* Döp om `main/blink.c` till `main/blink.cpp`.
+* Uppdatera även filnamnet i `main/CMakeLists.txt`:
 
-* Byt ut innehållet i `main/blink.c` mot följande kod:
+```cmake
+idf_component_register(SRCS "blink.cpp"
+                       INCLUDE_DIRS ".")
+```
 
-``` c
+Ersätt innehållet i `main/blink.cpp` med följande kod:
+
+``` cpp
 /**
  * @brief GPIO example.
  */
+#include <cstdint>
+
 #include "driver/gpio.h"
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-
-/** LED pin on the ESP32-S3. */
-#define LED_PIN 2U
-
-/** High GPIO signal. */
-#define GPIO_HIGH 1U
-
-/** Low GPIO signal. */
-#define GPIO_LOW 0U
-
-/** Blink speed in milliseconds. */
-#define BLINK_SPEED_MS 500U
 
 /**
  * @brief Blink an LED every 500 ms.
  */
-void app_main(void)
+extern "C" void app_main(void)
 {
+    constexpr gpio_num_t ledPin{static_cast<gpio_num_t>(2U)};
+    constexpr std::uint32_t gpioHigh{1U};
+    constexpr std::uint32_t gpioLow{0U};
+    constexpr std::uint32_t blinkSpeed_ms{500U};
+
     // Configure LED as output.
-    gpio_reset_pin(LED_PIN);
-    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
+    gpio_reset_pin(ledPin);
+    gpio_set_direction(ledPin, GPIO_MODE_OUTPUT);
 
     // Blink LED every 500 ms.
     while (1)
     {
-        gpio_set_level(LED_PIN, GPIO_HIGH);
-        vTaskDelay(pdMS_TO_TICKS(BLINK_SPEED_MS));
+        gpio_set_level(ledPin, gpioHigh);
+        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
+        ESP_LOGI("MAIN", "LED on!");
 
-        gpio_set_level(LED_PIN, GPIO_LOW);
-        vTaskDelay(pdMS_TO_TICKS(BLINK_SPEED_MS));
+        gpio_set_level(ledPin, gpioLow);
+        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
+        ESP_LOGI("MAIN", "LED off!");
     }
 }
 ```
