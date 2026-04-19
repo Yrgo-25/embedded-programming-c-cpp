@@ -12,7 +12,7 @@ Material från föreläsningar:
 * [L09](./L09/README.md): Arv och interfaces i C++ (del III), arbete med **P01**.
 * [L10](./L10/README.md): Arv och interfaces i C++ (del IV), slutförande av **P01**.
 * [L11](./L11/README.md): Konfiguration av ESP32 och utvecklingsmiljö.
-* [L12](./L12/README.md): Introduktion till **P02** - Driverbibliotek för ESP32.
+* [L12](./L12/README.md): Arbete med **P02**, grundläggande Git.
 * [L13](./L13/README.md): Factory-mönster, arbete med **P02**.
 * [L14](./L14/README.md): Factory-mönster med smarta pekare, arbete med **P02**.
 * [L15](./L15/README.md): Templates, type traits och constraints, arbete med **P02**.

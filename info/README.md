@@ -20,7 +20,7 @@ Erik Pihl ([erik.axel.pihl@gmail.com](mailto:erik.axel.pihl@gmail.com))
 | 16 | 16/4 | L09 | Arv och interfaces i C++ (del III), arbete med **P01** |
 | 16 | 17/4 | L10 | Arv och interfaces i C++ (del IV), arbete med **P01** |
 | 17 | 20/4 | L11 | Konfiguration av ESP32 och utvecklingsmiljö |
-| 17 | 21/4 | L12 | Introduktion till **P02** - Driverbibliotek för ESP32 |
+| 17 | 21/4 | L12 | Arbete med **P02**, grundläggande Git |
 | 17 | 22/4 | L13 | Factory-mönster, arbete med **P02** |
 | 17 | 23/4 | L14 | Factory-mönster med smarta pekare, arbete med **P02** |
 | 18 | 27/4 | L15 | Templates, type traits och constraints, arbete med **P02** |
