@@ -7,22 +7,28 @@
 * Skillnaden mellan `std::mutex` och `std::atomic`.
 * Fortsatt arbete med **P02**.
 
+---
+
 ## Mål med lektionen
 * Förklara vad en tråd är och hur den skapas med `std::thread`.
 * Förklara vad en data race är och varför det leder till *undefined behavior*.
 * Använda `std::mutex` och `std::lock_guard` korrekt.
 * Förklara när `std::atomic` räcker och när `std::mutex` krävs.
 
+---
+
 ## Förutsättningar
 * God kunskap i C++ (klasser, referenser, RAII).
 * Grundläggande förståelse för programflöde och livscykel.
+
+---
 
 ## Instruktioner
 
 ### Förberedelse
 * Läs [bilaga B](./appendix/b_threads_mutex_atomic.md), som behandlar just flertrådning och synkroniseringsmekanismer i C++.
 
-### Repetition
+### Innan lektionen
 * Genomför repetitionsuppgiften i [bilaga A](./appendix/a_repetition.md).
 
 ### Under lektionen
@@ -31,9 +37,13 @@
     * Fundera på hur dessa skulle skyddas i en flertrådad miljö.
 * För ytterligare information, se följande [video tutorial](https://www.youtube.com/watch?v=jaI_mufDQ2I), som behandlar mutex i C och C++. 
 
+---
+
 ## Utvärdering
 * Vad är skillnaden mellan `mutex` och `atomic`?
 * Vad är ett data race?
+
+---
 
 ## Nästa lektion
 * Genomförande av övningstenta.
