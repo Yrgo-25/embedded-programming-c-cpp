@@ -2,10 +2,8 @@
 
 ## Dagordning
 * Installation av ESP‑IDF på Windows.
-* Genomgång av verktyg och arbetsflöde.
-* Skapa ett första projekt.
 * Bygga, flasha och köra ett enkelt GPIO‑exempel.
-* Om tid finns, påbörja **P02**.
+* Gruppindelning samt introduktion till **P02**.
 
 ---
 
@@ -13,6 +11,7 @@
 * Kunna starta och använda ESP-IDF i Windows.
 * Kunna bygga och flasha ett projekt till en ESP32‑S3.
 * Kunna styra en GPIO‑pin via ett enkelt program.
+* Skapa repo för **P02**.
 
 ---
 
@@ -36,6 +35,7 @@
     * Koden kan flashas till kortet.
     * Lysdioden blinkar.
     * Lysdiodens tillstånd skrivs ut i ESP-terminalen.
+* Läs igenom uppgiftsbeskrivningen för [P02](../../projects/P02/README.md) när ni är klara.
 
 ---
 
@@ -45,7 +45,8 @@
 ---
 
 ## Nästa lektion
-* Introduktion till **P02** - Driverbibliotek för ESP32.
+* Arbete med **P02** - Driverbibliotek för ESP32.
+* Grundläggande Git för grupparbete.
 
 ---
 
