@@ -48,12 +48,12 @@ extern "C" void app_main(void)
     while (1)
     {
         gpio_set_level(ledPin, gpioHigh);
-        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
         ESP_LOGI("MAIN", "LED on!");
+        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
 
         gpio_set_level(ledPin, gpioLow);
-        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
         ESP_LOGI("MAIN", "LED off!");
+        vTaskDelay(pdMS_TO_TICKS(blinkSpeed_ms));
     }
 }
 ```
@@ -61,7 +61,6 @@ extern "C" void app_main(void)
 ---
 
 ### Bygg och flasha
-
 Kör följande kommandon (byt ut `COMx` mot använd COM-port).
 
 ``` bash
