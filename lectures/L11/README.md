@@ -39,6 +39,9 @@
 
 ---
 
+## Lektionsanteckningar
+* De Git-kommandon som behandlades under lektionen finns [här](./notes/git_commands1.md).
+
 ## Utvärdering
 * Vilka kommandon behövs för att kompilera och flasha till ESP32-S3?
 
