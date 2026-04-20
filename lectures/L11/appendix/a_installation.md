@@ -4,12 +4,12 @@
 
 ### Ladda ner installationsprogrammet
 **1.** Gå till [Espressifs nedladdningssida](https://dl.espressif.com/dl/eim/).  
-**2.** Ladda ner [eim-gui-windows-x64.exe](https://dl.espressif.com/github_assets/espressif/idf-im-ui/releases/download/v0.8.0/eim-gui-windows-x64.exe).
+**2.** Ladda ner `eim-gui-windows-x64.exe`.
 
 ---
 
 ### Kör installationsprogrammet
-**1.** Starta installationsfilen, välj `Start Installtion->Easy Installation`, vilket kommer installera ESP-IDF med standardinställningar.  
+**1.** Starta installationsfilen, välj `Start Installation->Easy Installation`, vilket kommer installera ESP-IDF med standardinställningar.  
 **2.** Välj default settings med installationsmapp: `C:\esp`.    
 **3.** Installera både:
 * ESP‑IDF.
@@ -84,5 +84,18 @@ Stäng terminalen:
 ```
 Ctrl + ]
 ```
+
+---
+
+### Arduino-bootloader och manuellt reset-läge
+Vissa kort (t.ex. Arduino-varianter av ESP32-S3) levereras med en Arduino-bootloader. Detta kan göra att flashning via ESP-IDF misslyckas om kortet inte är i rätt läge.
+
+Om flashning inte fungerar:  
+**1.** Håll nere BOOT-knappen.  
+**2.** Tryck kort på RESET-knappen.  
+**3.** Släpp RESET men fortsätt hålla BOOT i ca en sekund.  
+**4.** Släpp BOOT.  
+
+Kortet är nu i download mode och redo att flashas.
 
 ---
