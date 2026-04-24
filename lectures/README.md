@@ -19,7 +19,7 @@ Material från föreläsningar:
 * [L16](./L16/README.md): Klasstemplates, arbete med **P02**.
 * [L17](./L17/README.md): Flertrådning och synkroniseringsmekanismer, arbete med **P02**.
 * [L18](./L18/README.md): Övningstenta, arbete med **P02**.
-* [L19](./L19/README.md): Slutförande och redovisning av **P02**.
+* [L19](./L19/README.md): Arbete med **P02** och tentaförberedelse.
 * [L20](./L20/README.md): Tentamen - C++-teori.
 
 ---

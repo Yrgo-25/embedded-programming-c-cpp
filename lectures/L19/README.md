@@ -1,13 +1,12 @@
-# L19 - Slutförande och redovisning av **P02**
+# L19 - Arbete med **P02** och tentaförberedelse
 
 ## Dagordning
-* Slutförande och redovisning av **P02**.
-* Riktad repetition inför sluttentamen utifrån identifierade behov.
+* Arbete med **P02**.
+* Genomgång av tentafrågor och riktad repetition.
 
 ## Mål med lektionen
-* Demonstrera ett fungerande system enligt kravspecifikationen.
-* Förklara hur interfaces, abstract factory och dependency injection används.
-* Motivera arkitekturval och diskutera testbar design.
+* Arbeta vidare med implementationen av **P02** (eller **P02+** om driverdelen är slutförd).
+* Repetera centrala begrepp inför sluttentamen.
 
 ## Förutsättningar
 * God kunskap i C++ (klasser, referenser, RAII, smarta pekare).
@@ -16,29 +15,24 @@
 ## Instruktioner
 
 ### Förberedelse
-* Läs igenom [uppgiftsbeskrivningen](../../projects/P02/README.md) och säkerställ att samtliga krav är uppfyllda.
+* Läs igenom [uppgiftsbeskrivningen](../../projects/P02/README.md).
+* Identifiera vad som återstår att implementera eller förbättra.
 
 ### Under lektionen
-Säkerställ att:
-* Systemet uppfyller alla krav i **P02**.
-* Koden följer angiven filstruktur.
-* Systemlogiken är separerad från hårdvaruberoende kod.
+Arbeta med ert projekt och säkerställ att:
+* Arkitekturen är korrekt (interfaces, factory, systemlogik).
+* Systemlogiken är tydligt separerad från hårdvaruberoende kod.
 * Drivers skapas via factory och ägs via `std::unique_ptr`.
 
-#### Redovisning
-Redovisningen sker i grupper.
+### Tentaförberedelse
+* Genomgång av exempeluppgifter och typiska tentafrågor.
 
-Ni ska visa:
-* Funktionalitet (LED, blinkläge, serial-kommandon, temperatur).
-* Att systemlogiken arbetar mot interfaces.
-* Att en factory används för att skapa drivers.
-* Hur stubbar möjliggör testbarhet utan hårdvara.
-* Hur dependency injection används (t.ex. ADC → TMP36).
+---
 
 ## Utvärdering
-* Vilken del av projektet var svårast?
-* Vad har ni lärt er om arkitektur och testbar design?
-* Vad känner ni er osäkra på inför sluttentamen?
+* Vad är fortfarande oklart inför tentamen?
+
+---
 
 ## Nästa lektion
 * Tentamen – C++-teori.
