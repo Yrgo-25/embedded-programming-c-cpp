@@ -102,7 +102,7 @@ Systemet ska uppfylla följande beteende (**G**):
 ---
 
 ## Designkrav (viktiga)
-* Systemlogiken får **inte** inkludera ESP‑IDF headers.
+* Systemlogiken (logikklassen) får **inte** inkludera ESP‑IDF headers, bara interfaces till drivers.
 * Endast driver‑lagret får vara hårdvarunära.
 * Systemlogik ska implementeras i en klass som tar in en factory via referens och skapar sina drivers via fabriken.
 * Systemklassen ska äga sina drivers via `std::unique_ptr`.
@@ -327,5 +327,15 @@ Projektet redovisas för lärare under lektionstid:
 2. Vad är skillnaden mellan en stub och en riktig driver?
 3. Varför injicerar vi drivers som referenser i konstruktorn?
 4. Vilka delar ska vara hårdvaruberoende – och vilka ska vara hårdvaruoberoende?
+
+---
+
+## Koppling till P02+ (IoT-kursen)
+Projektet **P02** utgör grunden för projektet **P02+** i kursen Kommunikationsprotokoll & IoT.
+
+I **P02+** kommer ni bygga vidare på detta projekt genom att lägga till kommunikationsdrivers 
+(bland annat MQTT) och integrera systemet i ett IoT-sammanhang.
+
+Redovisning av projektet sker i samband med ***P02+**, där hela systemet (inklusive utökningen) demonstreras och diskuteras.
 
 ---
