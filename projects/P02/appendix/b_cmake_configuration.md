@@ -7,6 +7,7 @@ Anta att följande katalogstruktur används:
 
 ```
 p02/
+├─ CMakeLists.txt
 ├─ main/
 │  ├─ CMakeLists.txt
 │  ├─ include/
@@ -43,6 +44,16 @@ p02/
 ---
 
 ### Innehåll i `CMakeLists.txt`
+För ovanstående katalogstruktur kan `CMakeLists.txt` i roten se ut enligt nedan:
+
+```cmake
+cmake_minimum_required(VERSION 3.22)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(p02)
+
+```
+
 För ovanstående katalogstruktur kan `main/CMakeLists.txt` se ut enligt nedan:
 
 ```cmake

@@ -25,57 +25,9 @@ Repot kan användas som inspiration, men ni ska implementera er egen lösning.
 
 ---
 
-## Filstruktur (rekommenderad)
-Ni får gärna använda exakt denna struktur.
-
-```
-include/
-    driver/
-        adc/
-            esp32s3.h
-            interface.h
-            stub.h
-        factory/
-            esp32s3.h
-            interface.h
-            stub.h
-        gpio/
-            esp32s3.h
-            interface.h
-            stub.h
-        serial/
-            esp32s3.h
-            interface.h
-            stub.h
-        tempsensor/
-            tmp36.h
-            interface.h
-            stub.h
-        timer/
-            esp32s3.h
-            interface.h
-            stub.h
-    system/
-        logic/
-            logic.h
-source/
-    driver/
-        adc/
-            esp32s3.cpp
-        factory/
-            esp32s3.cpp
-        gpio/
-            esp32s3.cpp
-        serial/
-            esp32s3.cpp
-        tempsensor/
-            tmp36.cpp
-        timer/
-            esp32s3.cpp
-    main.cpp
-```
-
-**Notering:** För enkelhets skull ska stubbarna implementeras helt i headerfilerna.
+## Katalogstruktur
+Ni får gärna använda exakt strukturen angiven i 
+[bilaga B](./appendix/b_cmake_configuration.md#katalogstruktur).
 
 ---
 
