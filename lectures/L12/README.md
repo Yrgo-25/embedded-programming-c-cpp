@@ -31,6 +31,11 @@
 
 ---
 
+## Lektionsanteckningar
+* De Git-kommandon som behandlades under lektionen finns [här](./notes/git_commands2.md).
+
+---
+
 ## Utvärdering
 * Vad är syftet med ett driver-interface?
 * Vad är skillnaden mellan en stub och en riktig driver?
