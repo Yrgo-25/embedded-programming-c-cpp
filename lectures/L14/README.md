@@ -41,6 +41,9 @@ med smarta pekare.
 
 ---
 
+## Lektionsanteckningar
+Ett exempelprogram där en factory med smarta pekare används för att skapa instanser i systemlogik finns här: [main.cpp](./notes/source/main.cpp).
+
 ## Utvärdering
 * Vad är skillnaden mellan råa pekare och `std::unique_ptr`?
 * Vad händer när en `unique_ptr` går ur scope?
