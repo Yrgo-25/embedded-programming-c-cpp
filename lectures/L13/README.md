@@ -34,6 +34,11 @@
 
 ---
 
+## Lektionsanteckningar
+Ett exempelprogram där en factory med råa pekare används för att skapa instanser i systemlogik finns här: [main.cpp](./notes/source/main.cpp).
+
+---
+
 ## Utvärdering
 * Vad är syftet med factory-mönstret?
 * Vad menas med att systemlogiken bara känner till interfaces?
