@@ -3,6 +3,7 @@
 ## Information
 
 ### Hjälpmedel
+* En A4 anteckningar.
 * Dator med textredigerare (t.ex. Notepad eller VS Code).
 * Inga hjälpmedel för kodkomplettering, AI eller internetåtkomst.
 * Svar skrivs i Markdown-format.
