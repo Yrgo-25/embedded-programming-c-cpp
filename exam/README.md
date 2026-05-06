@@ -34,6 +34,5 @@ Tentamen genomförs med papper och penna:
 
 ## Övningstenta
 * Följande [övningstentamen](./practice_exam.md) visar vad som ni förväntas kunna.
-* Övningstentamen går att ladda ned som PDF [här](./practice_exam.pdf).
 
 ---

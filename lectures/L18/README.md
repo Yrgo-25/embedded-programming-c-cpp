@@ -18,7 +18,6 @@
 
 ### Förberedelse
 * Skumma igenom [övningstentamen](../../exam/practice_exam.md).
-* Övningstentamen går att ladda ned som PDF [här](../../exam/practice_exam.pdf).
 
 ### Under lektionen
 * Övningstentamen genomförs i helklass:
