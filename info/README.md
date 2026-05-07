@@ -28,7 +28,7 @@ Erik Pihl ([erik.axel.pihl@gmail.com](mailto:erik.axel.pihl@gmail.com))
 | 18 | 30/4 | L17 | Flertrådning och synkroniseringsmekanismer, arbete med **P02** |
 | 18 | 30/4 | L18 | Övningstentamen, arbete med **P02** |
 | 19 | 5/5 | L19 | Arbete med **P02** och tentaförberedelse |
-| 20 | 7/5 | L20 | Tentamen - C++-teori |
+| 20 | 7/5 | L20 | Tentamen - C++ |
 
 ---
 

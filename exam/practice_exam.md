@@ -1,4 +1,4 @@
-# Övningstentamen - C++-teori
+# Övningstentamen - C++
 
 ## Information
 

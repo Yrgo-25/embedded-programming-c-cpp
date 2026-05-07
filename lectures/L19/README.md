@@ -35,6 +35,6 @@ Arbeta med ert projekt och säkerställ att:
 ---
 
 ## Nästa lektion
-* Tentamen – C++-teori.
+* Tentamen – C++.
 
 ---

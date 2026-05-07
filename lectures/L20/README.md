@@ -1,4 +1,4 @@
-# L20 - Tentamen – C++-teori
+# L20 - Tentamen – C++
 
 ## Dagordning
 * Genomförande av sluttentamen i kursen.
@@ -19,16 +19,14 @@
 * Säkerställ att du är väl förberedd på:
     * Skapande av enkla interfaces och stubklasser.
     * Skapande av enklare factory-metoder med smarta pekare.
-    * För **VG**: Skapande av klasstemplates samt resonemang kring trådsäkerhet.
+    * Skapande av templates samt resonemang kring trådsäkerhet.
 
 ### Under lektionen
-* Tentamen delas ut kl. 09:00 och pågår till kl. 12:00.
-* Endast papper och penna som tillåtna hjälpmedel, dvs. inga "fuskblad".
+* Tentamen delas ut kl. 13:00 och pågår till kl. 16:00.
 
-## Utvärdering
-* Kursutvärdering genomförs separat.
+---
 
-## Nästa steg
+## Nästa lektion
 * Inga fler lektioner.
 * Tack för ert arbete under kursen!
 
