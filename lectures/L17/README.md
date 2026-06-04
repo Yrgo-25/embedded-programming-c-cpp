@@ -33,7 +33,7 @@
 
 ### Under lektionen
 * Fundera på om flertrådning kan vara lämpligt i **P02**:
-    * Identifiera delar i ***P02** där delad data förekommer.
+    * Identifiera delar i **P02** där delad data förekommer.
     * Fundera på hur dessa skulle skyddas i en flertrådad miljö.
 * För ytterligare information, se följande [video tutorial](https://www.youtube.com/watch?v=jaI_mufDQ2I), som behandlar mutex i C och C++. 
 
